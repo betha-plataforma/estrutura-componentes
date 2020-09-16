@@ -90,6 +90,10 @@ Mais informações sobre [integração com frameworks](https://stenciljs.com/doc
 
 A comunicação com os componentes é feita através de propriedades, atributos, métodos e eventos do DOM, e cada componente tem suas específicações documentadas individualmente, siga o [índice no topo deste documento](#componentes-) ou [navegue através dos diretórios para consultar](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components).
 
+## Exemplos
+
+Exemplos podem ser encontrados em [betha-plataforma/exemplos](https://github.com/betha-plataforma/exemplos)
+
 ## Compatibilidade 📜
 
 Para entender melhor a abrangência de suporte entre navegadores, [consulte a tabela no site oficial do Stencil](https://stenciljs.com/docs/browser-support).

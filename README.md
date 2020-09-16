@@ -8,22 +8,22 @@ Compatível com qualquer stack front-end que utilize HTML, CSS e JavaScript.
 
 ### Estrutura
 
-- [bth-app](http://github.com/betha-plataforma/estrutura-componentes/src/components/app)
-- [bth-menu-ferramenta](http://github.com/betha-plataforma/estrutura-componentes/src/components/app/menu-ferramenta/)
-- [bth-menu-ferramenta-icone](http://github.com/betha-plataforma/estrutura-componentes/src/components/app/menu-ferramenta-icone)
-- [bth-menu-painel-lateral](http://github.com/betha-plataforma/estrutura-componentes/src/components/menu-painel-lateral)
+- [bth-app](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app)
+- [bth-menu-ferramenta](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app/menu-ferramenta/)
+- [bth-menu-ferramenta-icone](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app/menu-ferramenta-icone)
+- [bth-menu-painel-lateral](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/menu-painel-lateral)
 
 ### Marca e produto
 
-- [bth-marca-produto](http://github.com/betha-plataforma/estrutura-componentes/src/components/marca-produto)
+- [bth-marca-produto](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/marca-produto)
 
 ### Ferramentas
 
-- [bth-conta-usuario](http://github.com/betha-plataforma/estrutura-componentes/src/components/conta-usuario)
-- [bth-notificacoes](http://github.com/betha-plataforma/estrutura-componentes/src/components/notificacoes)
-- [bth-novidades](http://github.com/betha-plataforma/estrutura-componentes/src/components/novidades)
-- [bth-ajuda](http://github.com/betha-plataforma/estrutura-componentes/src/components/ajuda)
-- [bth-utilitarios](http://github.com/betha-plataforma/estrutura-componentes/src/components/utilitarios)
+- [bth-conta-usuario](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/conta-usuario)
+- [bth-notificacoes](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/notificacoes)
+- [bth-novidades](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/novidades)
+- [bth-ajuda](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/ajuda)
+- [bth-utilitarios](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/utilitarios)
 
 ## Instalando
 
@@ -79,16 +79,16 @@ Os estilos globais da biblioteca devem ser importados
 
 Abaixo alguns exemplos de como registrar e utilizar os web components
 
-- [Vanilla JavaScript](http://github.com/betha-plataforma/estrutura-componentes/docs/registrando-vanilla.md)
-- [Angular](http://github.com/betha-plataforma/estrutura-componentes/docs/registrando-angular.md)
-- [Vue](http://github.com/betha-plataforma/estrutura-componentes/docs/registrando-vue.md)
-- [React](http://github.com/betha-plataforma/estrutura-componentes/docs/registrando-react.md)
+- [Vanilla JavaScript](http://github.com/betha-plataforma/estrutura-componentes/tree/master/docs/registrando-vanilla.md)
+- [Angular](http://github.com/betha-plataforma/estrutura-componentes/tree/master/docs/registrando-angular.md)
+- [Vue](http://github.com/betha-plataforma/estrutura-componentes/tree/master/docs/registrando-vue.md)
+- [React](http://github.com/betha-plataforma/estrutura-componentes/tree/master/docs/registrando-react.md)
 
 Mais informações sobre [integração com frameworks](https://stenciljs.com/docs/overview) podem ser vistas na documentação oficial do StencilJS
 
 ### Configurando componentes
 
-A comunicação com os componentes é feita através de propriedades, atributos, métodos e eventos do DOM, e cada componente tem suas específicações documentadas individualmente, siga o [índice no topo deste documento](#componentes-) ou [navegue através dos diretórios para consultar](http://github.com/betha-plataforma/estrutura-componentes/src/components).
+A comunicação com os componentes é feita através de propriedades, atributos, métodos e eventos do DOM, e cada componente tem suas específicações documentadas individualmente, siga o [índice no topo deste documento](#componentes-) ou [navegue através dos diretórios para consultar](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components).
 
 ## Compatibilidade 📜
 
@@ -96,8 +96,8 @@ Para entender melhor a abrangência de suporte entre navegadores, [consulte a ta
 
 ## Dúvidas
 
-Possíveis dúvidas foram esclarecidas [nesta documentação](http://github.com/betha-plataforma/estrutura-componentes/docs/FAQ.md)
+Possíveis dúvidas foram esclarecidas [nesta documentação](http://github.com/betha-plataforma/estrutura-componentes/tree/master/docs/FAQ.md)
 
 ## Contribuindo 👥
 
-Contribua para a evolução dos componentes [Como contribuir](http://github.com/betha-plataforma/estrutura-componentes/CONTRIBUTING.md).
+Contribua para a evolução dos componentes [Como contribuir](http://github.com/betha-plataforma/estrutura-componentes/tree/master/CONTRIBUTING.md).

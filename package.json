@@ -1,6 +1,6 @@
 {
   "name": "@betha-plataforma/estrutura-componentes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Coleção de Web Components para compor a estrutura de uma aplicação front-end da Betha Sistemas.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -48,13 +48,14 @@
   "keywords": [
     "estrutura componentes", 
     "web components", 
+    "stenciljs",
     "plataforma",
-    "betha sistemas"
+    "betha cloud"
   ],
   "author": {
-    "name": "Plataforma Betha Sistemas",
+    "name": "Plataforma Betha Cloud",
     "email": "ti.plataforma@betha.com.br",
-    "url": "http://www.betha.com.br/"
+    "url": "https://plataforma.betha.cloud/"
   },
   "repository": {
     "type": "git",

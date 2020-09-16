@@ -1,0 +1,72 @@
+/*
+ * As variáveis aqui dispostas serão injetadas no documento principal, logo podem ser usadas na aplicação como um todo
+ */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --bth-app-font-family-primary: 'Open Sans', sans-serif;
+  --bth-app-font-family-icons: 'Material Design Icons';
+
+  --bth-app-transition-delay: 300ms;
+
+  --bth-app-font-weight-light: 300;
+  --bth-app-font-weight-regular: 400;
+  --bth-app-font-weight-semi-bold: 600;
+  --bth-app-font-weight-bold: 700;
+  --bth-app-font-weight-extra-bold: 800;
+
+  --bth-app-brand-color-default: #001489;
+  --bth-app-brand-brown: #9a8b7d;
+  --bth-app-brand-lilac: #8986ca;
+  --bth-app-brand-lime: #26d07c;
+  --bth-app-brand-gray: #afb2b2;
+  --bth-app-brand-red: #df4661;
+  --bth-app-brand-blue: #009cde;
+  --bth-app-brand-green: #a2c084;
+  --bth-app-brand-yellow: #f7b51c;
+  --bth-app-brand-orange: #f7932f;
+
+  --bth-app-blue: #3475c1;
+  --bth-app-blue-dark-10: #295d99;
+  --bth-app-blue-dark-30: #142c48;
+  --bth-app-blue-light-20: #7faadc;
+
+  --bth-app-gray: #c0c0c0;
+  --bth-app-gray-light-10: #e1e3e6;
+  --bth-app-gray-light-20: #EBEDF0;
+  --bth-app-gray-light-30: #f5f7fa;
+  --bth-app-gray-light-40: #ffffff;
+  --bth-app-gray-dark-10: #767676;
+  --bth-app-gray-dark-20: #595959;
+  --bth-app-gray-dark-30: #222222;
+  --bth-app-gray-dark-40: #000000;
+
+  --bth-app-pink-light-20: #e3a0c1;
+  --bth-app-pink-dark-30: #651f42;
+
+  --bth-app-purple: #A46AB5;
+  --bth-app-purple-light-20: #ceaed7;
+  --bth-app-purple-dark-30: #4f2c5a;
+
+  --bth-app-green: #54a668;
+  --bth-app-green-light-20: #96caa3;
+  --bth-app-green-dark-30: #214028;
+
+  --bth-app-red: #d64038;
+
+  --bth-app-aqua-light-20: #9ad4e7;
+  --bth-app-aqua-dark-30: #195569;
+
+  --bth-app-orange-light-20: #f4c09a;
+  --bth-app-orange-dark-30: #813e0e;
+
+  --bth-app-yellow: #efbc3c;
+  --bth-app-yellow-light-10: #F3CC6B;
+  --bth-app-yellow-light-20: #f7dc9a;
+  --bth-app-yellow-light-40: #FEFDF9;
+  --bth-app-yellow-dark-30: #87640b;
+
+}

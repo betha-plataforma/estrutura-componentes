@@ -1,0 +1,52 @@
+@import '../../../styles/normalize.scss';
+
+.desktop {
+  display: block;
+  position: relative;
+
+  bth-icone {
+    font-size: 18px;
+  }
+
+  .badge {
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    display: inline-block;
+    position: absolute;
+    min-width: 10px;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: var(--bth-app-font-weight-semi-bold);
+    padding: 2px 5px;
+    background-color: var(--bth-app-red);
+    color: var(--bth-app-gray-light-40);
+    right: -5px;
+  }
+}
+
+.mobile {
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+
+  .badge {
+    white-space: nowrap;
+    display: inline-block;
+    min-width: 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: var(--bth-app-font-weight-semi-bold);
+    position: absolute;
+    margin: -2px -12px;
+    padding: 1px 5px;
+    background-color: var(--bth-app-red);
+    color: var(--bth-app-gray-light-40);
+  }
+
+  bth-icone {
+    color: var(--bth-app-gray-dark-20);
+    font-size: 20px;
+  }
+}

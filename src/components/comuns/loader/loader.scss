@@ -1,0 +1,61 @@
+@import '../../../styles/normalize.scss';
+
+.loader {
+  display: flex;
+  justify-content: center;
+  margin: 8px;
+
+  &--inline {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--bth-app-blue);
+  -webkit-transform: scale(0, 0);
+  transform: scale(0, 0);
+  -webkit-animation: loader-animation 1.8s linear infinite;
+  animation: loader-animation 1.8s linear infinite;
+  &:nth-child(1) {
+    -webkit-animation-delay: 0;
+    animation-delay: 0;
+  }
+  &:nth-child(2) {
+    -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+  }
+  &:nth-child(3) {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+}
+
+@-webkit-keyframes loader-animation {
+  0%,
+  100% {
+    -webkit-transform: scale(0, 0);
+    background-color: var(--bth-app-blue);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    background-color: var(--bth-app-blue);
+  }
+}
+
+@keyframes loader-animation {
+  0%,
+  100% {
+    transform: scale(0, 0);
+    background-color: var(--bth-app-blue);
+  }
+  50% {
+    transform: scale(1, 1);
+    background-color: var(--bth-app-blue);
+  }
+}

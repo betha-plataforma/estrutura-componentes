@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.navbar-pill-group {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 12px;
+  text-align: center;
+  list-style-type: none;
+}
+
+::slotted(bth-navbar-pill-item) {
+  flex: 1;
+  border: .5px solid var(--bth-app-gray-light-10);
+  font-size: 14px;
+}
+
+::slotted(bth-navbar-pill-item[ativo]) {
+  flex: 2;
+}

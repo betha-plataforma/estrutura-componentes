@@ -1,0 +1,60 @@
+@import "../../../styles/normalize.scss";
+
+.menu-horizontal__item {
+  height: 40px;
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  a {
+    align-items: center;
+    color: var(--bth-app-gray-light-40);
+    display: flex;
+    padding: 10px 14px 10px 14px;
+    width: 100%;
+    font-weight: var(--bth-app-font-weight-regular);
+    text-decoration: none;
+
+    bth-icone {
+      &:first-child,
+      &:last-child {
+        display: block;
+        margin: 12px 16px;
+        width: 14px;
+      }
+    }
+
+    span {
+      flex: 1;
+      opacity: 1;
+      white-space: nowrap;
+    }
+  }
+
+  &--active {
+    background-color: rgba(255, 255, 255, 0.2);
+    > a {
+      color: var(--bth-app-gray-light-40);
+      font-weight: var(--bth-app-font-weight-regular);
+    }
+  }
+  &:hover,
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+  }
+
+}
+
+.badge {
+  background-color: var(--bth-app-gray-light-40);
+  color: var(--bth-app-gray-dark-30);
+  border-radius: 50px;
+  font-size: 11px;
+  padding: 2px 5px;
+  margin-left: 5px;
+  line-height: 1;
+}
+

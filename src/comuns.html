@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-br">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Ambiente sandbox para testes dos Web Components da Estrutura Front-end">
+
+    <title>Estrutura Front-end Componentes</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Open Sans -->
+    <link href="assets/fonts.css" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link rel="stylesheet" href="externals/@mdi/font/css/materialdesignicons.min.css">
+
+    <!-- Componentes -->
+    <link rel="stylesheet" href="build/estrutura-componentes.css">
+
+  </head>
+
+  <body class="container-fluid">
+
+    <nav>
+      <ol class="breadcrumb" style="background-color: transparent;">
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="/">
+            <i class="mdi mdi-arrow-left"></i> Voltar
+          </a>
+        </li>
+      </ol>
+    </nav>
+
+    <h4>Componentes comuns</h4>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Ícone</h5>
+            <bth-icone icone="cloud"></bth-icone>
+            <bth-icone icone="cloud" tamanho="25px" cor="#f7932f"></bth-icone>
+            <bth-icone icone="cloud" tamanho="2rem" cor="#df4661" title="O serviço contratado é Cloud"></bth-icone>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Loader</h5>
+            <div>
+              <h6>Inline</h6>
+              <bth-loader inline></bth-loader>
+            </div>
+            <div>
+              <h6>Centralizado</h6>
+              <bth-loader></bth-loader>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Avatar</h5>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h6>Ícone</h6>
+                <div class="d-flex align-items-center">
+                  <bth-avatar icone="cloud" tamanho="menor"></bth-avatar>
+                  <bth-avatar icone="cloud" tamanho="pequeno" title="Título customizado"></bth-avatar>
+                  <bth-avatar icone="cloud" sub-icone="cloud"></bth-avatar>
+                  <bth-avatar icone="cloud" sub-icone="cloud"></bth-avatar>
+                  <bth-avatar icone="cloud" tamanho="grande" borda borda-tamanho="2px" borda-cor="black"></bth-avatar>
+                  <bth-avatar icone="cloud" tamanho="grande" quadrado></bth-avatar>
+                  <bth-avatar icone="cloud" dimensao="150"></bth-avatar> <!-- tamanho customizado -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h6>Imagem</h6>
+                <div class="d-flex align-items-center">
+                  <bth-avatar src="https://placeimg.com/150/150/animals" tamanho="menor"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" tamanho="pequeno"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" title="How is cloud today?" sub-icone="cloud" sub-icone-title="Cloud status"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" borda borda-tamanho="2px" borda-cor="#7FAADC"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" tamanho="grande"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" tamanho="grande" quadrado></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" tamanho="grande" quadrado borda borda-tamanho="2px" borda-cor="#7FAADC"></bth-avatar>
+                  <bth-avatar src="https://placeimg.com/150/150/animals" dimensao="150"></bth-avatar> <!-- tamanho customizado -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row ">
+              <div class="col-md-12">
+                <h6>Iniciais texto</h6>
+                <div class="d-flex align-items-center">
+                  <bth-avatar iniciais="TX" tamanho="menor"></bth-avatar>
+                  <bth-avatar iniciais="TX" tamanho="menor" dimensao="32"></bth-avatar> <!-- tamanho customizado -->
+                  <bth-avatar iniciais="TX" tamanho="pequeno" title="Palavras Compostas"></bth-avatar>
+                  <bth-avatar iniciais="TX"></bth-avatar> <!--  tamanho="medio" -->
+                  <bth-avatar iniciais="TX" tamanho="grande"></bth-avatar>
+                  <bth-avatar iniciais="TX" tamanho="grande" quadrado></bth-avatar>
+                  <bth-avatar iniciais="TX" dimensao="150"></bth-avatar> <!-- tamanho customizado -->
+
+                  <bth-avatar iniciais="Palavras Compostas" tamanho="menor"></bth-avatar>
+                  <bth-avatar iniciais="Palavras Compostas" tamanho="pequeno"></bth-avatar>
+                  <bth-avatar iniciais="Palavras Compostas"></bth-avatar> <!--  tamanho="medio" -->
+                  <bth-avatar iniciais="Palavras Compostas" tamanho="grande"></bth-avatar>
+                  <bth-avatar iniciais="Palavras Compostas" tamanho="grande" quadrado></bth-avatar>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <h4>Contexto</h4>
+
+            <div class="row">
+              <div class="col-md-12">
+                <bth-selecao-contexto id="selecao-contexto-entidades"
+                  placeholder-pesquisa="Qual entidade você está buscando?">
+                  <h4 slot="cabecalho">Selecione a entidade que deseja acessar</h4>
+
+                  <img slot="sem_resultado" src="http://cdn.betha.cloud/plataforma/design/kare/framework/0.1.6/assets/images/empty-help.svg" alt="Você precisa de ajuda?"/>
+
+                  <h4 slot="sem_resultado">Título customizado</h4>
+                  <span slot="sem_resultado">
+                    Parágrafo customizado com <a href="#" target="'_blank'">link também</a>
+                  </span>
+
+                  <div slot="rodape" style="text-align: right;">
+                    <a href="">Gerenciar contextos</a>
+                  </div>
+                </bth-selecao-contexto>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <bth-selecao-contexto id="selecao-contexto-times" placeholder-pesquisa="Qual time você está buscando?">
+                  <h4 slot="cabecalho">Selecione o time que deseja acessar</h4>
+                </bth-selecao-contexto>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Empty States</h5>
+            <bth-empty-state show registros></bth-empty-state>
+            <bth-empty-state show registros pequeno></bth-empty-state>
+
+            <bth-empty-state show registros-pesquisa></bth-empty-state>
+            <bth-empty-state show registros-pesquisa pequeno></bth-empty-state>
+
+            <bth-empty-state show online></bth-empty-state>
+            <bth-empty-state show online pequeno></bth-empty-state>
+
+            <bth-empty-state show offline></bth-empty-state>
+            <bth-empty-state show offline pequeno></bth-empty-state>
+
+            <bth-empty-state show pagina-nao-encontrada></bth-empty-state>
+            <bth-empty-state show pagina-nao-encontrada pequeno></bth-empty-state>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="https://suite.cloud.betha.com.br/env.js"></script>
+
+    <!-- Coleção componentes menu -->
+    <script type="module" src="/build/estrutura-componentes.esm.js"></script>
+    <script nomodule src="/build/estrutura-componentes.js"></script>
+
+    <!-- Contexto Entidades -->
+    <script>
+      const entidadesContexto = [
+        { id: 1, descricao: 'Prefeitura Municipal de Criciúma', complemento: 'Subtítulo', iconeStatus: 'cloud', iconeStatusTitle: 'Have you looked at the clouds today?', imagemAvatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/BrasaoCriciuma.svg/1200px-BrasaoCriciuma.svg.png' },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', complemento: 'Último acesso em 27 de Setembro de 2018 às 11h04min' },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', desabilitado: true },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', complemento: 'Licença bloqueada', iconeStatus: 'lock', iconeStatusTitle: 'Licença bloqueada' },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', complemento: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, distinctio. Inventore vel esse enim impedit excepturi quia assumenda rem distinctio tempore molestiae repellat, voluptatibus corrupti perferendis explicabo sunt a at. ' },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+        { id: 2, descricao: 'Prefeitura Municipal de Araranguá', },
+      ]
+
+      var selecaoContextoEntidade = document.querySelector('bth-selecao-contexto[id=selecao-contexto-entidades]');
+
+      selecaoContextoEntidade.buscar = function buscar() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(entidadesContexto)
+          }, 1500);
+        })
+      };
+
+      selecaoContextoEntidade.selecionar = function selecionar(item) {
+        console.log('Selecionado entidade', item);
+      };
+    </script>
+
+    <!-- Contexto Times -->
+    <script>
+      var timesContexto = [
+        { id: 1, descricao: 'Plataforma Extensões' },
+        { id: 2, descricao: 'Plataforma Aplicações' },
+        { id: 3, descricao: 'Apoio' },
+        { id: 4, descricao: 'Genérico', icone: 'medal' },
+      ];
+
+      var selecaoContextoTimes = document.querySelector('bth-selecao-contexto[id=selecao-contexto-times]');
+
+      selecaoContextoTimes.buscar = function buscar() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(timesContexto)
+          }, 1500);
+        })
+      };
+
+      selecaoContextoTimes.selecionar = function selecionar(item) {
+        console.log('Selecionado time', item);
+      };
+
+    </script>
+
+  </body>
+
+</html>

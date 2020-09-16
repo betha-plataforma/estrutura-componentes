@@ -1,0 +1,29 @@
+*, *:after, *:before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+* {
+  font-family: var(--bth-app-font-family-primary);
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  height: 6px;
+  width: 6px;
+  &-track {
+    background: var(--bth-app-gray-light-30);
+  }
+  &-corner {
+    background: var(--bth-app-gray-light-40);
+  }
+  &-thumb {
+    background-color: var(--bth-app-gray);
+    border-radius: 1px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}

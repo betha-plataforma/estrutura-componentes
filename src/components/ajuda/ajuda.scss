@@ -1,0 +1,34 @@
+.empty-ajuda {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+
+  &__img {
+    background-image: url('https://cdn.betha.cloud/plataforma/design/kare/framework/0.1.6/assets/images/empty-help.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: 130px;
+    height: 130px;
+    width: 130px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: var(--bth-app-font-weight-regular);
+    margin: 24px 0px;
+
+    a {
+      text-decoration: none;
+      color: var(--bth-app-blue);
+
+      &:hover {
+        color: var(--bth-app-blue-dark-10);
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+@import '../../../styles/normalize.scss';
+
+:host {
+  display: block;
+}
+
+.empty-state {
+  display: none;
+  background-color: transparent;
+  text-align: center;
+  padding: 20px 5px;
+
+  &--show {
+    display: block;
+  }
+
+  img,
+  ::slotted(img) {
+    width: 230px;
+    margin: 20px 0;
+  }
+
+  h4,
+  ::slotted(h4) {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  &--small {
+    img,
+    ::slotted(img) {
+      width: 125px;
+      margin: 20px 0;
+    }
+
+    h4,
+    ::slotted(h4) {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .empty-state {
+    img,
+    ::slotted(img) {
+      width: 250px;
+    }
+
+    &--small {
+      img,
+      ::slotted(img) {
+        width: 140px;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+  .empty-state {
+    img,
+    ::slotted(img) {
+      width: 270px;
+    }
+
+    &--small {
+      img,
+      ::slotted(img) {
+        width: 150px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .empty-state {
+    img,
+    ::slotted(img) {
+      width: 280px;
+    }
+
+    &--small {
+      img,
+      ::slotted(img) {
+        width: 155px;
+      }
+    }
+  }
+}

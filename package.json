@@ -1,0 +1,71 @@
+{
+  "name": "@betha-plataforma/estrutura-componentes",
+  "version": "1.0.0",
+  "description": "Coleção de Web Components para compor a estrutura de uma aplicação front-end da Betha Sistemas.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/estrutura-componentes/estrutura-componentes.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "dependencies": {
+    "@mdi/font": "~5.0.45"
+  },
+  "devDependencies": {
+    "@stencil/core": "^1.12.5",
+    "@stencil/eslint-plugin": "^0.3.1",
+    "@stencil/sass": "^1.3.1",
+    "@types/jest": "^25.2.1",
+    "@types/puppeteer": "1.19.0",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import-helpers": "^1.0.2",
+    "eslint-plugin-react": "^7.19.0",
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0",
+    "puppeteer": "2.1.0"
+  },
+  "scripts": {
+    "docs.data": "stencil build --docs-json ./docs/json/docs.json",
+    "build": "stencil build --docs --ci",
+    "start": "stencil build --dev --watch --serve",
+    "pretest": "npm run lint",
+    "test": "stencil test --spec --e2e --coverage --ci -i",
+    "test.spec": "stencil test --spec --coverage",
+    "test.e2e": "stencil test --e2e",
+    "test.screenshot": "stencil test --e2e --screenshot",
+    "test.watch": "stencil test --spec --watchAll",
+    "generate": "stencil generate",
+    "lint": "eslint --ext .js,.ts,.tsx src/"
+  },
+  "keywords": [
+    "estrutura componentes", 
+    "web components", 
+    "plataforma",
+    "betha sistemas"
+  ],
+  "author": {
+    "name": "Plataforma Betha Sistemas",
+    "email": "ti.plataforma@betha.com.br",
+    "url": "http://www.betha.com.br/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betha-plataforma/estrutura-componentes.git"
+  },
+  "engines": {
+    "node": ">=12.17"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/betha-plataforma/estrutura-componentes/issues"
+  },
+  "homepage": "https://github.com/betha-plataforma/estrutura-componentes#readme"
+}

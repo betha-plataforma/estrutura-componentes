@@ -1,0 +1,5 @@
+@import '../../../../node_modules/@mdi/font/css/materialdesignicons.min.css';
+
+:host {
+  display: inline-block;
+}

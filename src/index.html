@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-br">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ambiente sandbox para testes dos Web Components da Estrutura Front-end">
+
+
+    <title>Estrutura Front-end Componentes</title>
+
+    <!-- Bootstrap 4 -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+
+    <!-- Open Sans -->
+    <link href="assets/fonts.css" rel="stylesheet" rel="preload">
+
+    <!-- Material Design Icons -->
+    <link rel="stylesheet" href="externals/@mdi/font/css/materialdesignicons.min.css" rel="preload">
+
+    <!-- Componentes -->
+    <link rel="stylesheet" href="build/estrutura-componentes.css" rel="preload">
+
+    <!-- Estilos da demo -->
+    <style>
+      h1,
+      h3,
+      h2,
+      h4 {
+        margin: 0;
+      }
+
+      section[slot="container_aplicacao"] {
+        padding: 1em;
+        font-family: sans-serif;
+      }
+
+      section[slot="container_contexto"] {
+        height: 41px;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <bth-toast></bth-toast>
+
+    <bth-app menu-bg-color="#091420" menu-vertical>
+
+      <!--
+        Os atributos/propriedades abaixo podem ser customizados (por padrão obtém do env.js)
+        > user-accounts-api="https://useraccounts.cloud.betha.com.br/user-accounts/v0.1"
+        > suite-home="https://cloud.betha.com.br"
+        > store-home="http://betha.store"
+      -->
+      <bth-marca-produto slot="menu_marca_produto" produto="Produto" exibir-produtos></bth-marca-produto>
+
+      <!-- Exemplo de ferramenta completa com painel lateral -->
+      <!-- <bth-menu-ferramenta slot="menu_ferramentas" descricao="Contatos">
+        <i slot="menu_item_desktop" class="mdi mdi-account-search-outline" aria-hidden="true"></i>
+        <i slot="menu_item_mobile" class="mdi mdi-account-search-outline" aria-hidden="true"></i>
+
+        <span slot="menu_descricao_mobile" class="descricao-mobile">Contatos</span>
+
+        <span slot="conteudo_painel_lateral">Corpo do painel de contatos</span>
+      </bth-menu-ferramenta> -->
+
+
+      <!-- Exemplo ferramenta somente disponível para resoluções de dispositivos móveis -->
+      <!-- <bth-menu-ferramenta slot="menu_ferramentas" descricao="Dispositivos sem acesso">
+        <i slot="menu_item_mobile" class="mdi mdi-cellphone-lock" aria-hidden="true"></i>
+        <span slot="menu_descricao_mobile" class="descricao-mobile">Dispositivos sem acesso</span>
+
+        <span slot="conteudo_painel_lateral">Corpo do painel de dispositivos sem acesso</span>
+      </bth-menu-ferramenta> -->
+
+
+      <!-- Exemplo ferramenta com avatar para resoluções de dispositivos desktop -->
+      <!-- <bth-menu-ferramenta slot="menu_ferramentas" descricao="Tecnologia">
+        <bth-avatar slot="menu_item_desktop" src="https://placeimg.com/24/24/tech" tamanho="menor" borda borda-raio="50%" borda-tamanho="2px"></bth-avatar>
+        <span slot="conteudo_painel_lateral">Corpo do painel de tecnologia</span>
+      </bth-menu-ferramenta> -->
+
+      <!-- Exemplo ferramenta de pesquisa -->
+      <!-- <bth-menu-ferramenta slot="menu_ferramentas" descricao="Pesquisa">
+        <input slot="menu_item_desktop" type="text" class="form-control form-control-sm" placeholder="Pesquisar"/>
+      </bth-menu-ferramenta> -->
+
+      <bth-utilitarios slot="menu_ferramentas"></bth-utilitarios>
+
+      <!--
+        Os atributos/propriedades abaixo podem ser customizados (por padrão obtém do env.js)
+        > central-ajuda-home="http://centraldeajuda.betha.com.br"
+      -->
+      <bth-ajuda slot="menu_ferramentas"></bth-ajuda>
+
+      <bth-novidades slot="menu_ferramentas"></bth-novidades>
+
+      <!--
+        Os atributos/propriedades abaixo podem ser customizados (por padrão obtém do env.js)
+        > notificacoes-api="https://notifications.dev.bethacloud.com.br/notifications"
+        > notificacoes-ws="wss://notifications.dev.bethacloud.com.br/notifications/v2/channel"
+      -->
+      <bth-notificacoes slot="menu_ferramentas"></bth-notificacoes>
+
+      <!--
+        Os atributos/propriedades abaixo podem ser customizados (por padrão obtém do env.js)
+        > central-usuario-home="https://e-gov.betha.com.br/centraldousuario"
+      -->
+      <bth-conta-usuario slot="menu_ferramentas" usuario="lorem.ipsum" nome="Lorem Ipsum"
+        foto-url="https://placeimg.com/80/80/animals">
+      </bth-conta-usuario>
+
+      <section slot="container_contexto">
+        Área da barra de contexto
+      </section>
+
+      <section slot="container_aplicacao">
+        <h1>Área destinada a aplicação</h3>
+        <p>Este é um ambiente de desenvolvimento, abaixo temos algumas interações com os componentes aqui dispostos.</p>
+
+        <h2>Navegação</h4>
+        <p>As opções do menu podem ser <a href="" id="menuHorizontal">horizontais</a> ou <a href="" id="menuVertical">verticais</a></p>
+
+        <h2>Banner</h4>
+        <p>Temos a possibilidade de <a href="#" class="link" id="linkBannerMenu">exibir um banner</a> de caráter informativo ou de alerta, sobrepondo o menu da aplicação. </p>
+
+        <h2>Contadores</h4>
+        <p>Nas opções dos menus, há a possibilidade de termos <a href="#" class="link" id="linkRandomizarContador">indicadores numéricos</a> que permitem sinalizar quantidade de
+          algum conteúdo interno</p>
+
+        <h2>Comuns</h4>
+        <p>Há outros <a href="/comuns.html">componentes comuns</a> que serão logo separados deste projeto.
+      </section>
+
+    </bth-app>
+
+    <!-- Exemplo importando env.js -->
+    <script src="https://suite.cloud.betha.com.br/env.js" rel="noreferrer"></script>
+
+    <!-- Coleção componentes menu -->
+    <script type="module" src="/build/estrutura-componentes.esm.js"></script>
+    <script nomodule src="/build/estrutura-componentes.js"></script>
+
+    <!-- Autenticação -->
+    <script>
+      function getAuthorization() {
+        return {
+          accessId: '5e613debe191120137316351',
+          accessToken: 'fbbbbffd-eeb4-4f7c-b222-8097e55e28fa',
+          userId: 'lorem.ipsum',
+          systemId: 78
+        };
+      }
+
+      async function handleUnauthorizedAccess() {
+        // Simula uma requisição para renovar o token
+        return new Promise(function (resolve) {
+          setTimeout(resolve, 3500);
+        });
+      }
+    </script>
+
+    <!-- MENU -->
+    <script>
+      var app = document.querySelector('bth-app');
+
+      app.addEventListener('opcaoMenuSelecionada', function navegar(event) {
+        console.log('Navegando para', event.detail.rota, event.detail);
+        app.setMenuAtivo(event.detail.id);
+      });
+
+      app.opcoes = [
+        { id: 'visao-geral', descricao: 'Visão geral', icone: 'chart-pie', rota: '/visao-geral', possuiPermissao: true },
+        { id: 'administrando', descricao: 'Administrando', icone: 'contacts', rota: '/administrando', possuiPermissao: false },
+        {
+          id: 'gerenciando', descricao: 'Gerenciando', icone: 'cog', possuiPermissao: true,
+          submenus: [
+            { id: 'liberando', descricao: 'Liberações', rota: '/liberando', possuiPermissao: true },
+            { id: 'pacotes', descricao: 'Pacotes de extensões', rota: '/pacotes', possuiPermissao: true },
+            { id: 'clientes-por-grupos', descricao: 'Grupos de clientes', rota: '/clientes-por-grupos', possuiPermissao: true },
+            { id: 'clientes-por-extensoes', descricao: 'Clientes por extensão', rota: '/clientes-por-extensoes', possuiPermissao: true },
+            { id: 'extensoes-por-clientes', descricao: 'Extensões por cliente', rota: '/extensoes-por-clientes', possuiPermissao: false }
+          ]
+        },
+      ];
+
+      var banner = {
+        texto: 'Sua conexão com a internet está instável. Por isso, o sistema pode apresentar lentidão e prejudicar algumas atividades',
+        tipo: 'warning',
+        link: 'https://www.betha.com.br'
+      }
+
+      document
+        .querySelector('#menuHorizontal')
+        .addEventListener('click', function (event) {
+          event.preventDefault();
+          app.removeAttribute('menu-vertical');
+        });
+
+      document
+        .querySelector('#menuVertical')
+        .addEventListener('click', function (event) {
+          event.preventDefault();
+          app.setAttribute('menu-vertical', true);
+        });
+
+      document
+        .querySelector('#linkRandomizarContador')
+        .addEventListener('click', function () {
+          let numeroAleatorio = Math.round(Math.random() * Math.round(Math.random() * 100));
+          app.setContadorMenu('liberando', numeroAleatorio);
+          app.setContadorMenu('gerenciando', numeroAleatorio);
+        });
+
+      let activeBannerRef = 0;
+      document
+        .querySelector('#linkBannerMenu')
+        .addEventListener('click', function () {
+          const bannerAlerta = {
+            texto: 'Sua conexão com a internet está instável. Por isso, o sistema pode apresentar lentidão e prejudicar algumas atividades',
+            tipo: 'warning',
+            link: 'https://www.betha.com.br'
+          }
+
+          const bannerInformacao = {
+            texto: 'O sistema estará em manutenção das 23h00 às 5h00',
+            tipo: 'info',
+            link: 'https://www.betha.com.br'
+          }
+
+          if (activeBannerRef === 0) {
+            app.banner = bannerInformacao;
+          } else if (activeBannerRef === 1) {
+            app.banner = bannerAlerta;
+          } else {
+            app.banner = undefined;
+            activeBannerRef = -1;
+          }
+          activeBannerRef++;
+        })
+    </script>
+
+    <!-- MARCA PRODUTO -->
+    <script>
+      var authorizationMarcaProduto = {
+        getAuthorization: getAuthorization,
+        handleUnauthorizedAccess: handleUnauthorizedAccess,
+      }
+
+      var marcaProduto = document.querySelector('bth-marca-produto');
+      marcaProduto.authorization = authorizationMarcaProduto;
+    </script>
+
+    <!-- CONTA USUÁRIO -->
+    <script>
+      var contaUsuario = document.querySelector('bth-conta-usuario');
+
+      contaUsuario.addEventListener('logout', function(event) {
+        console.debug('O usuário realizou a ação de logout no componente de conta do usuário', event.detail);
+      });
+    </script>
+
+    <!-- UTILITÁRIOS -->
+    <script>
+      const isUrl = text => {
+        try {
+          new URL(text);
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      var utilitarios = document.querySelector('bth-utilitarios');
+
+      utilitarios.utilitarios = [
+        { nome: 'Autorizações', rota: '/liberando', icone: 'key', possuiPermissao: true, },
+        { nome: 'Gerenciador de Acessos', rota: '/gerenciando', icone: 'key-variant', possuiPermissao: true, },
+        { nome: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit', rota: '/', icone: 'merge', possuiPermissao: false, },
+        { nome: 'Restrito', rota: '/', icone: 'atom-variant', possuiPermissao: false },
+        { nome: 'Console AWS', rota: 'https://aws.amazon.com/pt/console/', icone: 'amazon', possuiPermissao: true }
+      ];
+
+      utilitarios.addEventListener('opcaoUtilitarioSelecionada', function navegar(event) {
+        if (isUrl(event.detail.rota)) {
+          window.open(event.detail.rota, '_blank')
+          return;
+        }
+
+        console.log('Navegando para', event.detail.rota);
+      });
+    </script>
+
+    <!-- NOTIFICAÇÕES -->
+    <script>
+      var authorization = {
+        getAuthorization: getAuthorization,
+        handleUnauthorizedAccess: handleUnauthorizedAccess,
+      }
+
+      var notificacoes = document.querySelector('bth-notificacoes');
+      notificacoes.authorization = authorization;
+
+      var toast =  document.querySelector('bth-toast');
+      notificacoes.addEventListener('novaNotificacaoComLink', (data) => {
+        const notificacao = data.detail;
+
+        toast.publish({
+          type: 'success',
+          description: notificacao.texto,
+          actions: [{
+            onClick:function () {
+              window.open(notificacao.link.href, notificacao.link.target)
+            },
+            close: true,
+            title: notificacao.link.label
+          }]
+        });
+      });
+    </script>
+
+    <!-- NOVIDADES -->
+    <script>
+      var authorization = {
+        getAuthorization: getAuthorization,
+        handleUnauthorizedAccess: handleUnauthorizedAccess,
+      }
+
+      var novidades = document.querySelector('bth-novidades');
+      novidades.authorization = authorization;
+
+      novidades.addEventListener('novaNovidade', (data) => {
+        console.log('Nova mensagem obtida no componente de novidades', data.detail);
+      });
+    </script>
+
+  </body>
+
+</html>

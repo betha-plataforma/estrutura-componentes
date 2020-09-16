@@ -1,0 +1,56 @@
+@import "../../../../styles/normalize.scss";
+
+.navbar-pill-item {
+  white-space: nowrap;
+  &--active {
+    a {
+      background-color: var(--bth-app-gray-light-10);
+    }
+  }
+
+  &:first-child {
+    border-radius: 2px 0px 0px 2px;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0px 2px 2px 0px;
+    border-left: none;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: var(--bth-app-gray-dark-30);
+    padding: 4px 0px;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background-color: var(--bth-app-gray-light-20);
+    }
+
+    > span {
+      margin: 0px 0px 0px 6px;
+    }
+
+    .descricao {
+      display: none;
+      opacity: 0;
+
+      &--show {
+        opacity: 1;
+        display: inline-block;
+      }
+    }
+
+    .totalizador {
+      color: var(--bth-app-gray-dark-20);
+      font-size: 13px;
+      margin: 0px 0px 0px 4px;
+    }
+  }
+}
+

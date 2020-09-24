@@ -44,6 +44,12 @@ yarn add @betha-plataforma/estrutura-componentes
 ```html
 <script type="module" src="https://unpkg.com/@betha-plataforma/estrutura-componentes/dist/estrutura-componentes/estrutura-componentes.esm.js"></script>
 <script nomodule src="https://unpkg.com/@betha-plataforma/estrutura-componentes/dist/estrutura-componentes/estrutura-componentes.js"></script>
+
+<!-- ... ou caso queira suportar somente navegadores modernos -->
+<script type="module">
+  import { defineCustomElements } from 'https://unpkg.com/@betha-plataforma/estrutura-componentes/loader/index.es2017.mjs';
+  defineCustomElements();
+</script>
 ```
 
 ## Como usar 🔨
@@ -54,8 +60,11 @@ Deve conter a fonte [**Open Sans**](https://fonts.google.com/specimen/Open+Sans?
 
 - O [**Kare | Framework Design**](https://github.com/betha-plataforma/kare) já possui essa fonte e suas variações.
 
-- Caso não utilize o framework, é possível obter as definições nos arquivos de distribuição ao instalar este projeto. 
-  - `@betha-plataforma/estrutura-componentes/dist/collection/assets/fonts.css`
+Caso não utilize o framework, é possível obter as definições nos arquivos de distribuição ao instalar este projeto. 
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@betha-plataforma/estrutura-componentes/dist/collection/assets/fonts.css">
+```
 
 ### Ícones
 
@@ -64,14 +73,19 @@ Deve conter a fonte [**Material Design Icons**](http://materialdesignicons.com/)
 - A versão suportada é a [**5.0.45**](https://github.com/Templarian/MaterialDesign)
 - [Neste link](http://materialdesignicons.com/cdn/5.0.45/) está a tabela de referência de ícones disponíveis
 
-Essa biblioteca de ícones pode ser instalada através de um gerenciador de pacotes 
-  - Ex: `npm install @mdi/font@5.0.45`
+```html
+<link rel="stylesheet" href="https://unpkg.com/@mdi/font@5.0.45/css/materialdesignicons.min.css">
+```
+
+*Essa biblioteca de ícones pode ser instalada através de um gerenciador de pacotes `npm install @mdi/font@5.0.45`*
 
 ### Estilos
 
 Os estilos globais da biblioteca devem ser importados
 
-- `@betha-plataforma/estrutura-componentes/dist/estrutura-componentes/estrutura-componentes.css`
+```html
+<link rel="stylesheet" href="https://unpkg.com/@betha-plataforma/estrutura-componentes/dist/estrutura-componentes/estrutura-componentes.css">
+```
 
 ### Registrando componentes
 

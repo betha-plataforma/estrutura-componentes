@@ -87,6 +87,7 @@ slot[name="container_contexto"] {
 }
 
 .menu-ferramentas__mobile {
+  position: fixed;
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;

@@ -32,8 +32,7 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null,
       copy: [
-        { src: 'comuns.html', dest: 'comuns.html' },
-        { src: '../node_modules/@mdi/font', dest: 'externals/@mdi/font' }
+        { src: 'comuns.html', dest: 'comuns.html' }
       ]
     }
   ],

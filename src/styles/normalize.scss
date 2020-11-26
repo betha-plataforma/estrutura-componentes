@@ -1,4 +1,6 @@
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -7,6 +9,12 @@
 
 * {
   font-family: var(--bth-app-font-family-primary);
+}
+
+a {
+  &:focus {
+    outline: 1px dotted var(--bth-app-gray-dark-30);
+  }
 }
 
 ::-webkit-scrollbar {

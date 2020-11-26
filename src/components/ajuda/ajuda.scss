@@ -1,3 +1,5 @@
+@import '../../styles/normalize.scss';
+
 .empty-ajuda {
   display: flex;
   flex-direction: column;
@@ -31,4 +33,9 @@
       }
     }
   }
+}
+
+.descricao-mobile {
+  text-decoration: none;
+  padding: 0 16px;
 }

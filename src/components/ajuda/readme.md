@@ -43,15 +43,18 @@ A configuração é necessária somente caso haja necessidade de informar a url 
 ### Depends on
 
 - [bth-menu-ferramenta](../app/menu-ferramenta)
+- [bth-menu-ferramenta-icone](../app/menu-ferramenta-icone)
 - [bth-icone](../comuns/icone)
 
 ### Graph
 ```mermaid
 graph TD;
   bth-ajuda --> bth-menu-ferramenta
+  bth-ajuda --> bth-menu-ferramenta-icone
   bth-ajuda --> bth-icone
   bth-menu-ferramenta --> bth-menu-painel-lateral
   bth-menu-painel-lateral --> bth-icone
+  bth-menu-ferramenta-icone --> bth-icone
   style bth-ajuda fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

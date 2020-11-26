@@ -115,18 +115,19 @@ export class ContaUsuario implements ComponentInterface {
 
   private renderMenuItemDesktop() {
     return (
-      <bth-avatar
-        slot="menu_item_desktop"
-        class="avatar-desktop"
-        src={this.getUrlImagemPerfil()}
-        title={`Foto de ${this.nome}`}
-        tamanho="menor"
-        borda
-        bordaTamanho="2px"
-        bordaCor={getCssVariableValue('--bth-app-gray-light-10')}
-        bordaRaio="50%"
-        onImageLoadError={this.onImageLoadError}>
-      </bth-avatar>
+      <section slot="menu_item_desktop">
+        <bth-avatar
+          class="avatar-desktop"
+          src={this.getUrlImagemPerfil()}
+          title={`Foto de ${this.nome}`}
+          tamanho="menor"
+          borda
+          bordaTamanho="2px"
+          bordaCor={getCssVariableValue('--bth-app-gray-light-10')}
+          bordaRaio="50%"
+          onImageLoadError={this.onImageLoadError}
+        ></bth-avatar>
+      </section>
     );
   }
 

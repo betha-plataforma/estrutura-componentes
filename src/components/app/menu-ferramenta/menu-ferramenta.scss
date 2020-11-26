@@ -10,11 +10,13 @@
     background-color: rgba(255, 255, 255, 0.2);
   }
 
-  ::slotted(i), ::slotted(bth-icone) {
+  ::slotted(i),
+  ::slotted(bth-icone) {
     font-size: 18px;
   }
 
-  ::slotted(bth-avatar), ::slotted(img), ::slotted(svg) {
+  ::slotted(img),
+  ::slotted(svg) {
     vertical-align: middle;
     box-sizing: border-box;
     margin: 7px 14px;
@@ -24,15 +26,28 @@
     height: 24px;
   }
 
+  ::slotted(bth-avatar) {
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin: 8px 14px;
+    display: unset;
+    border-radius: 100%;
+    width: 24px;
+    height: 24px;
+  }
+
   a {
     color: var(--bth-app-gray-light-40);
     text-decoration: none;
-    padding: 7px 11px 9px 11px;
+    padding: 7px 11px 8px 11px;
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
     }
+    &:focus {
+      outline: 1px dotted var(--bth-app-gray-light-10);
+      outline-offset: -2px;
+    }
   }
-
 }
 
 .ferramenta-menu__mobile-toggler {
@@ -52,7 +67,8 @@
       background-color: var(--bth-app-gray-light-30);
     }
 
-    ::slotted(i), ::slotted(bth-icone) {
+    ::slotted(i),
+    ::slotted(bth-icone) {
       color: var(--bth-app-gray-dark-20);
       font-size: 20px;
     }

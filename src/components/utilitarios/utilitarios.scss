@@ -49,6 +49,9 @@
             border: 1px solid var(--bth-app-blue);
             cursor: pointer;
           }
+          &:focus {
+            outline: 1px dotted var(--bth-app-gray-dark-30);
+          }
         }
 
         &--disabled {

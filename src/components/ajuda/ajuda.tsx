@@ -1,11 +1,11 @@
 import { Component, h, Prop, ComponentInterface } from '@stencil/core';
 
-import { getCssVariableValue, isNill } from '../../utils/functions';
+import { isNill } from '../../utils/functions';
 
 @Component({
   tag: 'bth-ajuda',
   styleUrl: 'ajuda.scss',
-  shadow: true
+  shadow: true,
 })
 export class Ajuda implements ComponentInterface {
 
@@ -29,10 +29,10 @@ export class Ajuda implements ComponentInterface {
   render() {
     return (
       <bth-menu-ferramenta descricao="Ajuda" tituloPainelLateral="Ajuda">
-        <bth-icone slot="menu_item_desktop" icone="help-circle" cor={getCssVariableValue('--bth-app-gray-light-40')}></bth-icone>
+        <bth-menu-ferramenta-icone slot="menu_item_desktop" icone="help-circle"></bth-menu-ferramenta-icone>
 
-        <bth-icone slot="menu_item_mobile" icone="help-circle" cor={getCssVariableValue('--bth-app-gray-dark-20')}></bth-icone>
-        <span slot="menu_descricao_mobile">Ajuda</span>
+        <bth-menu-ferramenta-icone slot="menu_item_mobile" icone="help-circle" mobile ></bth-menu-ferramenta-icone>
+        <span slot="menu_descricao_mobile" class="descricao-mobile">Ajuda</span>
 
         <div slot="conteudo_painel_lateral" class="empty-ajuda">
           <div class="empty-ajuda__img"></div>
@@ -43,5 +43,4 @@ export class Ajuda implements ComponentInterface {
       </bth-menu-ferramenta>
     );
   }
-
 }

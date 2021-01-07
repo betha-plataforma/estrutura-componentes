@@ -660,3 +660,15 @@ slot[name="container_contexto"] {
     top: 125px;
   }
 }
+
+@media print {
+  .banner {
+    display: none;
+  }
+  .menu-horizontal {
+    display: none;
+  }
+  .menu-vertical {
+    display: none;
+  }
+}

@@ -55,6 +55,16 @@ export class Notificacoes implements ComponentInterface {
   @State() isApiIndisponivel: boolean = false;
 
   /**
+   * True, exibe somente o box de notificações, sem barra e badge
+   */
+  @Prop() readonly onlyContent?: boolean;
+
+  /**
+   * Altura do painel de notificações
+   */
+  @Prop() readonly heightPainelNotificacoes?: string;
+
+  /**
    * Configuração de autorização. É necessária para o componente poder realizar autentizar com os serviços.
    */
   @Prop() readonly authorization: AuthorizationConfig;
@@ -144,7 +154,8 @@ export class Notificacoes implements ComponentInterface {
   onChangeQuantidadeTotalNaoLidas(): void {
     const event: ConteudoSinalizadoEvent = {
       possui: true,
-      origem: 'notificacoes'
+      origem: 'notificacoes',
+      quantidadeTotalNaoLidas: this.quantidadeTotalNaoLidas
     };
 
     if (this.quantidadeTotalNaoLidas <= 0) {
@@ -592,7 +603,95 @@ export class Notificacoes implements ComponentInterface {
     );
   }
 
+  private getHeightPainelNotificacoes() {
+    const style: any = {};
+
+    if (!isNill(this.heightPainelNotificacoes)) {
+      style.height = this.heightPainelNotificacoes;
+    }
+
+    return style;
+  }
+
   render() {
+    const notificacoesConteudo = () => [
+      <div>
+        {!this.isApiIndisponivel && (
+          <bth-navbar-pill-group descricao="Notificações">
+            {this.filtros.map(filtro => (
+              <bth-navbar-pill-item
+                key={filtro.id.toString()}
+                identificador={filtro.id.toString()}
+                icone={filtro.icone}
+                descricao={filtro.descricao}
+                ativo={filtro.ativo}
+                totalizador={filtro.id === TipoNotificacao.NaoLida ? this.quantidadeEmNaoLidas : (filtro.id === TipoNotificacao.Progresso ? this.quantidadeEmProgressoNaoLidas : 0)}
+                showTotalizador={!this.isBuscandoNotificacoes}>
+              </bth-navbar-pill-item>
+            ))}
+          </bth-navbar-pill-group>
+        )}
+
+        {!this.isApiIndisponivel && this.hasNotificacoes() && this.isFiltroPorNaoLidas() && !this.isBuscandoNotificacoes && (
+          <div class="text-right">
+            <a class="link" href="" title="Marcar todas como lidas" onClick={this.onClickMarcarTodasComoLidas}>Marcar todas como lidas</a>
+          </div>
+        )}
+
+        <div style={this.getHeightPainelNotificacoes()} class={'painel-notificacoes'} onScroll={this.onContentScroll}>
+
+          {!this.isApiIndisponivel && !this.hasNotificacoes() && !this.isBuscandoNotificacoes && (
+            <div class="empty-notificacoes">
+              <div class="empty-notificacoes__img"></div>
+              <h4>Não há notificações por aqui</h4>
+            </div>
+          )}
+
+          {this.isApiIndisponivel && !this.isBuscandoNotificacoes && (
+            <div class="empty-notificacoes">
+              <div class="empty-notificacoes-inconsistency"></div>
+              <h4>As notificações estão temporariamente indisponíveis</h4>
+            </div>
+          )}
+
+          {!this.isApiIndisponivel && (
+            <ul class="notificacoes-lista">
+              {this
+                .getNotificacoesPorFiltroAtivo()
+                .map(notificacao => (
+                  <li key={notificacao.id}>
+                    <bth-notificacao-item
+                      identificador={notificacao.id}
+                      tipo={this.getOpcaoFiltroAtivo().id}
+                      texto={notificacao.text}
+                      dataHora={notificacao.dateTime}
+                      origem={notificacao.source}
+                      icone={notificacao.icon}
+                      resultadoLink={notificacao.link}
+                      cancelamentoLink={notificacao.cancellationLink}
+                      acompanharLink={notificacao.trackingLink}
+                      possuiProgresso={notificacao.progress}
+                      percentualProgresso={notificacao.percentage}
+                      status={notificacao.status}
+                      prioridade={notificacao.priority}>
+                    </bth-notificacao-item>
+                  </li>
+                ))}
+            </ul>
+          )}
+
+          {this.renderLoader()}
+
+        </div>
+      </div>
+    ];
+
+    if (this.onlyContent) return (
+      <div>
+        {notificacoesConteudo()}
+      </div>
+    );
+
     return (
       <bth-menu-ferramenta descricao="Notificações" tituloPainelLateral="Notificações">
 
@@ -602,75 +701,7 @@ export class Notificacoes implements ComponentInterface {
         <bth-menu-ferramenta-icone slot="menu_item_desktop" icone="bell" contador={this.quantidadeTotalNaoLidas}></bth-menu-ferramenta-icone>
 
         <section slot="conteudo_painel_lateral">
-
-          {!this.isApiIndisponivel && (
-            <bth-navbar-pill-group descricao="Notificações">
-              {this.filtros.map(filtro => (
-                <bth-navbar-pill-item
-                  key={filtro.id.toString()}
-                  identificador={filtro.id.toString()}
-                  icone={filtro.icone}
-                  descricao={filtro.descricao}
-                  ativo={filtro.ativo}
-                  totalizador={filtro.id === TipoNotificacao.NaoLida ? this.quantidadeEmNaoLidas : (filtro.id === TipoNotificacao.Progresso ? this.quantidadeEmProgressoNaoLidas : 0)}
-                  showTotalizador={!this.isBuscandoNotificacoes}>
-                </bth-navbar-pill-item>
-              ))}
-            </bth-navbar-pill-group>
-          )}
-
-          {!this.isApiIndisponivel && this.hasNotificacoes() && this.isFiltroPorNaoLidas() && !this.isBuscandoNotificacoes && (
-            <div class="text-right">
-              <a class="link" href="" title="Marcar todas como lidas" onClick={this.onClickMarcarTodasComoLidas}>Marcar todas como lidas</a>
-            </div>
-          )}
-
-          <div class="painel-notificacoes" onScroll={this.onContentScroll}>
-
-            {!this.isApiIndisponivel && !this.hasNotificacoes() && !this.isBuscandoNotificacoes && (
-              <div class="empty-notificacoes">
-                <div class="empty-notificacoes__img"></div>
-                <h4>Não há notificações por aqui</h4>
-              </div>
-            )}
-
-            {this.isApiIndisponivel && !this.isBuscandoNotificacoes && (
-              <div class="empty-notificacoes">
-                <div class="empty-notificacoes-inconsistency"></div>
-                <h4>As notificações estão temporariamente indisponíveis</h4>
-              </div>
-            )}
-
-            {!this.isApiIndisponivel && (
-              <ul class="notificacoes-lista">
-                {this
-                  .getNotificacoesPorFiltroAtivo()
-                  .map(notificacao => (
-                    <li key={notificacao.id}>
-                      <bth-notificacao-item
-                        identificador={notificacao.id}
-                        tipo={this.getOpcaoFiltroAtivo().id}
-                        texto={notificacao.text}
-                        dataHora={notificacao.dateTime}
-                        origem={notificacao.source}
-                        icone={notificacao.icon}
-                        resultadoLink={notificacao.link}
-                        cancelamentoLink={notificacao.cancellationLink}
-                        acompanharLink={notificacao.trackingLink}
-                        possuiProgresso={notificacao.progress}
-                        percentualProgresso={notificacao.percentage}
-                        status={notificacao.status}
-                        prioridade={notificacao.priority}>
-                      </bth-notificacao-item>
-                    </li>
-                  ))}
-              </ul>
-            )}
-
-            {this.renderLoader()}
-
-          </div>
-
+          {notificacoesConteudo()}
         </section>
       </bth-menu-ferramenta>
     );

@@ -46,8 +46,8 @@
     "lint": "eslint --ext .js,.ts,.tsx src/"
   },
   "keywords": [
-    "estrutura componentes", 
-    "web components", 
+    "estrutura componentes",
+    "web components",
     "stenciljs",
     "plataforma",
     "betha cloud"

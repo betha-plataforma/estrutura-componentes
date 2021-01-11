@@ -11,6 +11,7 @@ export interface MenuBannerAlteradoEvent {
 export interface ConteudoSinalizadoEvent {
   possui: boolean;
   origem: string;
+  quantidadeTotalNaoLidas?: number;
 }
 
 export type IdentificadorOpcaoMenu = string | number;

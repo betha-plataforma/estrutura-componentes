@@ -154,7 +154,7 @@ slot[name="container_contexto"] {
 
       .menu-vertical__toggle {
         text-decoration: none;
-        padding: 15px 15px 9px 15px;
+        padding: 13px 15px 9px 15px;
         &:before {
           content: "\f035C";
           font-size: 20px;
@@ -167,6 +167,11 @@ slot[name="container_contexto"] {
         &:focus {
           background-color: rgba(255, 255, 255, 0.15);
           text-decoration: none;
+        }
+
+        &:focus {
+          outline: 1px dotted var(--bth-app-gray-light-10);
+          outline-offset: -2px;
         }
       }
 
@@ -198,12 +203,16 @@ slot[name="container_contexto"] {
               right: 5px;
               top: 5px;
             }
-
           }
           &:hover,
           &:focus {
             background-color: rgba(255, 255, 255, 0.15);
             text-decoration: none;
+          }
+
+          &:focus {
+            outline: 1px dotted var(--bth-app-gray-dark-30);
+            outline-offset: -1px;
           }
         }
       }
@@ -279,6 +288,11 @@ slot[name="container_contexto"] {
       text-decoration: none;
       overflow: hidden;
       padding: 0px 9px 0px 0px;
+
+      &:focus {
+        outline: 1px dotted var(--bth-app-gray-dark-30);
+        outline-offset: -1px;
+      }
 
       &:hover,
       &:focus {
@@ -644,5 +658,17 @@ slot[name="container_contexto"] {
   .banner--show ~ .menu-vertical {
     height: calc(100vh - 125px);
     top: 125px;
+  }
+}
+
+@media print {
+  .banner {
+    display: none;
+  }
+  .menu-horizontal {
+    display: none;
+  }
+  .menu-vertical {
+    display: none;
   }
 }

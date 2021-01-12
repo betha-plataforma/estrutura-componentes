@@ -31,6 +31,7 @@ Também implementa a possibilidade de exibição de um `badge` ao lado do ícone
 
 ### Used by
 
+ - [bth-ajuda](../../ajuda)
  - [bth-notificacoes](../../notificacoes)
  - [bth-novidades](../../novidades)
  - [bth-utilitarios](../../utilitarios)
@@ -43,6 +44,7 @@ Também implementa a possibilidade de exibição de um `badge` ao lado do ícone
 ```mermaid
 graph TD;
   bth-menu-ferramenta-icone --> bth-icone
+  bth-ajuda --> bth-menu-ferramenta-icone
   bth-notificacoes --> bth-menu-ferramenta-icone
   bth-novidades --> bth-menu-ferramenta-icone
   bth-utilitarios --> bth-menu-ferramenta-icone

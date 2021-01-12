@@ -23,6 +23,10 @@
   }
 }
 
+[slot='menu_item_desktop'] {
+  margin: 2px 0px 1px 0px;
+}
+
 .avatar-mobile {
   box-sizing: content-box;
   margin: 0 12px 0 0;
@@ -49,7 +53,6 @@
 }
 
 .painel-usuario {
-
   .perfil-usuario {
     display: flex;
     flex-direction: column;

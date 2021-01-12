@@ -1,6 +1,6 @@
 {
   "name": "@betha-plataforma/estrutura-componentes",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Coleção de Web Components para compor a estrutura de uma aplicação front-end da Betha Sistemas.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

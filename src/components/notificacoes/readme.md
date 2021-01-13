@@ -23,6 +23,14 @@ A tag do componente é `<bth-notificacoes>` e através do atributo `slot` é pos
     Os atributos/propriedades abaixo podem ser customizados (por padrão obtém do env.js)
     > notificacoes-api="https://notifications.dev.bethacloud.com.br/notifications"
     > notificacoes-ws="wss://notifications.dev.bethacloud.com.br/notifications/v2/channel"
+
+    Para usar de forma externa, independente da barra de navegação:
+    Não usar a propriedade slot e adicionar a propriedade only-content (irá exibir somente o "painel de notificações")
+    
+    <bth-notificacoes only-content height-painel-notificacoes="calc(100vh -150px)"></bth-notificacoes>
+    Para montar o badge, é necessário ouvir o evento: onConteudoSinalizado
+    const notificacoes = document.querySelector('bth-notificacoes')
+    notificacoes.addEventListener('conteudoSinalizado', data => {})
   -->
   <bth-notificacoes slot="menu_ferramentas"></bth-notificacoes>
   <!-- ... -->
@@ -64,11 +72,13 @@ notificacoes.addEventListener('novaNotificacaoComLink', (data) => {
 
 ## Properties
 
-| Property          | Attribute          | Description                                                                                            | Type                  | Default     |
-| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------ | --------------------- | ----------- |
-| `authorization`   | --                 | Configuração de autorização. É necessária para o componente poder realizar autentizar com os serviços. | `AuthorizationConfig` | `undefined` |
-| `notificacoesApi` | `notificacoes-api` | URL para a api de notificações. Por padrão irá obter do env.js                                         | `string`              | `undefined` |
-| `notificacoesWs`  | `notificacoes-ws`  | URL para o channel websocket de notificações. Por padrão irá obter do env.js                           | `string`              | `undefined` |
+| Property                   | Attribute                    | Description                                                                                            | Type                  | Default     |
+| -------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------ | --------------------- | ----------- |
+| `authorization`            | --                           | Configuração de autorização. É necessária para o componente poder realizar autentizar com os serviços. | `AuthorizationConfig` | `undefined` |
+| `heightPainelNotificacoes` | `height-painel-notificacoes` | Altura do painel de notificações                                                                       | `string`              | `undefined` |
+| `notificacoesApi`          | `notificacoes-api`           | URL para a api de notificações. Por padrão irá obter do env.js                                         | `string`              | `undefined` |
+| `notificacoesWs`           | `notificacoes-ws`            | URL para o channel websocket de notificações. Por padrão irá obter do env.js                           | `string`              | `undefined` |
+| `onlyContent`              | `only-content`               | True, exibe somente o box de notificações, sem barra e badge                                           | `boolean`             | `undefined` |
 
 
 ## Events

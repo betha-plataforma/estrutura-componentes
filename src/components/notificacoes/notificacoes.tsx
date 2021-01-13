@@ -55,6 +55,11 @@ export class Notificacoes implements ComponentInterface {
   @State() isApiIndisponivel: boolean = false;
 
   /**
+   * Configuração de autorização. É necessária para o componente poder realizar autentizar com os serviços.
+   */
+  @Prop() readonly authorization: AuthorizationConfig;
+
+  /**
    * True, exibe somente o box de notificações, sem barra e badge
    */
   @Prop() readonly onlyContent?: boolean;
@@ -63,11 +68,6 @@ export class Notificacoes implements ComponentInterface {
    * Altura do painel de notificações
    */
   @Prop() readonly heightPainelNotificacoes?: string;
-
-  /**
-   * Configuração de autorização. É necessária para o componente poder realizar autentizar com os serviços.
-   */
-  @Prop() readonly authorization: AuthorizationConfig;
 
   /**
    * URL para a api de notificações. Por padrão irá obter do env.js
@@ -151,14 +151,14 @@ export class Notificacoes implements ComponentInterface {
   }
 
   @Watch('quantidadeTotalNaoLidas')
-  onChangeQuantidadeTotalNaoLidas(): void {
+  onChangeQuantidadeTotalNaoLidas(novoValor): void {
     const event: ConteudoSinalizadoEvent = {
       possui: true,
       origem: 'notificacoes',
-      quantidadeTotalNaoLidas: this.quantidadeTotalNaoLidas
+      quantidadeTotalNaoLidas: novoValor
     };
 
-    if (this.quantidadeTotalNaoLidas <= 0) {
+    if (novoValor <= 0) {
       event.possui = false;
     }
 
@@ -638,7 +638,7 @@ export class Notificacoes implements ComponentInterface {
           </div>
         )}
 
-        <div style={this.getHeightPainelNotificacoes()} class={'painel-notificacoes'} onScroll={this.onContentScroll}>
+        <div style={this.getHeightPainelNotificacoes()} class="painel-notificacoes" onScroll={this.onContentScroll}>
 
           {!this.isApiIndisponivel && !this.hasNotificacoes() && !this.isBuscandoNotificacoes && (
             <div class="empty-notificacoes">

@@ -78,6 +78,29 @@ describe('notificacoes', () => {
     expect(page.root).not.toBeNull();
   });
 
+  it('renderiza somente conteúdo', async () => {
+    // Arrange
+    await page.setContent('<bth-notificacoes only-content></bth-notificacoes>');
+
+    // Act
+    await page.waitForChanges();
+
+    // Assert
+    expect(page.root).not.toBeNull();
+  });
+
+  it('renderiza somente conteúdo com height do painel de notificações customizado', async () => {
+    // Arrange
+    await page.setContent('<bth-notificacoes only-content height-painel-notificacoes="500px"></bth-notificacoes>');
+
+    // Act
+    await page.waitForChanges();
+
+    // Assert
+    expect(page.root).not.toBeNull();
+  });
+
+
   it('exibe indisponibilidade se o authorization não for informado', async () => {
     // Arrange
     setFetchMockData({ content: [] });
@@ -508,7 +531,7 @@ describe('notificacoes', () => {
 
     // Assert
     expect(onNaoPossuiConteudoSinalizado).toHaveBeenCalled();
-    expect(onNaoPossuiConteudoSinalizado.mock.calls[1][0].detail).toStrictEqual({ possui: false, origem: 'notificacoes' });
+    expect(onNaoPossuiConteudoSinalizado.mock.calls[1][0].detail).toStrictEqual({ possui: false, origem: 'notificacoes', quantidadeTotalNaoLidas: 0 });
 
     notificacoes.removeEventListener('conteudoSinalizado', onNaoPossuiConteudoSinalizado);
   });
@@ -536,7 +559,7 @@ describe('notificacoes', () => {
 
     // Assert
     expect(onPossuiConteudoSinalizado).toHaveBeenCalled();
-    expect(onPossuiConteudoSinalizado.mock.calls[0][0].detail).toStrictEqual({ possui: true, origem: 'notificacoes' });
+    expect(onPossuiConteudoSinalizado.mock.calls[0][0].detail).toStrictEqual({ possui: true, origem: 'notificacoes', quantidadeTotalNaoLidas: 1 });
 
     notificacoes.removeEventListener('conteudoSinalizado', onPossuiConteudoSinalizado);
   });

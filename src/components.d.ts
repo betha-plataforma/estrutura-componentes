@@ -410,6 +410,10 @@ export namespace Components {
          */
         "authorization": AuthorizationConfig;
         /**
+          * Altura do painel de notificações
+         */
+        "heightPainelNotificacoes"?: string;
+        /**
           * URL para a api de notificações. Por padrão irá obter do env.js
          */
         "notificacoesApi"?: string;
@@ -417,6 +421,10 @@ export namespace Components {
           * URL para o channel websocket de notificações. Por padrão irá obter do env.js
          */
         "notificacoesWs"?: string;
+        /**
+          * True, exibe somente o box de notificações, sem barra e badge
+         */
+        "onlyContent"?: boolean;
     }
     interface BthNovidadeItem {
         /**
@@ -1033,6 +1041,10 @@ declare namespace LocalJSX {
          */
         "authorization"?: AuthorizationConfig;
         /**
+          * Altura do painel de notificações
+         */
+        "heightPainelNotificacoes"?: string;
+        /**
           * URL para a api de notificações. Por padrão irá obter do env.js
          */
         "notificacoesApi"?: string;
@@ -1048,6 +1060,10 @@ declare namespace LocalJSX {
           * É emitido quando alguma notificação do tipo mensagem for recebida
          */
         "onNovaNotificacaoComLink"?: (event: CustomEvent<NotificacaoComLinkEvent>) => void;
+        /**
+          * True, exibe somente o box de notificações, sem barra e badge
+         */
+        "onlyContent"?: boolean;
     }
     interface BthNovidadeItem {
         /**

@@ -16,6 +16,7 @@ coverage/
 .idea/
 .sass-cache/
 .versions/
+.history/
 node_modules/
 $RECYCLE.BIN/
 

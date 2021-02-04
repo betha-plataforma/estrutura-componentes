@@ -26,8 +26,8 @@ A tag do componente é `<bth-app>` e através do atributo `slot` é possível di
   <exemplo-elemento slot="menu_marca_produto"></exemplo-elemento>
 
   <!-- Menu ferramentas -->
-  <exemplo-elemento slot="menu_ferramentas"><exemplo-elemento>
-  <outro-exemplo-elemento slot="menu_ferramentas"><outro-exemplo-elemento>
+  <exemplo-elemento slot="menu_ferramentas"></exemplo-elemento>
+  <outro-exemplo-elemento slot="menu_ferramentas"></outro-exemplo-elemento>
 
   <!-- Contexto -->
   <exemplo-elemento slot="container_contexto"></exemplo-elemento>

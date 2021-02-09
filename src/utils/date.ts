@@ -20,12 +20,12 @@ export function getDataHoraDescrita(dateTime: number | string): string {
     return 'agora há pouco';
   }
 
-  // Memos de uma hora
+  // Menos de uma hora
   if (minutos < 60) {
     return 'há ' + minutos + ' minuto' + (minutos > 1 ? 's' : '');
   }
 
-  // Memos de 24 horas
+  // Menos de 24 horas
   if (minutos < 1440) {
     const horas = Math.trunc(minutos / 60);
     return 'há ' + horas + ' hora' + (horas > 1 ? 's' : '');

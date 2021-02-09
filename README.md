@@ -58,9 +58,9 @@ yarn add @betha-plataforma/estrutura-componentes
 
 Deve conter a fonte [**Open Sans**](https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans) instalada. 
 
-- O [**Kare | Framework Design**](https://github.com/betha-plataforma/kare) já possui essa fonte e suas variações.
+- O [**@betha-plataforma/theme-bootstrap4**](https://github.com/betha-plataforma/theme-bootstrap4) já possui essa fonte e suas variações.
 
-Caso não utilize o framework, é possível obter as definições nos arquivos de distribuição ao instalar este projeto. 
+Caso não utilize o framework acima, é possível obter as definições nos arquivos de distribuição ao instalar este projeto. 
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/@betha-plataforma/estrutura-componentes/dist/collection/assets/fonts.css">

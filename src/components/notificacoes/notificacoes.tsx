@@ -280,7 +280,7 @@ export class Notificacoes implements ComponentInterface {
       if (message.link.autoOpen) {
         var auth = this.authorization.getAuthorization();
         
-        var timeout = !message.systemId || (auth && message.systemId === auth.systemId)
+        var timeout = message.systemId == null || (auth && message.systemId === auth.systemId)
           ? 0
           : 3000;
 
@@ -288,7 +288,7 @@ export class Notificacoes implements ComponentInterface {
           this.notificacoesService.setRead(message.id)
             .then((res) => {
               if (res.status === 200) {
-                window.open(message.link.href, '_blank')
+                window.open(message.link.href, '_blank');
               }
             });
         }, timeout);

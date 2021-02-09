@@ -34,7 +34,7 @@ export class Api {
     }
 
     if (returnResponse) {
-      return response
+      return response;
     }
 
     if (response.status !== OK_STATUS_CODE) {

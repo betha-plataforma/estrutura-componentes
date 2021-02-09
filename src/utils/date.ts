@@ -13,37 +13,25 @@ export function getDataHoraDescrita(dateTime: number | string): string {
   const data = new Date(dateTime);
   const dataAgora = new Date();
 
-  let tempoFormatado = '';
-  if (isHoje(data, dataAgora)) {
-    if (!isMesmaHora(data, dataAgora)) {
-      const horas = getDiferencaEmHoras(data, dataAgora);
+  const minutos = getDiferencaEmMinutos(data, dataAgora);
 
-      tempoFormatado = 'há ' + horas + ' hora';
-
-      if (horas > 1) {
-        tempoFormatado += 's';
-      }
-
-      return tempoFormatado;
-    }
-
-    if (!isMesmoMinuto(data, dataAgora)) {
-      const minutos = getDiferencaEmMinutos(data, dataAgora);
-
-      if (minutos > 0) {
-        tempoFormatado = 'há ' + minutos + ' minuto';
-
-        if (minutos > 1) {
-          tempoFormatado += 's';
-        }
-
-        return tempoFormatado;
-      }
-    }
-
+  // Menos de 1 minuto
+  if (minutos < 1) {
     return 'agora há pouco';
   }
 
+  // Memos de uma hora
+  if (minutos < 60) {
+    return 'há ' + minutos + ' minuto' + (minutos > 1 ? 's' : '');
+  }
+
+  // Memos de 24 horas
+  if (minutos < 1440) {
+    const horas = Math.trunc(minutos / 60);
+    return 'há ' + horas + ' hora' + (horas > 1 ? 's' : '');
+  }
+
+  // Mais de 24 horas
   return formatarData(data) + ' às ' + data.toTimeString().substring(0, 5);
 }
 
@@ -51,26 +39,6 @@ function formatarData(data: Date) {
   return data.toLocaleString('pt-BR').substring(0, 10);
 }
 
-function isHoje(dataA: Date, dataB: Date) {
-  return getDateISOString(dataA) === getDateISOString(dataB);
-}
-
-function getDateISOString(data: Date) {
-  return data.toISOString().substring(0, 10);
-}
-
-function isMesmaHora(dataA: Date, dataB: Date) {
-  return getDiferencaEmMinutos(dataA, dataB) < 60;
-}
-
 function getDiferencaEmMinutos(dataA: Date, dataB: Date) {
-  return Math.floor((dataB.valueOf() - dataA.valueOf()) / (60 * 1000));
-}
-
-function getDiferencaEmHoras(dataA: Date, dataB: Date) {
-  return dataB.getHours() - dataA.getHours();
-}
-
-function isMesmoMinuto(dataA: Date, dataB: Date) {
-  return dataB.getMinutes() === dataA.getMinutes();
+  return Math.floor((dataB.getTime() - dataA.getTime()) / (60 * 1000));
 }

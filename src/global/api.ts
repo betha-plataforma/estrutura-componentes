@@ -25,12 +25,16 @@ export class Api {
     private baseUrl: string
   ) { }
 
-  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true): Promise<any> {
+  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true, returnResponse: boolean = false): Promise<any> {
     const response = await fetch(`${this.baseUrl}/${path}`, { method, headers: this.getHeaders() });
 
     if (response.status === UNAUTHORIZED_STATUS_CODE && retryUnauthorizedAccess && this.handleUnauthorizedAccess !== undefined) {
       await this.handleUnauthorizedAccess();
-      return await this.request(method, path, false);
+      return await this.request(method, path, false, returnResponse);
+    }
+
+    if (returnResponse) {
+      return response
     }
 
     if (response.status !== OK_STATUS_CODE) {

@@ -34,7 +34,7 @@ export class NotificacoesService {
   }
 
   async setRead(notificationId: string): Promise<any> {
-    return this.api.request('PUT', `api/messages/${notificationId}/read`);
+    return this.api.request('PUT', `api/messages/${notificationId}/read`, true, true);
   }
 
   async setUnread(notificationId: string): Promise<any> {

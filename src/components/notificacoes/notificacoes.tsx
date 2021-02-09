@@ -100,9 +100,7 @@ export class Notificacoes implements ComponentInterface {
 
     this.notificacoesService
       .setRead(event.detail.id)
-      .catch(() => {
-        this.marcarNotificacaoComoNaoLida(notificacao);
-      });
+      .catch(() => this.marcarNotificacaoComoNaoLida(notificacao));
 
     this.marcarNotificacaoComoLida(notificacao);
   }
@@ -278,6 +276,24 @@ export class Notificacoes implements ComponentInterface {
     }
 
     if (!isNill(message.link)) {
+
+      if (message.link.autoOpen) {
+        var auth = this.authorization.getAuthorization();
+        
+        var timeout = !message.systemId || (auth && message.systemId === auth.systemId)
+          ? 0
+          : 3000;
+
+        setTimeout(() => {
+          this.notificacoesService.setRead(message.id)
+            .then((res) => {
+              if (res.status === 200) {
+                window.open(message.link.href, '_blank')
+              }
+            });
+        }, timeout);
+      }
+
       this.novaNotificacaoComLink.emit({ texto: message.text, link: message.link });
     }
   }

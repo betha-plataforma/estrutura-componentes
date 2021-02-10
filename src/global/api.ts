@@ -2,7 +2,6 @@ import { isNill } from '../utils/functions';
 import { Authorization, AuthorizationConfig } from './interfaces';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
-const OK_STATUS_CODE = 200;
 
 export const isValidAuthorizationConfig = (authorization: AuthorizationConfig) => {
   if (isNill(authorization)) {
@@ -37,7 +36,7 @@ export class Api {
       return response;
     }
 
-    if (response.status !== OK_STATUS_CODE) {
+    if (!response.ok) {
       throw new Error(response.statusText);
     }
 

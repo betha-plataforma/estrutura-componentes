@@ -288,7 +288,13 @@ export class Notificacoes implements ComponentInterface {
           this.notificacoesService.setRead(message.id)
             .then((res) => {
               if (res.status === 200) {
-                window.open(message.link.href, '_blank');
+                var target = '_blank';
+
+                if (isNill(message.identifier) && message.identifier != '') {
+                  target = message.identifier as string;
+                }
+
+                window.open(message.link.href, target);
               }
             });
         }, timeout);

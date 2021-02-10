@@ -36,7 +36,7 @@ export class Api {
       return response;
     }
 
-    if (!response.ok) {
+    if (response.status < 200 || response.status >= 300) {
       throw new Error(response.statusText);
     }
 

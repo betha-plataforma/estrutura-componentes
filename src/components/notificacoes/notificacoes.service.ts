@@ -30,13 +30,11 @@ export class NotificacoesService {
   }
 
   async clearInProgressUnread(): Promise<any> {
-    return this.api.request('DELETE', 'api/messages/in-progress/unread')
-      .then(res => res.json());
+    return this.api.request('DELETE', 'api/messages/in-progress/unread');
   }
 
   async clearUnreads(): Promise<any> {
-    return this.api.request('DELETE', 'api/messages/unread?keepInProgress=true')
-      .then(res => res.json());
+    return this.api.request('DELETE', 'api/messages/unread?keepInProgress=true');
   }
 
   async setRead(notificationId: string): Promise<Response> {

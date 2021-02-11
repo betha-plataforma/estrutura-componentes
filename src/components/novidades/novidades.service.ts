@@ -12,7 +12,7 @@ export class NovidadesService {
   }
 
   async buscar(): Promise<any> {
-    return this.api.request('GET', 'api/novidades');
+    return this.api.request('GET', 'api/novidades').then(res => res.json());
   }
 
   marcarComoLida(novidadeId: string): void {

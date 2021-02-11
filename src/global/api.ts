@@ -24,23 +24,20 @@ export class Api {
     private baseUrl: string
   ) { }
 
-  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true, returnResponse: boolean = false): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/${path}`, { method, headers: this.getHeaders() });
+  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true): Promise<Response> {
+    return await fetch(`${this.baseUrl}/${path}`, { method, headers: this.getHeaders() })
+      .then(async response => {
+        if (response.status === UNAUTHORIZED_STATUS_CODE && retryUnauthorizedAccess && this.handleUnauthorizedAccess !== undefined) {
+          await this.handleUnauthorizedAccess();
+          return await this.request(method, path, false);
+        }
 
-    if (response.status === UNAUTHORIZED_STATUS_CODE && retryUnauthorizedAccess && this.handleUnauthorizedAccess !== undefined) {
-      await this.handleUnauthorizedAccess();
-      return await this.request(method, path, false, returnResponse);
-    }
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(response.statusText);
+        }
 
-    if (returnResponse) {
-      return response;
-    }
-
-    if (response.status < 200 || response.status >= 300) {
-      throw new Error(response.statusText);
-    }
-
-    return await response.json().catch(() => null);
+        return Promise.resolve(response);
+      });
   }
 
   private getHeaders(): Headers {

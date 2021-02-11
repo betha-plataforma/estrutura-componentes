@@ -94,12 +94,11 @@ export class MarcaProduto implements ComponentInterface {
     const UserAccountsApi = new Api(authorization, this.authorization.handleUnauthorizedAccess, `${this.getUserAccountsApi()}/api`);
 
     const promise = UserAccountsApi.request('GET', `access/${authorization.accessId}/systems`)
+      .then(res => res.json())
       .then(produtos => {
         this.produtos = produtos.filter((produto: Produto) => produto.id !== authorization.systemId);
       })
-      .catch(() => {
-        this.isApiIndisponivel = true;
-      });
+      .catch(() => this.isApiIndisponivel = true);
 
     this.tracker.addPromise(promise);
   }

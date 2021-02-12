@@ -97,6 +97,7 @@ export class NotificacaoItem implements ComponentInterface {
 
   private onClick = (event: UIEvent) => {
     event.preventDefault();
+    event.stopPropagation();
 
     const payload: NotificacaoLeituraEvent = {
       id: this.identificador

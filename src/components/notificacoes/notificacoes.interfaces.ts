@@ -9,6 +9,7 @@ export interface NotificacaoLink {
   label?: string;
   target: string;
   href: string;
+  autoOpen: boolean;
 }
 
 export interface NotificacaoLeituraEvent {
@@ -25,6 +26,7 @@ export interface NotificacaoComLinkEvent {
 // Esta interface representa a estrutura da notificação que vem da API
 export interface Notificacao {
   id: string;
+  systemId?: number;
   sequence: number;
   text: string;
   source: string;

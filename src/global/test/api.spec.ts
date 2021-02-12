@@ -55,7 +55,7 @@ describe('Api', () => {
       const baseUrl = 'https://site.com';
       const apiEndpoint = 'api/v1/tests';
       const siteApi = new Api({ accessToken }, () => Promise.resolve(), baseUrl);
-      await siteApi.request('GET', apiEndpoint);
+      await siteApi .request('GET', apiEndpoint) .then(res => res.json());
 
       expect(fetchMock).toBeCalledTimes(1);
       const expectedFetchOptions = {
@@ -81,7 +81,7 @@ describe('Api', () => {
       });
 
       const siteApi = new Api({ accessToken }, handleUnauthorizedAccess, baseUrl);
-      const response = await siteApi.request('GET', apiEndpoint);
+      const response = await siteApi.request('GET', apiEndpoint).then(res => res.json());
 
       expect(response).not.toBeNull();
       expect(fetchMock).toBeCalledTimes(2);

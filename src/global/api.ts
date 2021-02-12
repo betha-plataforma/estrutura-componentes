@@ -2,7 +2,6 @@ import { isNill } from '../utils/functions';
 import { Authorization, AuthorizationConfig } from './interfaces';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
-const OK_STATUS_CODE = 200;
 
 export const isValidAuthorizationConfig = (authorization: AuthorizationConfig) => {
   if (isNill(authorization)) {
@@ -25,19 +24,20 @@ export class Api {
     private baseUrl: string
   ) { }
 
-  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/${path}`, { method, headers: this.getHeaders() });
+  async request(method: string, path: string, retryUnauthorizedAccess: boolean = true): Promise<Response> {
+    return await fetch(`${this.baseUrl}/${path}`, { method, headers: this.getHeaders() })
+      .then(async response => {
+        if (response.status === UNAUTHORIZED_STATUS_CODE && retryUnauthorizedAccess && this.handleUnauthorizedAccess !== undefined) {
+          await this.handleUnauthorizedAccess();
+          return await this.request(method, path, false);
+        }
 
-    if (response.status === UNAUTHORIZED_STATUS_CODE && retryUnauthorizedAccess && this.handleUnauthorizedAccess !== undefined) {
-      await this.handleUnauthorizedAccess();
-      return await this.request(method, path, false);
-    }
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(response.statusText);
+        }
 
-    if (response.status !== OK_STATUS_CODE) {
-      throw new Error(response.statusText);
-    }
-
-    return await response.json().catch(() => null);
+        return Promise.resolve(response);
+      });
   }
 
   private getHeaders(): Headers {

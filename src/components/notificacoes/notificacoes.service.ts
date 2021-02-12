@@ -10,19 +10,23 @@ export class NotificacoesService {
   }
 
   async buscar(params: PaginationQueryParams = { offset: 0, limit: 20 }): Promise<any> {
-    return this.api.request('GET', `api/messages/?limit=${params.limit}&offset=${params.offset}`);
+    return this.api.request('GET', `api/messages/?limit=${params.limit}&offset=${params.offset}`)
+      .then(res => res.json());
   }
 
   async buscarNaoLidas(params: PaginationQueryParams = { offset: 0, limit: 20 }): Promise<any> {
-    return this.api.request('GET', `api/messages/unreads/all?limit=${params.limit}&offset=${params.offset}`);
+    return this.api.request('GET', `api/messages/unreads/all?limit=${params.limit}&offset=${params.offset}`)
+      .then(res => res.json());
   }
 
   async buscarLidas(params: PaginationQueryParams = { offset: 0, limit: 20 }): Promise<any> {
-    return this.api.request('GET', `api/messages/reads?limit=${params.limit}&offset=${params.offset}`);
+    return this.api.request('GET', `api/messages/reads?limit=${params.limit}&offset=${params.offset}`)
+      .then(res => res.json());
   }
 
   async buscarEmProgresso(params: PaginationQueryParams = { offset: 0, limit: 20 }): Promise<any> {
-    return this.api.request('GET', `api/messages/in-progress?limit=${params.limit}&offset=${params.offset}`);
+    return this.api.request('GET', `api/messages/in-progress?limit=${params.limit}&offset=${params.offset}`)
+      .then(res => res.json());
   }
 
   async clearInProgressUnread(): Promise<any> {
@@ -33,7 +37,7 @@ export class NotificacoesService {
     return this.api.request('DELETE', 'api/messages/unread?keepInProgress=true');
   }
 
-  async setRead(notificationId: string): Promise<any> {
+  async setRead(notificationId: string): Promise<Response> {
     return this.api.request('PUT', `api/messages/${notificationId}/read`);
   }
 

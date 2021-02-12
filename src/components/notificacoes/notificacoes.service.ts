@@ -38,11 +38,10 @@ export class NotificacoesService {
   }
 
   async setRead(notificationId: string): Promise<Response> {
-    return this.api.request('PUT', `api/messages/${notificationId}/read`, true);
+    return this.api.request('PUT', `api/messages/${notificationId}/read`);
   }
 
   async setUnread(notificationId: string): Promise<any> {
-    return this.api.request('PUT', `api/messages/${notificationId}/unread`)
-      .then(res => res.json());
+    return this.api.request('PUT', `api/messages/${notificationId}/unread`);
   }
 }

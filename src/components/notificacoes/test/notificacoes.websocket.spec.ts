@@ -171,6 +171,7 @@ describe('notificacoes-websocket', () => {
 
     // Act
     onCloseCallback({ code: 1001 });
+    jest.runOnlyPendingTimers();
 
     // Assert
     expect(authorization.handleUnauthorizedAccess).toBeCalled();
@@ -186,6 +187,7 @@ describe('notificacoes-websocket', () => {
 
     // Act
     onCloseCallback({ code: 1006 });
+    jest.runOnlyPendingTimers();
 
     // Assert
     expect(authorization.handleUnauthorizedAccess).toBeCalled();

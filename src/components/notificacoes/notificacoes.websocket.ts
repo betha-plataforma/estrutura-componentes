@@ -43,13 +43,13 @@ export class NotificationWebSocket {
 
     this.addEventListener('close', async (event: CloseEvent) => {
       if (CODES_TO_RECONNECT.includes(event.code) && !this.closed) {
-
-        await this.authorization.handleUnauthorizedAccess();
-
         const retryTime = this.refreshTime;
         this.refreshTime += RETRY_TIMEOUT_IN_MS;
 
-        setTimeout(() => this.refresh(), retryTime);
+        setTimeout(async () => {
+          await this.authorization.handleUnauthorizedAccess();
+          this.refresh();
+        }, retryTime);
       }
     });
   }

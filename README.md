@@ -11,7 +11,7 @@ Compatível com qualquer stack front-end que utilize HTML, CSS e JavaScript.
 - [bth-app](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app)
 - [bth-menu-ferramenta](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app/menu-ferramenta/)
 - [bth-menu-ferramenta-icone](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app/menu-ferramenta-icone)
-- [bth-menu-painel-lateral](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/menu-painel-lateral)
+- [bth-menu-painel-lateral](https://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/app/menu-painel-lateral)
 
 ### Marca e produto
 

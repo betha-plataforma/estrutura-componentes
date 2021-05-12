@@ -65,7 +65,7 @@ describe('descrição de um grupo de cenários de testes', () => {
 
 As características visuais e comportamentais devem ser respeitadas
 
-1. Estar de acordo com o [Design System](https://design.plataforma.betha.cloud/)
+1. Estar de acordo com o [Design System](https://docs.plataforma.betha.cloud/)
 1. Componentes do menu de ferramentas devem ser responsivos, adequando-se ao formato para dispositivos móveis.
 
 ## Style Guide e Boas Práticas

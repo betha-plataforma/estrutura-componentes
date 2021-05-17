@@ -20,5 +20,5 @@ Alguns componentes são autocontidos, necessitando somente de **variáveis de am
 
 ## Fontes Customizadas
 
-Por que é necessário instalar as fontes? Veja em ["Utilizando Fontes Customizadas em Web Components"](./docs/fontes-customizadas.md)
+Por que é necessário instalar as fontes? Veja em ["Utilizando Fontes Customizadas em Web Components"](./fontes-customizadas.md)
 

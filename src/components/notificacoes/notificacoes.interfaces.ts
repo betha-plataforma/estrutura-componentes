@@ -9,7 +9,7 @@ export interface NotificacaoLink {
   label?: string;
   target: string;
   href: string;
-  autoOpen: boolean;
+  autoOpen?: boolean;
 }
 
 export interface NotificacaoLeituraEvent {

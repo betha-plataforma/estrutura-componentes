@@ -3,7 +3,7 @@ import { Host, Component, Element, State, Listen, Method, Prop, h, Event, EventE
 import { TIMEOUT_INTERACOES, MSG_SEM_PERMISSAO_RECURSO, } from '../../global/constants';
 import { isNill, isDispositivoMovel } from '../../utils/functions';
 import { SLOT, LOCAL_STORAGE_KEY } from './app.constants';
-import { OpcaoMenu, LocalStorageState, IdentificadorOpcaoMenu, Banner, MenuBannerAlteradoEvent, OpcaoMenuSelecionadaEvent, OpcaoMenuInterna, ConteudoSinalizadoEvent } from './app.interfaces';
+import { OpcaoMenu, LocalStorageState, IdentificadorOpcaoMenu, Banner, BannerAtualizadoEvent, MenuBannerAlteradoEvent, OpcaoMenuSelecionadaEvent, OpcaoMenuInterna, ConteudoSinalizadoEvent } from './app.interfaces';
 import { MenuHorizontalSelecionadoEvent } from './menu-horizontal-item/menu-horizontal-item.interfaces';
 import { PainelLateralShowEvent } from './menu-painel-lateral/menu-painel-lateral.interfaces';
 import { MenuVerticalSelecionadoEvent } from './menu-vertical-item/menu-vertical-item.interfaces';
@@ -58,7 +58,7 @@ export class App implements ComponentInterface {
   /**
    * Permite definir um banner que é exibido acima do menu
    */
-  @Prop() readonly banner?: Banner;
+  @Prop({mutable: true}) banner?: Banner;
 
   /**
    * É emitido quando o componente de menu possuir alterações na propriedade de banner
@@ -94,6 +94,11 @@ export class App implements ComponentInterface {
   onConteudoSinalizado(event: CustomEvent<ConteudoSinalizadoEvent>): void {
     this.ferramentasSinalizacaoPendente[event.detail.origem] = event.detail.possui;
     this.possuiSinalizacaoPendente = this.possuiFerramentasSinalizadas();
+  }
+
+  @Listen('bannerAtualizado')
+  onBannerApresentado(event: CustomEvent<BannerAtualizadoEvent>): void {
+    this.banner = event.detail.banner;
   }
 
   @Listen('painelLateralShow')
@@ -488,7 +493,7 @@ export class App implements ComponentInterface {
           </div>,
           <div class="banner__content">
             <span>{this.banner.texto}</span>
-            <a href={this.banner.link} target="_blank" title="Mais informações" rel="noreferrer">Mais informações</a>
+            {this.banner.link && <a href={this.banner.link} target="_blank" title="Mais informações" rel="noreferrer">Mais informações</a>}
           </div>
         ])}
       </header>

@@ -1,11 +1,15 @@
 export interface Banner {
   texto: string;
   tipo: 'info' | 'warning';
-  link: string;
+  link?: string;
 }
 
 export interface MenuBannerAlteradoEvent {
   possui: boolean
+}
+
+export interface BannerAtualizadoEvent{
+  banner: Banner;
 }
 
 export interface ConteudoSinalizadoEvent {

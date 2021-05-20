@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Banner, ConteudoSinalizadoEvent, IdentificadorOpcaoMenu, MenuBannerAlteradoEvent, OpcaoMenu, OpcaoMenuSelecionadaEvent } from "./components/app/app.interfaces";
+import { Banner, BannerAtualizadoEvent, ConteudoSinalizadoEvent, IdentificadorOpcaoMenu, MenuBannerAlteradoEvent, OpcaoMenu, OpcaoMenuSelecionadaEvent } from "./components/app/app.interfaces";
 import { Tamanho } from "./components/comuns/avatar/avatar.interfaces";
 import { LogoutEvent } from "./components/conta-usuario/conta-usuario.interfaces";
 import { AuthorizationConfig } from "./global/interfaces";
@@ -101,6 +101,8 @@ export namespace Components {
           * Define o tamanho conforme dimensões pre-definidas para o avatar.  Opções disponíveis: menor (24x24), pequeno (28x28), medio (48x48) e grande (94x94)
          */
         "tamanho"?: Tamanho;
+    }
+    interface BthConexao {
     }
     interface BthContaUsuario {
         /**
@@ -494,6 +496,12 @@ declare global {
         prototype: HTMLBthAvatarElement;
         new (): HTMLBthAvatarElement;
     };
+    interface HTMLBthConexaoElement extends Components.BthConexao, HTMLStencilElement {
+    }
+    var HTMLBthConexaoElement: {
+        prototype: HTMLBthConexaoElement;
+        new (): HTMLBthConexaoElement;
+    };
     interface HTMLBthContaUsuarioElement extends Components.BthContaUsuario, HTMLStencilElement {
     }
     var HTMLBthContaUsuarioElement: {
@@ -606,6 +614,7 @@ declare global {
         "bth-ajuda": HTMLBthAjudaElement;
         "bth-app": HTMLBthAppElement;
         "bth-avatar": HTMLBthAvatarElement;
+        "bth-conexao": HTMLBthConexaoElement;
         "bth-conta-usuario": HTMLBthContaUsuarioElement;
         "bth-empty-state": HTMLBthEmptyStateElement;
         "bth-icone": HTMLBthIconeElement;
@@ -712,6 +721,16 @@ declare namespace LocalJSX {
           * Define o tamanho conforme dimensões pre-definidas para o avatar.  Opções disponíveis: menor (24x24), pequeno (28x28), medio (48x48) e grande (94x94)
          */
         "tamanho"?: Tamanho;
+    }
+    interface BthConexao {
+        /**
+          * É emitido quando houver alteracões na conexão com a internet
+         */
+        "onBannerAtualizado"?: (event: CustomEvent<BannerAtualizadoEvent>) => void;
+        /**
+          * É emitido quando houver alteracões na conexão com a internet
+         */
+        "onConteudoSinalizado"?: (event: CustomEvent<ConteudoSinalizadoEvent>) => void;
     }
     interface BthContaUsuario {
         /**
@@ -1125,6 +1144,7 @@ declare namespace LocalJSX {
         "bth-ajuda": BthAjuda;
         "bth-app": BthApp;
         "bth-avatar": BthAvatar;
+        "bth-conexao": BthConexao;
         "bth-conta-usuario": BthContaUsuario;
         "bth-empty-state": BthEmptyState;
         "bth-icone": BthIcone;
@@ -1152,6 +1172,7 @@ declare module "@stencil/core" {
             "bth-ajuda": LocalJSX.BthAjuda & JSXBase.HTMLAttributes<HTMLBthAjudaElement>;
             "bth-app": LocalJSX.BthApp & JSXBase.HTMLAttributes<HTMLBthAppElement>;
             "bth-avatar": LocalJSX.BthAvatar & JSXBase.HTMLAttributes<HTMLBthAvatarElement>;
+            "bth-conexao": LocalJSX.BthConexao & JSXBase.HTMLAttributes<HTMLBthConexaoElement>;
             "bth-conta-usuario": LocalJSX.BthContaUsuario & JSXBase.HTMLAttributes<HTMLBthContaUsuarioElement>;
             "bth-empty-state": LocalJSX.BthEmptyState & JSXBase.HTMLAttributes<HTMLBthEmptyStateElement>;
             "bth-icone": LocalJSX.BthIcone & JSXBase.HTMLAttributes<HTMLBthIconeElement>;

@@ -46,6 +46,7 @@ A configuração pode ser feita via _markup_.
  - [bth-ajuda](../../ajuda)
  - [bth-app](../../app)
  - [bth-avatar](../avatar)
+ - [bth-conexao](../../diagnosticos/conexao)
  - [bth-conta-usuario](../../conta-usuario)
  - [bth-marca-produto](../../marca-produto)
  - [bth-menu-ferramenta-icone](../../app/menu-ferramenta-icone)
@@ -62,6 +63,7 @@ graph TD;
   bth-ajuda --> bth-icone
   bth-app --> bth-icone
   bth-avatar --> bth-icone
+  bth-conexao --> bth-icone
   bth-conta-usuario --> bth-icone
   bth-marca-produto --> bth-icone
   bth-menu-ferramenta-icone --> bth-icone

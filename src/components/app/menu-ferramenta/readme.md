@@ -105,6 +105,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [bth-ajuda](../../ajuda)
+ - [bth-conexao](../../diagnosticos/conexao)
  - [bth-conta-usuario](../../conta-usuario)
  - [bth-notificacoes](../../notificacoes)
  - [bth-novidades](../../novidades)
@@ -120,6 +121,7 @@ graph TD;
   bth-menu-ferramenta --> bth-menu-painel-lateral
   bth-menu-painel-lateral --> bth-icone
   bth-ajuda --> bth-menu-ferramenta
+  bth-conexao --> bth-menu-ferramenta
   bth-conta-usuario --> bth-menu-ferramenta
   bth-notificacoes --> bth-menu-ferramenta
   bth-novidades --> bth-menu-ferramenta

@@ -724,7 +724,7 @@ declare namespace LocalJSX {
     }
     interface BthConexao {
         /**
-          * É emitido quando houver alteracões na conexão com a internet
+          * É emitido para exibir o banner quando estiver sem conexão com a internet.
          */
         "onBannerAtualizado"?: (event: CustomEvent<BannerAtualizadoEvent>) => void;
         /**

@@ -9,7 +9,7 @@ export {
 } from './components/app/app.interfaces';
 
 export {
-	Tamanho as TamanhoAvatar
+  Tamanho as TamanhoAvatar
 } from './components/comuns/avatar/avatar.interfaces';
 
 export {

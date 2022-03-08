@@ -24,6 +24,7 @@ Compatível com qualquer stack front-end que utilize HTML, CSS e JavaScript.
 - [bth-novidades](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/novidades)
 - [bth-ajuda](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/ajuda)
 - [bth-utilitarios](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/utilitarios)
+- [bth-pesquisa](http://github.com/betha-plataforma/estrutura-componentes/tree/master/src/components/pesquisa)
 
 ## Instalando
 

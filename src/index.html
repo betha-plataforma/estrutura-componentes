@@ -115,27 +115,30 @@
       </section>
 
       <section slot="container_aplicacao">
-        <h1>Área destinada a aplicação</h3>
+        <h1>Área destinada a aplicação</h1>
         <p>Este é um ambiente de desenvolvimento, abaixo temos algumas interações com os componentes aqui dispostos.</p>
 
-        <h2>Navegação</h4>
+        <h2>Navegação</h2>
         <p>As opções do menu podem ser <a href="" id="menuHorizontal">horizontais</a> ou <a href="" id="menuVertical">verticais</a></p>
 
-        <h2>Banner</h4>
+        <h2>Banner</h2>
         <p>Temos a possibilidade de <a href="#" class="link" id="linkBannerMenu">exibir um banner</a> de caráter informativo ou de alerta, sobrepondo o menu da aplicação. </p>
 
-        <h2>Contadores</h4>
+        <h2>Contadores</h2>
         <p>Nas opções dos menus, há a possibilidade de termos <a href="#" class="link" id="linkRandomizarContador">indicadores numéricos</a> que permitem sinalizar quantidade de
           algum conteúdo interno</p>
 
-        <h2>Comuns</h4>
+        <h2>Comuns</h2>
         <p>Há outros <a href="/comuns.html">componentes comuns</a> que serão logo separados deste projeto.
       </section>
+
+      <bth-pesquisa slot="container_aplicacao"></bth-pesquisa>
 
     </bth-app>
 
     <!-- Exemplo importando env.js -->
-    <script src="https://suite.cloud.betha.com.br/env.js" rel="noreferrer"></script>
+<!--    <script src="https://suite.cloud.betha.com.br/env.js" rel="noreferrer"></script>-->
+    <script src="https://suite.test.bethacloud.com.br/env.js" rel="noreferrer"></script>
 
     <!-- Coleção componentes menu -->
     <script type="module" src="/build/estrutura-componentes.esm.js"></script>
@@ -146,9 +149,10 @@
       function getAuthorization() {
         return {
           accessId: '5e613debe191120137316351',
-          accessToken: 'fbbbbffd-eeb4-4f7c-b222-8097e55e28fa',
+          accessToken: '9b3bcbb1-aa52-4d0a-b97b-5561253da0f8',
           userId: 'lorem.ipsum',
-          systemId: 78
+          systemId: 78,
+          userAccess: 'j5q0gidi_is='
         };
       }
 
@@ -332,6 +336,16 @@
       novidades.addEventListener('novaNovidade', (data) => {
         console.log('Nova mensagem obtida no componente de novidades', data.detail);
       });
+    </script>
+
+    <!-- PESQUISA -->
+    <script>
+      var authorization = {
+        getAuthorization: getAuthorization,
+        handleUnauthorizedAccess: handleUnauthorizedAccess,
+      }
+      var pesquisa = document.querySelector('bth-pesquisa');
+      pesquisa.authorization = authorization;
     </script>
 
   </body>

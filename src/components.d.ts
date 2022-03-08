@@ -454,6 +454,20 @@ export namespace Components {
          */
         "novidadesApi"?: string;
     }
+    interface BthPesquisa {
+        /**
+          * Configuração de autorização. É necessária para o componente poder autenticar com os serviços.
+         */
+        "authorization": AuthorizationConfig;
+        /**
+          * URL para a api de licenças. Por padrão irá obter do env.js.
+         */
+        "licencasApi"?: string;
+        /**
+          * URL para a api de Pesquisas. Por padrão irá obter do env.js.
+         */
+        "pesquisaApi"?: string;
+    }
     interface BthSelecaoContexto {
         /**
           * Método para buscar os itens de seleção
@@ -590,6 +604,12 @@ declare global {
         prototype: HTMLBthNovidadesElement;
         new (): HTMLBthNovidadesElement;
     };
+    interface HTMLBthPesquisaElement extends Components.BthPesquisa, HTMLStencilElement {
+    }
+    var HTMLBthPesquisaElement: {
+        prototype: HTMLBthPesquisaElement;
+        new (): HTMLBthPesquisaElement;
+    };
     interface HTMLBthSelecaoContextoElement extends Components.BthSelecaoContexto, HTMLStencilElement {
     }
     var HTMLBthSelecaoContextoElement: {
@@ -622,6 +642,7 @@ declare global {
         "bth-notificacoes": HTMLBthNotificacoesElement;
         "bth-novidade-item": HTMLBthNovidadeItemElement;
         "bth-novidades": HTMLBthNovidadesElement;
+        "bth-pesquisa": HTMLBthPesquisaElement;
         "bth-selecao-contexto": HTMLBthSelecaoContextoElement;
         "bth-utilitarios": HTMLBthUtilitariosElement;
     }
@@ -1097,6 +1118,20 @@ declare namespace LocalJSX {
          */
         "onConteudoSinalizado"?: (event: CustomEvent<ConteudoSinalizadoEvent>) => void;
     }
+    interface BthPesquisa {
+        /**
+          * Configuração de autorização. É necessária para o componente poder autenticar com os serviços.
+         */
+        "authorization"?: AuthorizationConfig;
+        /**
+          * URL para a api de licenças. Por padrão irá obter do env.js.
+         */
+        "licencasApi"?: string;
+        /**
+          * URL para a api de Pesquisas. Por padrão irá obter do env.js.
+         */
+        "pesquisaApi"?: string;
+    }
     interface BthSelecaoContexto {
         /**
           * Método para buscar os itens de seleção
@@ -1141,6 +1176,7 @@ declare namespace LocalJSX {
         "bth-notificacoes": BthNotificacoes;
         "bth-novidade-item": BthNovidadeItem;
         "bth-novidades": BthNovidades;
+        "bth-pesquisa": BthPesquisa;
         "bth-selecao-contexto": BthSelecaoContexto;
         "bth-utilitarios": BthUtilitarios;
     }
@@ -1168,6 +1204,7 @@ declare module "@stencil/core" {
             "bth-notificacoes": LocalJSX.BthNotificacoes & JSXBase.HTMLAttributes<HTMLBthNotificacoesElement>;
             "bth-novidade-item": LocalJSX.BthNovidadeItem & JSXBase.HTMLAttributes<HTMLBthNovidadeItemElement>;
             "bth-novidades": LocalJSX.BthNovidades & JSXBase.HTMLAttributes<HTMLBthNovidadesElement>;
+            "bth-pesquisa": LocalJSX.BthPesquisa & JSXBase.HTMLAttributes<HTMLBthPesquisaElement>;
             "bth-selecao-contexto": LocalJSX.BthSelecaoContexto & JSXBase.HTMLAttributes<HTMLBthSelecaoContextoElement>;
             "bth-utilitarios": LocalJSX.BthUtilitarios & JSXBase.HTMLAttributes<HTMLBthUtilitariosElement>;
         }

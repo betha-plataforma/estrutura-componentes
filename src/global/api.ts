@@ -45,6 +45,10 @@ export class Api {
 
     headers.append('Authorization', 'bearer ' + this.authorization.accessToken);
 
+    if (this.authorization.userAccess !== undefined) {
+      headers.append('User-Access', this.authorization.userAccess);
+    }
+
     return headers;
   }
 }

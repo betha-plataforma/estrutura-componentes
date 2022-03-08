@@ -6,6 +6,7 @@ export interface AuthorizationConfig {
 export interface Authorization {
   accessToken: string;
   accessId?: string;
-  systemId?: number,
-  userId?: string,
+  systemId?: number;
+  userId?: string;
+  userAccess?: string;
 }

@@ -1,7 +1,8 @@
 export interface Banner {
   texto: string;
   tipo: 'info' | 'warning';
-  link: string;
+  link?: string;
+  target?: '_blank' | '_parent' | '_self' | '_top';
 }
 
 export interface MenuBannerAlteradoEvent {

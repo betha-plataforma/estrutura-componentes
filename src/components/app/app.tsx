@@ -488,7 +488,9 @@ export class App implements ComponentInterface {
           </div>,
           <div class="banner__content">
             <span>{this.banner.texto}</span>
-            <a href={this.banner.link} target="_blank" title="Mais informações" rel="noreferrer">Mais informações</a>
+            {!isNill(this.banner.link) && this.banner.link.trim() !== '' && (
+              <a href={this.banner.link} target={this.banner.target} title="Mais informações" rel="noreferrer">Mais informações</a>
+            )}
           </div>
         ])}
       </header>

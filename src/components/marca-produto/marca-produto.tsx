@@ -306,8 +306,8 @@ export class MarcaProduto implements ComponentInterface {
                       <div class="empty-list-store"></div>,
                       <h3>
                         Conheça outros produtos disponíveis.
-                        Acesse os <a href={`${this.getStoreHome()}/#/pesquisa?identificador=TIPO&coluna=plataforma.chave&valor=web`} target="_blank" rel="noreferrer"> sistemas da entidade</a> ou
-                        <a href={`${this.getStoreHome()}/#/pesquisa?identificador=TIPO&coluna=plataforma.chave&valor=web`} target="_blank" rel="noreferrer"> explore mais soluções na Betha Store <bth-icone icone="open-in-new"></bth-icone>
+                        Acesse os <a href={this.getSuiteHome()} target="_blank" rel="noreferrer">sistemas da entidade</a> ou
+                        <a href={`${this.getStoreHome()}/pesquisa?identificador=TIPO&coluna=plataforma.chave&valor=web`} target="_blank" rel="noreferrer"> explore mais soluções na Betha Store <bth-icone icone="open-in-new"></bth-icone>
                         </a>
                       </h3>
                     ])}

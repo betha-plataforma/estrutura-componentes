@@ -286,11 +286,13 @@ describe('marca-produto', () => {
   it('exibe link p/ acesso a store quando a lista estiver vazia (através do env.js)', async () => {
     // Arrange
     await page.setContent('<bth-marca-produto></bth-marca-produto>');
+    const suiteUrl = 'https://suite.betha.cloud';
     const storeUrl = 'https://betha.store';
     setBethaEnvs({
       suite: {
         'user-accounts': { v1: { host: 'https://api.user-accounts.betha.cloud/v1' } },
-        'studio-ui': { v1: { store: storeUrl } }
+        'studio-ui': { v1: { store: storeUrl } },
+        'suite-ui': { home: { host: suiteUrl } }
       }
     });
     setFetchMockData([]);
@@ -304,8 +306,9 @@ describe('marca-produto', () => {
 
     // Assert
     const containerEmptyStates: HTMLDivElement = marcaProduto.shadowRoot.querySelector('.empty-state-container');
-    const storeLink: HTMLAnchorElement = containerEmptyStates.querySelector('a');
-    expect(storeLink.href).toMatch(new RegExp(storeUrl, 'ig'));
+    const storeLink: NodeListOf<HTMLAnchorElement> = containerEmptyStates.querySelectorAll('a');
+    expect(storeLink[0].href).toMatch(new RegExp(suiteUrl, 'ig'));
+    expect(storeLink[1].href).toMatch(new RegExp(storeUrl, 'ig'));
   });
 
   it('exibe link p/ acesso a store quando a lista estiver vazia (através de atributo)', async () => {
@@ -316,6 +319,7 @@ describe('marca-produto', () => {
     const marcaProduto: HTMLBthMarcaProdutoElement = page.doc.querySelector('bth-marca-produto');
     marcaProduto.authorization = getMockAuthorization();
 
+    const suiteUrl = 'https://suite.betha.cloud';
     const storeUrl = 'https://betha.store';
     marcaProduto.storeHome = storeUrl;
 
@@ -325,8 +329,9 @@ describe('marca-produto', () => {
 
     // Assert
     const containerEmptyStates: HTMLDivElement = marcaProduto.shadowRoot.querySelector('.empty-state-container');
-    const storeLink: HTMLAnchorElement = containerEmptyStates.querySelector('a');
-    expect(storeLink.href).toMatch(new RegExp(storeUrl, 'ig'));
+    const storeLink: NodeListOf<HTMLAnchorElement> = containerEmptyStates.querySelectorAll('a');
+    expect(storeLink[0].href).toMatch(new RegExp(suiteUrl, 'ig'));
+    expect(storeLink[1].href).toMatch(new RegExp(storeUrl, 'ig'));
   });
 
   it('exibe link p/ suite de produtos ao clicar em "Mais Produtos" (url através do env.js)', async () => {

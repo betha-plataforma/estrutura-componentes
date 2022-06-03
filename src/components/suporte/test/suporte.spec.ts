@@ -126,7 +126,6 @@ describe('suporte', () => {
     // Assert
     const blipChatButton: HTMLAnchorElement = suporte.shadowRoot.querySelector('[slot=conteudo_painel_lateral] a[title=\'Suporte via chat\']');
     const status: HTMLSpanElement = blipChatButton.querySelector('.status');
-    // console.warn(status);
     expect(status).toBeNull();
   });
 

@@ -7,12 +7,14 @@
 
 ## Properties
 
-| Property           | Attribute            | Description                                                         | Type               | Default     |
-| ------------------ | -------------------- | ------------------------------------------------------------------- | ------------------ | ----------- |
-| `blipChat`         | `blip-chat`          | Habilita ou desabilita o BLIP Chat                                  | `boolean`          | `false`     |
-| `blipChatUserInfo` | --                   | Usuário de sessão do BLIP Chat                                      | `BlipChatUserInfo` | `undefined` |
-| `centralAjudaHome` | `central-ajuda-home` | URL para a home da central de ajuda. Por padrão irá obter do env.js | `string`           | `undefined` |
-| `fabButton`        | `fab-button`         | Indica se a aplicação possui botão flutuante                        | `boolean`          | `false`     |
+| Property                 | Attribute                    | Description                                                         | Type               | Default     |
+| ------------------------ | ---------------------------- | ------------------------------------------------------------------- | ------------------ | ----------- |
+| `blipChat`               | `blip-chat`                  | Habilita ou desabilita o Blip Chat                                  | `boolean`          | `false`     |
+| `blipChatCustomStyle`    | `blip-chat-custom-style`     | Usar estilos que este componente fornece                            | `boolean`          | `false`     |
+| `blipChatFabButtonColor` | `blip-chat-fab-button-color` | Cor do botão flutuante do Blip Chat                                 | `string`           | `undefined` |
+| `blipChatUserInfo`       | --                           | Usuário de sessão do Blip Chat                                      | `BlipChatUserInfo` | `undefined` |
+| `centralAjudaHome`       | `central-ajuda-home`         | URL para a home da central de ajuda. Por padrão irá obter do env.js | `string`           | `undefined` |
+| `fabButton`              | `fab-button`                 | Indica se a aplicação já possui botão flutuante                     | `boolean`          | `false`     |
 
 
 ## Methods
@@ -20,7 +22,7 @@
 ### `handleWindowMessage(data: any) => Promise<void>`
 
 Método para testar recebimento de uma mensagem do window para definir o badge de mensagens não vistas,
-através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do BLIP Chat
+através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do Blip Chat
 
 #### Returns
 
@@ -30,7 +32,7 @@ Type: `Promise<void>`
 
 ### `loadBlipChat() => Promise<void>`
 
-Carrega o BLIP Chat
+Carrega o Blip Chat
 
 #### Returns
 

@@ -489,11 +489,19 @@ export namespace Components {
     }
     interface BthSuporte {
         /**
-          * Habilita ou desabilita o BLIP Chat
+          * Habilita ou desabilita o Blip Chat
          */
         "blipChat": boolean;
         /**
-          * Usuário de sessão do BLIP Chat
+          * Usar estilos que este componente fornece
+         */
+        "blipChatCustomStyle": boolean;
+        /**
+          * Cor do botão flutuante do Blip Chat
+         */
+        "blipChatFabButtonColor": string;
+        /**
+          * Usuário de sessão do Blip Chat
          */
         "blipChatUserInfo": BlipChatUserInfo;
         /**
@@ -501,16 +509,16 @@ export namespace Components {
          */
         "centralAjudaHome"?: string;
         /**
-          * Indica se a aplicação possui botão flutuante
+          * Indica se a aplicação já possui botão flutuante
          */
         "fabButton": boolean;
         /**
-          * Método para testar recebimento de uma mensagem do window para definir o badge de mensagens não vistas, através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do BLIP Chat
+          * Método para testar recebimento de uma mensagem do window para definir o badge de mensagens não vistas, através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do Blip Chat
           * @see https://gitlab.services.betha.cloud/ped/tecnologia/nlp/blip-webchat-loader
          */
         "handleWindowMessage": (data: any) => Promise<void>;
         /**
-          * Carrega o BLIP Chat
+          * Carrega o Blip Chat
          */
         "loadBlipChat": () => Promise<void>;
     }
@@ -1191,11 +1199,19 @@ declare namespace LocalJSX {
     }
     interface BthSuporte {
         /**
-          * Habilita ou desabilita o BLIP Chat
+          * Habilita ou desabilita o Blip Chat
          */
         "blipChat"?: boolean;
         /**
-          * Usuário de sessão do BLIP Chat
+          * Usar estilos que este componente fornece
+         */
+        "blipChatCustomStyle"?: boolean;
+        /**
+          * Cor do botão flutuante do Blip Chat
+         */
+        "blipChatFabButtonColor"?: string;
+        /**
+          * Usuário de sessão do Blip Chat
          */
         "blipChatUserInfo"?: BlipChatUserInfo;
         /**
@@ -1203,7 +1219,7 @@ declare namespace LocalJSX {
          */
         "centralAjudaHome"?: string;
         /**
-          * Indica se a aplicação possui botão flutuante
+          * Indica se a aplicação já possui botão flutuante
          */
         "fabButton"?: boolean;
     }

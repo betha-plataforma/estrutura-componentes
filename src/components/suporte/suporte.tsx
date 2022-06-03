@@ -4,7 +4,7 @@ import { isNill } from '../../utils/functions';
 import { BlipChatUserInfo } from './suporte.interfaces';
 
 /**
- * Componente do menu Suporte com BLIP Chat
+ * Componente do menu Suporte com Blip Chat
  *
  * @see https://gitlab.services.betha.cloud/ped/tecnologia/nlp/blip-webchat-loader
  * @see https://gitlab.services.betha.cloud/ped/suite/atendimento/components/suite-atendimento
@@ -17,17 +17,27 @@ import { BlipChatUserInfo } from './suporte.interfaces';
 export class Suporte implements ComponentInterface {
 
   /**
-   * Habilita ou desabilita o BLIP Chat
+   * Habilita ou desabilita o Blip Chat
    */
   @Prop() readonly blipChat: boolean = false;
 
   /**
-   * Usuário de sessão do BLIP Chat
+   * Usuário de sessão do Blip Chat
    */
   @Prop() readonly blipChatUserInfo: BlipChatUserInfo;
 
   /**
-   * Indica se a aplicação possui botão flutuante
+   * Usar estilos que este componente fornece
+   */
+  @Prop() readonly blipChatCustomStyle: boolean = false;
+
+  /**
+   * Cor do botão flutuante do Blip Chat
+   */
+  @Prop() readonly blipChatFabButtonColor: string;
+
+  /**
+   * Indica se a aplicação já possui botão flutuante
    */
   @Prop() readonly fabButton: boolean = false;
 
@@ -45,7 +55,7 @@ export class Suporte implements ComponentInterface {
   }
 
   /**
-   * Carrega o BLIP Chat
+   * Carrega o Blip Chat
    */
   @Method()
   async loadBlipChat(): Promise<void> {
@@ -57,7 +67,7 @@ export class Suporte implements ComponentInterface {
 
   /**
    * Método para testar recebimento de uma mensagem do window para definir o badge de mensagens não vistas,
-   * através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do BLIP Chat
+   * através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do Blip Chat
    * @see https://gitlab.services.betha.cloud/ped/tecnologia/nlp/blip-webchat-loader
    */
   @Method()
@@ -148,13 +158,17 @@ export class Suporte implements ComponentInterface {
 
   private setupBlipChat = (blipChatUserInfo: BlipChatUserInfo) => {
     this.setupBlipChatScript(blipChatUserInfo);
-    this.setupBlipChatStyles();
+    if (this.blipChatCustomStyle) {
+      this.setupBlipChatStyles();
+    }
   }
 
   private setupBlipChatScript = (blipChatUserInfo: BlipChatUserInfo) => {
     const script = document.createElement('script');
     script.src = 'https://resources.tecnologia.betha.cloud/blip-webchat/1.1/loader.js';
-    script.setAttribute('custom-color', '#595959');
+    if (!isNill(this.blipChatFabButtonColor)) {
+      script.setAttribute('custom-color', this.blipChatFabButtonColor);
+    }
     document.head.appendChild(script);
     const userInfo = {
       id: blipChatUserInfo.id,

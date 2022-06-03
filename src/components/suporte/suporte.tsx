@@ -182,7 +182,7 @@ export class Suporte implements ComponentInterface {
         ${ this.fabButton ? 'bottom: 135px !important;' : 'bottom: 99px !important;' }
       }
       @media screen and (min-width: 1024px) {
-        #blip-chat-container #blip-chat-iframe .blip-chat-iframe-opened {
+        #blip-chat-container #blip-chat-iframe.blip-chat-iframe-opened {
           height: 480px !important;
           width: 380px !important;
         }

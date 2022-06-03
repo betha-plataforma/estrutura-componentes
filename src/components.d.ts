@@ -15,6 +15,7 @@ import { MenuVerticalSelecionadoEvent } from "./components/app/menu-vertical-ite
 import { NotificacaoComLinkEvent, NotificacaoLink, TipoNotificacao } from "./components/notificacoes/notificacoes.interfaces";
 import { NovidadeLeituraEvent } from "./components/novidades/novidades.interfaces";
 import { ItemSelecaoContexto } from "./components/comuns/selecao-contexto/selecao-contexto.interfaces";
+import { BlipChatUserInfo } from "./components/suporte/suporte.interfaces";
 import { OpcaoUtilitarioSelecionadaEvent, Utilitario } from "./components/utilitarios/utilitarios.interfaces";
 export namespace Components {
     interface BthAjuda {
@@ -227,6 +228,10 @@ export namespace Components {
           * Define se a estilização é "mobile". Por padrão é "desktop".
          */
         "mobile": boolean;
+        /**
+          * Badge de Status
+         */
+        "status": 'online' | 'offline' | undefined;
     }
     interface BthMenuHorizontalItem {
         /**
@@ -464,7 +469,7 @@ export namespace Components {
          */
         "licencasApi"?: string;
         /**
-          * URL para a api de Pesquisas. Por padrão irá obter do env.js.
+          * URL para a api de pesquisas. Por padrão irá obter do env.js.
          */
         "pesquisaApi"?: string;
     }
@@ -481,6 +486,33 @@ export namespace Components {
           * Método executado ao selecionar algum item da lista
          */
         "selecionar": (item: ItemSelecaoContexto) => Promise<any> | void;
+    }
+    interface BthSuporte {
+        /**
+          * Habilita ou desabilita o BLIP Chat
+         */
+        "blipChat": boolean;
+        /**
+          * Usuário de sessão do BLIP Chat
+         */
+        "blipChatUserInfo": BlipChatUserInfo;
+        /**
+          * URL para a home da central de ajuda. Por padrão irá obter do env.js
+         */
+        "centralAjudaHome"?: string;
+        /**
+          * Indica se a aplicação possui botão flutuante
+         */
+        "fabButton": boolean;
+        /**
+          * Método para testar recebimento de uma mensagem do window para definir o badge de mensagens não vistas, através de um evento do tipo 'BLIP_WEBCHAT_NOTIFICATION' emitido pelo loader do BLIP Chat
+          * @see https://gitlab.services.betha.cloud/ped/tecnologia/nlp/blip-webchat-loader
+         */
+        "handleWindowMessage": (data: any) => Promise<void>;
+        /**
+          * Carrega o BLIP Chat
+         */
+        "loadBlipChat": () => Promise<void>;
     }
     interface BthUtilitarios {
         /**
@@ -616,6 +648,12 @@ declare global {
         prototype: HTMLBthSelecaoContextoElement;
         new (): HTMLBthSelecaoContextoElement;
     };
+    interface HTMLBthSuporteElement extends Components.BthSuporte, HTMLStencilElement {
+    }
+    var HTMLBthSuporteElement: {
+        prototype: HTMLBthSuporteElement;
+        new (): HTMLBthSuporteElement;
+    };
     interface HTMLBthUtilitariosElement extends Components.BthUtilitarios, HTMLStencilElement {
     }
     var HTMLBthUtilitariosElement: {
@@ -644,6 +682,7 @@ declare global {
         "bth-novidades": HTMLBthNovidadesElement;
         "bth-pesquisa": HTMLBthPesquisaElement;
         "bth-selecao-contexto": HTMLBthSelecaoContextoElement;
+        "bth-suporte": HTMLBthSuporteElement;
         "bth-utilitarios": HTMLBthUtilitariosElement;
     }
 }
@@ -859,6 +898,10 @@ declare namespace LocalJSX {
           * Define se a estilização é "mobile". Por padrão é "desktop".
          */
         "mobile"?: boolean;
+        /**
+          * Badge de Status
+         */
+        "status"?: 'online' | 'offline' | undefined;
     }
     interface BthMenuHorizontalItem {
         /**
@@ -1128,7 +1171,7 @@ declare namespace LocalJSX {
          */
         "licencasApi"?: string;
         /**
-          * URL para a api de Pesquisas. Por padrão irá obter do env.js.
+          * URL para a api de pesquisas. Por padrão irá obter do env.js.
          */
         "pesquisaApi"?: string;
     }
@@ -1145,6 +1188,24 @@ declare namespace LocalJSX {
           * Método executado ao selecionar algum item da lista
          */
         "selecionar"?: (item: ItemSelecaoContexto) => Promise<any> | void;
+    }
+    interface BthSuporte {
+        /**
+          * Habilita ou desabilita o BLIP Chat
+         */
+        "blipChat"?: boolean;
+        /**
+          * Usuário de sessão do BLIP Chat
+         */
+        "blipChatUserInfo"?: BlipChatUserInfo;
+        /**
+          * URL para a home da central de ajuda. Por padrão irá obter do env.js
+         */
+        "centralAjudaHome"?: string;
+        /**
+          * Indica se a aplicação possui botão flutuante
+         */
+        "fabButton"?: boolean;
     }
     interface BthUtilitarios {
         /**
@@ -1178,6 +1239,7 @@ declare namespace LocalJSX {
         "bth-novidades": BthNovidades;
         "bth-pesquisa": BthPesquisa;
         "bth-selecao-contexto": BthSelecaoContexto;
+        "bth-suporte": BthSuporte;
         "bth-utilitarios": BthUtilitarios;
     }
 }
@@ -1206,6 +1268,7 @@ declare module "@stencil/core" {
             "bth-novidades": LocalJSX.BthNovidades & JSXBase.HTMLAttributes<HTMLBthNovidadesElement>;
             "bth-pesquisa": LocalJSX.BthPesquisa & JSXBase.HTMLAttributes<HTMLBthPesquisaElement>;
             "bth-selecao-contexto": LocalJSX.BthSelecaoContexto & JSXBase.HTMLAttributes<HTMLBthSelecaoContextoElement>;
+            "bth-suporte": LocalJSX.BthSuporte & JSXBase.HTMLAttributes<HTMLBthSuporteElement>;
             "bth-utilitarios": LocalJSX.BthUtilitarios & JSXBase.HTMLAttributes<HTMLBthUtilitariosElement>;
         }
     }

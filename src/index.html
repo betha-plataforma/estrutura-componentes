@@ -93,6 +93,11 @@
       -->
       <bth-ajuda slot="menu_ferramentas"></bth-ajuda>
 
+      <!--
+        Suporte via chat
+      -->
+      <bth-suporte slot="menu_ferramentas" blip-chat></bth-suporte>
+
       <bth-novidades slot="menu_ferramentas"></bth-novidades>
 
       <!--
@@ -346,6 +351,16 @@
       }
       var pesquisa = document.querySelector('bth-pesquisa');
       pesquisa.authorization = authorization;
+    </script>
+
+    <!-- SUPORTE -->
+    <script>
+      var suporte = document.querySelector('bth-suporte');
+      suporte.blipChatUserInfo = {
+        id: 'ola',
+        nome: 'ola',
+        email: 'ola@gmail.com'
+      };
     </script>
 
   </body>

@@ -108,6 +108,7 @@ Type: `Promise<void>`
  - [bth-conta-usuario](../../conta-usuario)
  - [bth-notificacoes](../../notificacoes)
  - [bth-novidades](../../novidades)
+ - [bth-suporte](../../suporte)
  - [bth-utilitarios](../../utilitarios)
 
 ### Depends on
@@ -123,6 +124,7 @@ graph TD;
   bth-conta-usuario --> bth-menu-ferramenta
   bth-notificacoes --> bth-menu-ferramenta
   bth-novidades --> bth-menu-ferramenta
+  bth-suporte --> bth-menu-ferramenta
   bth-utilitarios --> bth-menu-ferramenta
   style bth-menu-ferramenta fill:#f9f,stroke:#333,stroke-width:4px
 ```

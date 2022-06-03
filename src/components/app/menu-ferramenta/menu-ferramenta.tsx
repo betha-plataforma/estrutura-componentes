@@ -116,6 +116,7 @@ export class MenuFerramenta implements ComponentInterface {
         <Host>
           <div class="ferramenta-menu__desktop-toggler" title={this.descricao} aria-haspopup="false">
             <slot name={SLOT.MENU_ITEM_DESKTOP}></slot>
+            <slot name={SLOT.MENU_DESCRICAO_DESKTOP}></slot>
           </div>
         </Host>
       );
@@ -140,6 +141,7 @@ export class MenuFerramenta implements ComponentInterface {
               onMouseLeave={this.onMouseLeaveToggle}
               onMouseOver={this.onMouseOverToggle}
               aria-label={`Acessar o painel da ferramenta de ${this.descricao}`}>
+              <slot name={SLOT.MENU_DESCRICAO_DESKTOP}></slot>
               <slot name={SLOT.MENU_ITEM_DESKTOP}></slot>
             </a>
           </div>

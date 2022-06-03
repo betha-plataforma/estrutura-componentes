@@ -20,11 +20,12 @@ Também implementa a possibilidade de exibição de um `badge` ao lado do ícone
 
 ## Properties
 
-| Property   | Attribute  | Description                                                 | Type      | Default   |
-| ---------- | ---------- | ----------------------------------------------------------- | --------- | --------- |
-| `contador` | `contador` | Valor que será exibido em uma "badge" próximo ao ícone      | `number`  | `0`       |
-| `icone`    | `icone`    | Ícone conforme biblioteca `"Material Design Icons"`         | `string`  | `'cloud'` |
-| `mobile`   | `mobile`   | Define se a estilização é "mobile". Por padrão é "desktop". | `boolean` | `false`   |
+| Property   | Attribute  | Description                                                 | Type                    | Default     |
+| ---------- | ---------- | ----------------------------------------------------------- | ----------------------- | ----------- |
+| `contador` | `contador` | Valor que será exibido em uma "badge" próximo ao ícone      | `number`                | `0`         |
+| `icone`    | `icone`    | Ícone conforme biblioteca `"Material Design Icons"`         | `string`                | `'cloud'`   |
+| `mobile`   | `mobile`   | Define se a estilização é "mobile". Por padrão é "desktop". | `boolean`               | `false`     |
+| `status`   | `status`   | Badge de Status                                             | `"offline" \| "online"` | `undefined` |
 
 
 ## Dependencies
@@ -34,6 +35,7 @@ Também implementa a possibilidade de exibição de um `badge` ao lado do ícone
  - [bth-ajuda](../../ajuda)
  - [bth-notificacoes](../../notificacoes)
  - [bth-novidades](../../novidades)
+ - [bth-suporte](../../suporte)
  - [bth-utilitarios](../../utilitarios)
 
 ### Depends on
@@ -47,6 +49,7 @@ graph TD;
   bth-ajuda --> bth-menu-ferramenta-icone
   bth-notificacoes --> bth-menu-ferramenta-icone
   bth-novidades --> bth-menu-ferramenta-icone
+  bth-suporte --> bth-menu-ferramenta-icone
   bth-utilitarios --> bth-menu-ferramenta-icone
   style bth-menu-ferramenta-icone fill:#f9f,stroke:#333,stroke-width:4px
 ```

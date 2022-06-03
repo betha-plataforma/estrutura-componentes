@@ -96,7 +96,7 @@ export class Suporte implements ComponentInterface {
         <div slot="conteudo_painel_lateral" class="suporte">
           <ul>
             { this.blipChat && (<li>
-              <a onClick={(event) => this.onSuporteViaChatClick(event)}
+              <a onClick={this.onSuporteViaChatClick}
                 title="Suporte via chat"
                 aria-label="Acessar o chat do suporte"
                 aria-disabled="false">

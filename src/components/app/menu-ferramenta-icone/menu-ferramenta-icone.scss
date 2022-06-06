@@ -1,7 +1,6 @@
 @import '../../../styles/normalize.scss';
 
 .desktop {
-  //display: block;
   display: inline-block;
   flex-direction: row;
   position: relative;
@@ -36,11 +35,10 @@
     transition: background-color 0.3s ease-in-out;
 
     &--success {
-      background-color: #33dd5c;
+      background-color: var(--bth-app-brand-lime);
     }
     &--danger {
-      //background-color: var(--bth-app-red);
-      background-color: #E1E3E6;
+      background-color: var(--bth-app-gray-light-10);
     }
   }
 }

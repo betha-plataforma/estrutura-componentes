@@ -1,7 +1,8 @@
 @import '../../../styles/normalize.scss';
 
 .desktop {
-  display: block;
+  display: inline-block;
+  flex-direction: row;
   position: relative;
 
   bth-icone {
@@ -23,6 +24,22 @@
     background-color: var(--bth-app-red);
     color: var(--bth-app-gray-light-40);
     right: -5px;
+  }
+
+  .status {
+    padding: 4px 4px;
+    right: -4px;
+    top: 1px;
+    color: var(--bth-app-gray-light-40);
+    border: 2px solid var(--bth-app-menu-item-hover-color, var(--bth-app-menu-bg-color));
+    transition: background-color 0.3s ease-in-out;
+
+    &--success {
+      background-color: var(--bth-app-brand-lime);
+    }
+    &--danger {
+      background-color: var(--bth-app-gray-light-10);
+    }
   }
 }
 

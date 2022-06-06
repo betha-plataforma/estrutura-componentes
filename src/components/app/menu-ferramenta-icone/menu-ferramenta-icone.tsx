@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, h, Prop } from '@stencil/core';
 
+import { isNill } from '../../../utils/functions';
 import Badge from './badge-menu-ferramenta-icone';
 
 /**
@@ -28,11 +29,18 @@ export class MenuFerramentaIcone implements ComponentInterface {
    */
   @Prop() readonly mobile: boolean = false;
 
+  /**
+   * Badge de Status
+   */
+  @Prop() readonly status: 'online' | 'offline' | undefined;
+
   render() {
     return (
       <div class={this.mobile ? 'mobile' : 'desktop'}>
         <bth-icone icone={this.icone}></bth-icone>
-        <Badge contador={this.contador}></Badge>
+        { this.status == 'online' && (isNill(this.contador) || this.contador == 0) && (<span class="badge status status--success"></span>)}
+        { this.status == 'offline' && (isNill(this.contador) || this.contador == 0) && (<span class="badge status status--danger"></span>)}
+        { this.contador > 0 && (<Badge contador={this.contador}></Badge>)}
       </div>
     );
   }

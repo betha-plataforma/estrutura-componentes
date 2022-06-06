@@ -8,6 +8,11 @@
 
   &--active {
     background-color: rgba(255, 255, 255, 0.2);
+    --bth-app-menu-item-hover-color: #3A434D;
+
+    a:hover {
+      --bth-app-menu-item-hover-color: #575F69 !important;
+    }
   }
 
   ::slotted(i),
@@ -42,6 +47,7 @@
     padding: 7px 11px 8px 11px;
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
+      --bth-app-menu-item-hover-color: #2E3741;
     }
     &:focus {
       outline: 1px dotted var(--bth-app-gray-light-10);

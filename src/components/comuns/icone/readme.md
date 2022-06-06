@@ -54,6 +54,7 @@ A configuração pode ser feita via _markup_.
  - [bth-navbar-pill-item](../navbar-pill/navbar-pill-item)
  - [bth-notificacao-item](../../notificacoes/notificacao-item)
  - [bth-novidade-item](../../novidades/novidade-item)
+ - [bth-suporte](../../suporte)
  - [bth-utilitarios](../../utilitarios)
 
 ### Graph
@@ -70,6 +71,7 @@ graph TD;
   bth-navbar-pill-item --> bth-icone
   bth-notificacao-item --> bth-icone
   bth-novidade-item --> bth-icone
+  bth-suporte --> bth-icone
   bth-utilitarios --> bth-icone
   style bth-icone fill:#f9f,stroke:#333,stroke-width:4px
 ```

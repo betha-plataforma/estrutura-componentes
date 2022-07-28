@@ -1,16 +1,17 @@
-.icon-badge-container {
+.icon-container {
   position: relative;
 }
-
-.icon-badge-icon {
-  position: relative;
+.badge-icon {
+  border-radius: 50%!important;
+  background-color: #dc3545!important;
+  padding: 0.25rem!important;
+  border-color: #f8f9fa!important;
+  border: 1px solid #dee2e6!important;
+  transform: translate(-50%,-50%)!important;
+  left: 70%!important;
+  top: 30%!important;
+  position: absolute!important;
 }
-.icon-badge {
-  background-color: red;
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius:20px;
-  position: relative;
-  top: -1.4rem;
-  left: 2rem;
+*, ::after, ::before {
+  box-sizing: border-box;
 }

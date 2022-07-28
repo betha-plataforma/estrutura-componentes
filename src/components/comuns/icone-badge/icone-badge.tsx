@@ -8,17 +8,16 @@ import {isNill} from '../../../utils/functions';
 })
 export class IconeBadge {
 
+  render() {
+    return (
+      <div class="icon-container">
+        <slot name="icone"></slot>
+        <span class="badge-icon" title={`${isNill(this.badgeTitle) ? '' : this.badgeTitle}`}></span>
+      </div>
+    );}
+
   /**
    * Title que deverá aparecer na badge
    */
   @Prop({ reflect: true }) readonly badgeTitle?: string;
-
-  render() {
-    return (
-      <div class="icon-badge-container">
-        <slot name="icone" />
-        <div class="icon-badge" title={`${isNill(this.badgeTitle) ? '' :this.badgeTitle}`}></div>
-      </div>
-    );
-  }
 }

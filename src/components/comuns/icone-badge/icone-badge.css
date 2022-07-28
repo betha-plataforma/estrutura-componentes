@@ -1,0 +1,16 @@
+.icon-badge-container {
+  position: relative;
+}
+
+.icon-badge-icon {
+  position: relative;
+}
+.icon-badge {
+  background-color: red;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius:20px;
+  position: relative;
+  top: -1.4rem;
+  left: 2rem;
+}

@@ -177,6 +177,27 @@ export class App implements ComponentInterface {
   }
 
   /**
+   * Define o estado de ativo para o badge no icone do item do menu
+   *
+   * @param identificador Identificador do menu
+   * @param ativo boolean que indica se deve ou não mostrar
+   */
+  @Method()
+  async setBadgeIcone(identificador: IdentificadorOpcaoMenu, ativo: boolean) {
+    if (this.possuiNavegacaoVertical()) {
+      this.opcoesMenu = this.opcoesMenu.map(opcao => {
+        opcao.possuiBadgeIcone = opcao.id === identificador ? ativo : false;
+        if (opcao.submenus !== undefined && opcao.submenus.length > 0) {
+          opcao.submenus = opcao.submenus.map(submenu => {
+            submenu.possuiBadgeIcone = submenu.id === identificador ? ativo : false;
+            return submenu;
+          });
+        }
+        return opcao;
+      });
+    }}
+
+  /**
    * Define o valor do contador de um item do menu
    *
    * @param identificador Identificador do item do menu
@@ -198,7 +219,6 @@ export class App implements ComponentInterface {
         return opcao;
       });
     }
-
     if (this.possuiNavegacaoHorizontal()) {
       this.opcoesMenu = this.opcoesMenu.map(opcao => {
         opcao.contador = opcao.id === identificador ? valor : opcao.contador;
@@ -620,6 +640,7 @@ export class App implements ComponentInterface {
                   icone={opcao.icone}
                   contador={opcao.contador}
                   possuiPermissao={opcao.possuiPermissao}
+                  possuiBadgeIcone={opcao.possuiBadgeIcone}
                   ativo={opcao.isAtivo}
                   recolhido={opcao.isRecolhido}
                   menuLateralRecolhido={this.isMenuVerticalRecolhido}

@@ -24,6 +24,7 @@ export interface OpcaoMenu {
   icone?: string;
   submenus?: Array<OpcaoMenu>;
   possuiPermissao?: boolean;
+  possuiBadgeIcone?: boolean;
 }
 
 export interface OpcaoMenuInterna extends OpcaoMenu {

@@ -28,6 +28,11 @@ export class MenuVerticalItem implements ComponentInterface {
   @Prop() readonly contador: number;
 
   /**
+   * Indica se deve aparecer um badge no ícone.
+   */
+  @Prop() readonly possuiBadgeIcone: boolean;
+
+  /**
    * Descrição
    */
   @Prop() readonly descricao: string;
@@ -115,8 +120,8 @@ export class MenuVerticalItem implements ComponentInterface {
           aria-disabled={`${!this.possuiPermissao}`}
           aria-label={possuiSubmenus ? `Expandir ${this.descricao}` : `Navegar para ${this.descricao}`}
           tabindex={this.possuiPermissao ? 0 : -1}>
-
-          {this.icone && (<bth-icone icone={this.icone}></bth-icone>)}
+          {this.icone && this.possuiBadgeIcone && (<bth-icone-badge><bth-icone slot="icone" icone={this.icone}></bth-icone></bth-icone-badge>) }
+          {this.icone && !this.possuiBadgeIcone && (<bth-icone icone={this.icone}></bth-icone>)}
 
           <span
             class={`${isNill(this.icone) && !this.submenu ? 'menu-vertical__item--sem-icone' : ''}`}

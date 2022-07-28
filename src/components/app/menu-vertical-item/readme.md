@@ -16,6 +16,7 @@ Item que representa uma opção do menu para navegação vertical
 | `identificador`        | `identificador`          | Identificador                                                                                                                     | `number \| string` | `undefined`        |
 | `identificadorPai`     | `identificador-pai`      | Identificador do menu agrupador "pai"                                                                                             | `number \| string` | `undefined`        |
 | `menuLateralRecolhido` | `menu-lateral-recolhido` | O menu principal está recolhido?  Este parâmetro influência no formato como alguns elementos são exibidos, ex: badge do contador. | `boolean`          | `undefined`        |
+| `possuiBadgeIcone`     | `possui-badge-icone`     | Indica se deve aparecer um badge no ícone.                                                                                        | `boolean`          | `undefined`        |
 | `possuiPermissao`      | `possui-permissao`       | Possui permissão?                                                                                                                 | `boolean`          | `PERMISSAO_PADRAO` |
 | `recolhido`            | `recolhido`              | Está recolhido?                                                                                                                   | `boolean`          | `undefined`        |
 | `submenu`              | `submenu`                | É um submenu?                                                                                                                     | `boolean`          | `undefined`        |
@@ -38,6 +39,7 @@ Item que representa uma opção do menu para navegação vertical
 
 ### Depends on
 
+- [bth-icone-badge](../../comuns/icone-badge)
 - [bth-icone](../../comuns/icone)
 - [bth-menu-vertical-item](.)
 

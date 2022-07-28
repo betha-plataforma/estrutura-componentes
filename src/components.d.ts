@@ -42,6 +42,12 @@ export namespace Components {
          */
         "opcoes"?: Array<OpcaoMenu>;
         /**
+          * Define o estado de ativo para o badge no icone do item do menu
+          * @param identificador Identificador do menu
+          * @param ativo boolean que indica se deve ou não mostrar
+         */
+        "setBadgeIcone": (identificador: IdentificadorOpcaoMenu, ativo: boolean) => Promise<void>;
+        /**
           * Define o valor do contador de um item do menu
           * @param identificador Identificador do item do menu
           * @param valor Valor do contador
@@ -168,6 +174,12 @@ export namespace Components {
           * Tamanho em pixels, no mesmo formato do `"font-size"` em CSS. Por padrão irá herdar do contexto inserido.
          */
         "tamanho": string;
+    }
+    interface BthIconeBadge {
+        /**
+          * Title que deverá aparecer na badge
+         */
+        "badgeTitle"?: string;
     }
     interface BthLoader {
         /**
@@ -306,6 +318,10 @@ export namespace Components {
           * O menu principal está recolhido?  Este parâmetro influência no formato como alguns elementos são exibidos, ex: badge do contador.
          */
         "menuLateralRecolhido": boolean;
+        /**
+          * Indica se deve aparecer um badge no ícone.
+         */
+        "possuiBadgeIcone": boolean;
         /**
           * Possui permissão?
          */
@@ -566,6 +582,12 @@ declare global {
         prototype: HTMLBthIconeElement;
         new (): HTMLBthIconeElement;
     };
+    interface HTMLBthIconeBadgeElement extends Components.BthIconeBadge, HTMLStencilElement {
+    }
+    var HTMLBthIconeBadgeElement: {
+        prototype: HTMLBthIconeBadgeElement;
+        new (): HTMLBthIconeBadgeElement;
+    };
     interface HTMLBthLoaderElement extends Components.BthLoader, HTMLStencilElement {
     }
     var HTMLBthLoaderElement: {
@@ -675,6 +697,7 @@ declare global {
         "bth-conta-usuario": HTMLBthContaUsuarioElement;
         "bth-empty-state": HTMLBthEmptyStateElement;
         "bth-icone": HTMLBthIconeElement;
+        "bth-icone-badge": HTMLBthIconeBadgeElement;
         "bth-loader": HTMLBthLoaderElement;
         "bth-marca-produto": HTMLBthMarcaProdutoElement;
         "bth-menu-ferramenta": HTMLBthMenuFerramentaElement;
@@ -851,6 +874,12 @@ declare namespace LocalJSX {
          */
         "tamanho"?: string;
     }
+    interface BthIconeBadge {
+        /**
+          * Title que deverá aparecer na badge
+         */
+        "badgeTitle"?: string;
+    }
     interface BthLoader {
         /**
           * Define se o loader é inline
@@ -984,6 +1013,10 @@ declare namespace LocalJSX {
           * É emitido quando o menu é selecionado
          */
         "onMenuVerticalSelecionado"?: (event: CustomEvent<MenuVerticalSelecionadoEvent>) => void;
+        /**
+          * Indica se deve aparecer um badge no ícone.
+         */
+        "possuiBadgeIcone"?: boolean;
         /**
           * Possui permissão?
          */
@@ -1240,6 +1273,7 @@ declare namespace LocalJSX {
         "bth-conta-usuario": BthContaUsuario;
         "bth-empty-state": BthEmptyState;
         "bth-icone": BthIcone;
+        "bth-icone-badge": BthIconeBadge;
         "bth-loader": BthLoader;
         "bth-marca-produto": BthMarcaProduto;
         "bth-menu-ferramenta": BthMenuFerramenta;
@@ -1269,6 +1303,7 @@ declare module "@stencil/core" {
             "bth-conta-usuario": LocalJSX.BthContaUsuario & JSXBase.HTMLAttributes<HTMLBthContaUsuarioElement>;
             "bth-empty-state": LocalJSX.BthEmptyState & JSXBase.HTMLAttributes<HTMLBthEmptyStateElement>;
             "bth-icone": LocalJSX.BthIcone & JSXBase.HTMLAttributes<HTMLBthIconeElement>;
+            "bth-icone-badge": LocalJSX.BthIconeBadge & JSXBase.HTMLAttributes<HTMLBthIconeBadgeElement>;
             "bth-loader": LocalJSX.BthLoader & JSXBase.HTMLAttributes<HTMLBthLoaderElement>;
             "bth-marca-produto": LocalJSX.BthMarcaProduto & JSXBase.HTMLAttributes<HTMLBthMarcaProdutoElement>;
             "bth-menu-ferramenta": LocalJSX.BthMenuFerramenta & JSXBase.HTMLAttributes<HTMLBthMenuFerramentaElement>;

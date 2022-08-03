@@ -124,7 +124,7 @@ export class MenuVerticalItem implements ComponentInterface {
             { this.icone && (<bth-icone icone={this.icone}></bth-icone>) }
             <span class={ this.possuiBadgeIcone ? 'badge-icon' : '' } />
           </div>
-          <span
+          <span id="descricaoMenu"
             class={`${isNill(this.icone) && !this.submenu ? 'menu-vertical__item--sem-icone' : ''}`}
             title={`${!this.possuiPermissao ? MSG_SEM_PERMISSAO_RECURSO : this.descricao}`}>
             {this.descricao}

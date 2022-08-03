@@ -175,12 +175,6 @@ export namespace Components {
          */
         "tamanho": string;
     }
-    interface BthIconeBadge {
-        /**
-          * Title que deverá aparecer na badge
-         */
-        "badgeTitle"?: string;
-    }
     interface BthLoader {
         /**
           * Define se o loader é inline
@@ -582,12 +576,6 @@ declare global {
         prototype: HTMLBthIconeElement;
         new (): HTMLBthIconeElement;
     };
-    interface HTMLBthIconeBadgeElement extends Components.BthIconeBadge, HTMLStencilElement {
-    }
-    var HTMLBthIconeBadgeElement: {
-        prototype: HTMLBthIconeBadgeElement;
-        new (): HTMLBthIconeBadgeElement;
-    };
     interface HTMLBthLoaderElement extends Components.BthLoader, HTMLStencilElement {
     }
     var HTMLBthLoaderElement: {
@@ -697,7 +685,6 @@ declare global {
         "bth-conta-usuario": HTMLBthContaUsuarioElement;
         "bth-empty-state": HTMLBthEmptyStateElement;
         "bth-icone": HTMLBthIconeElement;
-        "bth-icone-badge": HTMLBthIconeBadgeElement;
         "bth-loader": HTMLBthLoaderElement;
         "bth-marca-produto": HTMLBthMarcaProdutoElement;
         "bth-menu-ferramenta": HTMLBthMenuFerramentaElement;
@@ -873,12 +860,6 @@ declare namespace LocalJSX {
           * Tamanho em pixels, no mesmo formato do `"font-size"` em CSS. Por padrão irá herdar do contexto inserido.
          */
         "tamanho"?: string;
-    }
-    interface BthIconeBadge {
-        /**
-          * Title que deverá aparecer na badge
-         */
-        "badgeTitle"?: string;
     }
     interface BthLoader {
         /**
@@ -1273,7 +1254,6 @@ declare namespace LocalJSX {
         "bth-conta-usuario": BthContaUsuario;
         "bth-empty-state": BthEmptyState;
         "bth-icone": BthIcone;
-        "bth-icone-badge": BthIconeBadge;
         "bth-loader": BthLoader;
         "bth-marca-produto": BthMarcaProduto;
         "bth-menu-ferramenta": BthMenuFerramenta;
@@ -1303,7 +1283,6 @@ declare module "@stencil/core" {
             "bth-conta-usuario": LocalJSX.BthContaUsuario & JSXBase.HTMLAttributes<HTMLBthContaUsuarioElement>;
             "bth-empty-state": LocalJSX.BthEmptyState & JSXBase.HTMLAttributes<HTMLBthEmptyStateElement>;
             "bth-icone": LocalJSX.BthIcone & JSXBase.HTMLAttributes<HTMLBthIconeElement>;
-            "bth-icone-badge": LocalJSX.BthIconeBadge & JSXBase.HTMLAttributes<HTMLBthIconeBadgeElement>;
             "bth-loader": LocalJSX.BthLoader & JSXBase.HTMLAttributes<HTMLBthLoaderElement>;
             "bth-marca-produto": LocalJSX.BthMarcaProduto & JSXBase.HTMLAttributes<HTMLBthMarcaProdutoElement>;
             "bth-menu-ferramenta": LocalJSX.BthMenuFerramenta & JSXBase.HTMLAttributes<HTMLBthMenuFerramentaElement>;

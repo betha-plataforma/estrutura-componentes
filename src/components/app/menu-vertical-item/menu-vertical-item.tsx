@@ -120,9 +120,10 @@ export class MenuVerticalItem implements ComponentInterface {
           aria-disabled={`${!this.possuiPermissao}`}
           aria-label={possuiSubmenus ? `Expandir ${this.descricao}` : `Navegar para ${this.descricao}`}
           tabindex={this.possuiPermissao ? 0 : -1}>
-          {this.icone && this.possuiBadgeIcone && (<bth-icone-badge><bth-icone slot="icone" icone={this.icone}></bth-icone></bth-icone-badge>) }
-          {this.icone && !this.possuiBadgeIcone && (<bth-icone icone={this.icone}></bth-icone>)}
-
+          <div class="icon-container">
+            { this.icone && (<bth-icone icone={this.icone}></bth-icone>) }
+            <span class={ this.possuiBadgeIcone ? 'badge-icon' : '' } />
+          </div>
           <span
             class={`${isNill(this.icone) && !this.submenu ? 'menu-vertical__item--sem-icone' : ''}`}
             title={`${!this.possuiPermissao ? MSG_SEM_PERMISSAO_RECURSO : this.descricao}`}>

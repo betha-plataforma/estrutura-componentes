@@ -39,7 +39,6 @@ Item que representa uma opção do menu para navegação vertical
 
 ### Depends on
 
-- [bth-icone-badge](../../comuns/icone-badge)
 - [bth-icone](../../comuns/icone)
 - [bth-menu-vertical-item](.)
 

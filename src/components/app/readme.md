@@ -175,7 +175,6 @@ graph TD;
   bth-app --> bth-icone
   bth-app --> bth-menu-horizontal-item
   bth-app --> bth-menu-vertical-item
-  bth-menu-vertical-item --> bth-icone-badge
   bth-menu-vertical-item --> bth-icone
   bth-menu-vertical-item --> bth-menu-vertical-item
   style bth-app fill:#f9f,stroke:#333,stroke-width:4px

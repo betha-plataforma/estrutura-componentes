@@ -32,7 +32,7 @@ describe('bth-menu-vertical-item', () => {
 
     // Assert
     expect(menuVerticalItem.descricao).toBe(opcaoMenu.descricao);
-    const descricao: HTMLSpanElement = menuVerticalItem.shadowRoot.querySelector('span');
+    const descricao: HTMLSpanElement = menuVerticalItem.shadowRoot.querySelector('#descricaoMenu');
     expect(descricao.textContent).toBe(opcaoMenu.descricao);
 
     expect(menuVerticalItem.icone).toBe(opcaoMenu.icone);

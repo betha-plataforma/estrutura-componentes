@@ -113,6 +113,16 @@ As opções do menu podem ser configuradas através de algumas propriedades
 
 ## Methods
 
+### `setBadgeIcone(identificador: IdentificadorOpcaoMenu, ativo: boolean) => Promise<void>`
+
+Define o estado de ativo para o badge no icone do item do menu
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setContadorMenu(identificador: IdentificadorOpcaoMenu, valor: number) => Promise<void>`
 
 Define o valor do contador de um item do menu

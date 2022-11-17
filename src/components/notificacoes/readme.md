@@ -73,11 +73,11 @@ notificacoes.addEventListener('novaNotificacaoComLink', (data) => {
 
 ## Events
 
-| Event                     | Description                                                                       | Type                                    |
-| ------------------------- | --------------------------------------------------------------------------------- | --------------------------------------- |
-| `conteudoSinalizado`      | É emitido quando houver notificações lidas ou não lidas a ser sinalizadas ao menu | `CustomEvent<ConteudoSinalizadoEvent>`  |
-| `novaNotificacaoComLink`  | É emitido quando alguma notificação do tipo mensagem for recebida                 | `CustomEvent<NotificacaoComLinkEvent>`  |
-| `novaNotificacaoRecebida` | É emitido quando alguma notificação for recebida                                  | `CustomEvent<NotificacaoRecebidaEvent>` |
+| Event                    | Description                                                                       | Type                                   |
+| ------------------------ | --------------------------------------------------------------------------------- | -------------------------------------- |
+| `conteudoSinalizado`     | É emitido quando houver notificações lidas ou não lidas a ser sinalizadas ao menu | `CustomEvent<ConteudoSinalizadoEvent>` |
+| `novaNotificacao`        | É emitido quando alguma notificação for recebida                                  | `CustomEvent<NotificacaoEvent>`        |
+| `novaNotificacaoComLink` | É emitido quando alguma notificação do tipo mensagem for recebida                 | `CustomEvent<NotificacaoComLinkEvent>` |
 
 
 ## Dependencies

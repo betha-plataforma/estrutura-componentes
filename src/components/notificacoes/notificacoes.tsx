@@ -6,7 +6,7 @@ import { isNill } from '../../utils/functions';
 import { PromiseTracker } from '../../utils/promise-tracker';
 import { ConteudoSinalizadoEvent } from '../app/app.interfaces';
 import { LIMITE_PAGINACAO, MessageType, ReadAction } from './notificacoes.constants';
-import { TipoNotificacao, OpcaoFiltro, Notificacao, NotificacaoLeituraEvent, NotificacaoComLinkEvent, NotificacaoRecebidaEvent, NotificacaoWebsocketMessage } from './notificacoes.interfaces';
+import { TipoNotificacao, OpcaoFiltro, Notificacao, NotificacaoLeituraEvent, NotificacaoComLinkEvent, NotificacaoEvent, NotificacaoWebsocketMessage } from './notificacoes.interfaces';
 import { NotificacoesService } from './notificacoes.service';
 import { sortByDateTime } from './notificacoes.utils';
 import { NotificationWebSocket } from './notificacoes.websocket';
@@ -76,7 +76,7 @@ export class Notificacoes implements ComponentInterface {
   /**
    * É emitido quando alguma notificação for recebida
    */
-  @Event() novaNotificacaoRecebida: EventEmitter<NotificacaoRecebidaEvent>;
+  @Event() novaNotificacao: EventEmitter<NotificacaoEvent>;
 
   /**
    * É emitido quando alguma notificação do tipo mensagem for recebida
@@ -307,7 +307,7 @@ export class Notificacoes implements ComponentInterface {
       this.novaNotificacaoComLink.emit({ texto: message.text, link: message.link });
     }
 
-    this.novaNotificacaoRecebida.emit({ texto: message.text, link: message.link, tipo: message.type, icone: message.icon });
+    this.novaNotificacao.emit({ texto: message.text, link: message.link, tipo: message.type, icone: message.icon });
   }
 
   private addMensagemNaoLida(message: Notificacao): void {

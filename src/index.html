@@ -326,15 +326,6 @@
           }]
         });
       });
-
-      notificacoes.addEventListener('novaNotificacaoRecebida', (data) => {
-        const notificacao = data.detail;
-
-        toast.publish({
-          type: 'success',
-          description: notificacao.texto,
-        });
-      });
     </script>
 
     <!-- NOVIDADES -->

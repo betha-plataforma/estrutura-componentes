@@ -23,7 +23,7 @@ export interface NotificacaoComLinkEvent {
   link: NotificacaoLink;
 }
 
-export interface NotificacaoRecebidaEvent {
+export interface NotificacaoEvent {
   texto: string;
   link: NotificacaoLink;
   icone: string;

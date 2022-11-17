@@ -12,7 +12,7 @@ import { AuthorizationConfig } from "./global/interfaces";
 import { MenuHorizontalSelecionadoEvent } from "./components/app/menu-horizontal-item/menu-horizontal-item.interfaces";
 import { PainelLateralShowEvent } from "./components/app/menu-painel-lateral/menu-painel-lateral.interfaces";
 import { MenuVerticalSelecionadoEvent } from "./components/app/menu-vertical-item/menu-vertical-item.interfaces";
-import { NotificacaoComLinkEvent, NotificacaoLink, NotificacaoRecebidaEvent, TipoNotificacao } from "./components/notificacoes/notificacoes.interfaces";
+import { NotificacaoComLinkEvent, NotificacaoEvent, NotificacaoLink, TipoNotificacao } from "./components/notificacoes/notificacoes.interfaces";
 import { NovidadeLeituraEvent } from "./components/novidades/novidades.interfaces";
 import { ItemSelecaoContexto } from "./components/comuns/selecao-contexto/selecao-contexto.interfaces";
 import { BlipChatUserInfo } from "./components/suporte/suporte.interfaces";
@@ -1117,13 +1117,13 @@ declare namespace LocalJSX {
          */
         "onConteudoSinalizado"?: (event: CustomEvent<ConteudoSinalizadoEvent>) => void;
         /**
+          * É emitido quando alguma notificação for recebida
+         */
+        "onNovaNotificacao"?: (event: CustomEvent<NotificacaoEvent>) => void;
+        /**
           * É emitido quando alguma notificação do tipo mensagem for recebida
          */
         "onNovaNotificacaoComLink"?: (event: CustomEvent<NotificacaoComLinkEvent>) => void;
-        /**
-          * É emitido quando alguma notificação for recebida
-         */
-        "onNovaNotificacaoRecebida"?: (event: CustomEvent<NotificacaoRecebidaEvent>) => void;
     }
     interface BthNovidadeItem {
         /**

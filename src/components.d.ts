@@ -42,6 +42,12 @@ export namespace Components {
          */
         "opcoes"?: Array<OpcaoMenu>;
         /**
+          * Define o estado de ativo para o badge no icone do item do menu
+          * @param identificador Identificador do menu
+          * @param ativo boolean que indica se deve ou não mostrar
+         */
+        "setBadgeIcone": (identificador: IdentificadorOpcaoMenu, ativo: boolean) => Promise<void>;
+        /**
           * Define o valor do contador de um item do menu
           * @param identificador Identificador do item do menu
           * @param valor Valor do contador
@@ -306,6 +312,10 @@ export namespace Components {
           * O menu principal está recolhido?  Este parâmetro influência no formato como alguns elementos são exibidos, ex: badge do contador.
          */
         "menuLateralRecolhido": boolean;
+        /**
+          * Indica se deve aparecer um badge no ícone.
+         */
+        "possuiBadgeIcone": boolean;
         /**
           * Possui permissão?
          */
@@ -984,6 +994,10 @@ declare namespace LocalJSX {
           * É emitido quando o menu é selecionado
          */
         "onMenuVerticalSelecionado"?: (event: CustomEvent<MenuVerticalSelecionadoEvent>) => void;
+        /**
+          * Indica se deve aparecer um badge no ícone.
+         */
+        "possuiBadgeIcone"?: boolean;
         /**
           * Possui permissão?
          */

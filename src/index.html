@@ -133,6 +133,9 @@
         <p>Nas opções dos menus, há a possibilidade de termos <a href="#" class="link" id="linkRandomizarContador">indicadores numéricos</a> que permitem sinalizar quantidade de
           algum conteúdo interno</p>
 
+        <h2>Bagde em ícones de Menu</h2>
+        <p>Nas opções dos menus, há a possibilidade de adicionar um badge no  <a href="#" class="link" id="linkBadge">ícone</a> para indicar uma novidade ou pendência</p>
+
         <h2>Comuns</h2>
         <p>Há outros <a href="/comuns.html">componentes comuns</a> que serão logo separados deste projeto.
       </section>
@@ -179,8 +182,9 @@
       });
 
       app.opcoes = [
-        { id: 'visao-geral', descricao: 'Visão geral', icone: 'chart-pie', rota: '/visao-geral', possuiPermissao: true },
-        { id: 'administrando', descricao: 'Administrando', icone: 'contacts', rota: '/administrando', possuiPermissao: false },
+        { id: 'visao-geral', descricao: 'Visão geral', icone: 'chart-pie', rota: '/visao-geral', possuiPermissao: true, possuiBadgeIcone: false },
+        { id: 'fluxo-trabalho', descricao: 'Fluxo trabalho', icone: 'briefcase-check', rota: '/visao-geral', possuiPermissao: true, possuiBadgeIcone: true },
+        { id: 'administrando', descricao: 'Administrando', icone: 'contacts', rota: '/administrando', possuiPermissao: false, possuiBadgeIcone: true },
         {
           id: 'gerenciando', descricao: 'Gerenciando', icone: 'cog', possuiPermissao: true,
           submenus: [
@@ -219,6 +223,12 @@
           let numeroAleatorio = Math.round(Math.random() * Math.round(Math.random() * 100));
           app.setContadorMenu('liberando', numeroAleatorio);
           app.setContadorMenu('gerenciando', numeroAleatorio);
+        });
+
+      document
+        .querySelector('#linkBadge').addEventListener('click', function () {
+          let opcaoMenu = app.opcoes[0];
+          app.setBadgeIcone(opcaoMenu.id, !opcaoMenu.possuiBadgeIcone);
         });
 
       let activeBannerRef = 0;

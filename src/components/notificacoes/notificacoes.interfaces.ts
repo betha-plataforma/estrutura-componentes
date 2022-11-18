@@ -23,6 +23,13 @@ export interface NotificacaoComLinkEvent {
   link: NotificacaoLink;
 }
 
+export interface NotificacaoEvent {
+  texto: string;
+  link: NotificacaoLink;
+  icone: string;
+  tipo: string;
+}
+
 // Esta interface representa a estrutura da notificação que vem da API
 export interface Notificacao {
   id: string;
@@ -47,7 +54,7 @@ export interface Notificacao {
   read?: boolean;
   status?: string;
   trackingLink?: NotificacaoLink;
-  type?: unknown;
+  type?: string;
   user?: string;
   userDestined?: boolean;
 }

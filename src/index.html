@@ -235,6 +235,12 @@
       document
         .querySelector('#linkBannerMenu')
         .addEventListener('click', function () {
+          const bannerPerigo = {
+            texto: 'Você está offline. Restabeleça sua conexão para continuar utilizando a aplicação.',
+            tipo: 'danger',
+            link: 'https://www.betha.com.br'
+          }
+
           const bannerAlerta = {
             texto: 'Sua conexão com a internet está instável. Por isso, o sistema pode apresentar lentidão e prejudicar algumas atividades',
             tipo: 'warning',
@@ -251,6 +257,8 @@
             app.banner = bannerInformacao;
           } else if (activeBannerRef === 1) {
             app.banner = bannerAlerta;
+          } else if (activeBannerRef === 2) {
+            app.banner = bannerPerigo;
           } else {
             app.banner = undefined;
             activeBannerRef = -1;

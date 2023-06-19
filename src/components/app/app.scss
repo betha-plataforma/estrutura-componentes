@@ -78,6 +78,9 @@ slot[name="container_contexto"] {
   &--info {
     background-color: var(--bth-app-aqua-light-20);
   }
+  &--danger {
+    background-color: var(--bth-app-red-light-20);
+  }
 }
 
 .app-container {

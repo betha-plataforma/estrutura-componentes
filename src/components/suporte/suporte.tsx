@@ -1,6 +1,8 @@
 import { Component, h, Prop, ComponentInterface, State, Watch, Method } from '@stencil/core';
 
+import { AuthorizationConfig } from '../../global/interfaces';
 import { isNill } from '../../utils/functions';
+import { LicencasService } from './licencas.service';
 import { BlipChatUserInfo } from './suporte.interfaces';
 
 /**
@@ -45,6 +47,21 @@ export class Suporte implements ComponentInterface {
    * URL para a home da central de ajuda. Por padrão irá obter do env.js
    */
   @Prop() readonly centralAjudaHome?: string;
+
+  /**
+   * Habilita ou desabilita o botão de abrir um chamado no atendimento
+   */
+  @Prop() readonly atendimento: boolean = false;
+
+  /**
+   * Configuração de autorização. É necessária para o componente poder autenticar com os serviços.
+   */
+  @Prop() readonly authorization: AuthorizationConfig;
+
+  /**
+   * URL para a api de licenças. Por padrão irá obter do env.js.
+   */
+  @Prop() readonly licencasApi?: string;
 
   @State() blipChatCounter: number = 0;
   @State() blipChatStatus: 'online' | 'offline' | undefined;
@@ -118,6 +135,15 @@ export class Suporte implements ComponentInterface {
                 <span>Central de ajuda</span>
               </a>
             </li>
+            { this.atendimento && (<li>
+              <a onClick={this.onAtendimentoClick}
+                title="Abrir um chamado"
+                aria-label="Abrir um chamado"
+                aria-disabled="false">
+                <bth-icone icone="plus-thick" title="Plus"></bth-icone>
+                <span>Abrir um chamado</span>
+              </a>
+            </li>)}
           </ul>
         </div>
       </bth-menu-ferramenta>
@@ -243,5 +269,35 @@ export class Suporte implements ComponentInterface {
 
   private isBetween8h30mAnd12h = (hours, minutes) => (((hours == 8 && minutes >= 30) || (hours >= 9)) && hours <= 11);
   private isBetween13h30mAnd18h = (hours, minutes) => (((hours == 13 && minutes >= 30) || (hours >= 14)) && hours <= 17);
+
+  private onAtendimentoClick = async (event: UIEvent) => {
+    event.preventDefault();
+    if (!this.atendimento) {
+      return;
+    }
+    if (isNill(this.getLicencasApi()) || this.authorization === undefined) {
+      console.warn('[bth-suporte] O endereço do serviço de licenças e as credenciais de autenticação devem ser informados. Consulte a documentação do componente.');
+      return;
+    }
+    const licencasService = new LicencasService(this.authorization, this.getLicencasApi());
+    licencasService.carregarAtendimento().then(atendimento => {
+      if (atendimento) {
+        window.open(atendimento.novo, '_blank');
+      }
+    });
+
+  }
+
+  private getLicencasApi(): string {
+    if (!isNill(this.licencasApi)) {
+      return this.licencasApi;
+    }
+
+    if ('___bth' in window) {
+      return window['___bth'].envs.suite['licenses'].v1.host;
+    }
+
+    return null;
+  }
 
 }

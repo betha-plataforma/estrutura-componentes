@@ -499,6 +499,14 @@ export namespace Components {
     }
     interface BthSuporte {
         /**
+          * Habilita ou desabilita o botão de abrir um chamado no atendimento
+         */
+        "atendimento": boolean;
+        /**
+          * Configuração de autorização. É necessária para o componente poder autenticar com os serviços.
+         */
+        "authorization": AuthorizationConfig;
+        /**
           * Habilita ou desabilita o Blip Chat
          */
         "blipChat": boolean;
@@ -527,6 +535,10 @@ export namespace Components {
           * @see https://gitlab.services.betha.cloud/ped/tecnologia/nlp/blip-webchat-loader
          */
         "handleWindowMessage": (data: any) => Promise<void>;
+        /**
+          * URL para a api de licenças. Por padrão irá obter do env.js.
+         */
+        "licencasApi"?: string;
         /**
           * Carrega o Blip Chat
          */
@@ -1217,6 +1229,14 @@ declare namespace LocalJSX {
     }
     interface BthSuporte {
         /**
+          * Habilita ou desabilita o botão de abrir um chamado no atendimento
+         */
+        "atendimento"?: boolean;
+        /**
+          * Configuração de autorização. É necessária para o componente poder autenticar com os serviços.
+         */
+        "authorization"?: AuthorizationConfig;
+        /**
           * Habilita ou desabilita o Blip Chat
          */
         "blipChat"?: boolean;
@@ -1240,6 +1260,10 @@ declare namespace LocalJSX {
           * Indica se a aplicação já possui botão flutuante
          */
         "fabButton"?: boolean;
+        /**
+          * URL para a api de licenças. Por padrão irá obter do env.js.
+         */
+        "licencasApi"?: string;
     }
     interface BthUtilitarios {
         /**

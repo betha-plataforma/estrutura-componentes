@@ -140,7 +140,7 @@ export class Suporte implements ComponentInterface {
                 title="Abrir um chamado"
                 aria-label="Abrir um chamado"
                 aria-disabled="false">
-                <bth-icone icone="plus-thick" title="Plus"></bth-icone>
+                <bth-icone icone="plus" title="Plus"></bth-icone>
                 <span>Abrir um chamado</span>
               </a>
             </li>)}

@@ -482,6 +482,10 @@ export namespace Components {
           * URL para a api de pesquisas. Por padrão irá obter do env.js.
          */
         "pesquisaApi"?: string;
+        /**
+          * configuração do tema da pesquisa.
+         */
+        "theme"?: string;
     }
     interface BthSelecaoContexto {
         /**
@@ -1212,6 +1216,10 @@ declare namespace LocalJSX {
           * URL para a api de pesquisas. Por padrão irá obter do env.js.
          */
         "pesquisaApi"?: string;
+        /**
+          * configuração do tema da pesquisa.
+         */
+        "theme"?: string;
     }
     interface BthSelecaoContexto {
         /**

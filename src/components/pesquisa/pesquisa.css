@@ -8,3 +8,11 @@ iframe {
   left: 0;
   z-index: 1080;
 }
+
+iframe.faces{
+  width: 100%;
+  max-width: 500px;
+  height: 380px;
+  right: 0;
+  left: auto;
+}

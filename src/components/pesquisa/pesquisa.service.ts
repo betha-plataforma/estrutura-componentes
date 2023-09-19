@@ -16,8 +16,8 @@ export class PesquisaService {
       .then(res => res.json());
   }
 
-  async idPesquisaEmAberto(idPesquisa) {
-    return this.pesquisaApi.request('GET', `index.jsp?id=${ idPesquisa }&e=1&reload=${ new Date().getTime() }`)
+  async idPesquisaEmAberto(idPesquisa, theme) {
+    return this.pesquisaApi.request('GET', `index.jsp?id=${ idPesquisa }&e=1&theme=${theme}&reload=${ new Date().getTime() }`)
       .then(response =>  response.text())
       .then(responseText => responseText === 'true');
   }

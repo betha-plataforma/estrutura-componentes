@@ -31,6 +31,11 @@ export class Pesquisa implements ComponentInterface {
    * URL para a api de licenças. Por padrão irá obter do env.js.
    */
   @Prop() readonly licencasApi?: string;
+ 
+  /**
+   * configuração do tema da pesquisa.
+   */
+  @Prop() readonly theme?: string;
 
   @Watch('authorization')
   watchAuthorization() {
@@ -50,6 +55,7 @@ export class Pesquisa implements ComponentInterface {
               id="bth-pesquisa--iframe"
               name="bfc-iframe-pesquisa"
               src={ this.getUrlPesquisa() }
+              class={ this.theme }
               title="Questionário de Pesquisa de Satisfação - Betha Sistemas"
               width="100%"
               frameborder="0"
@@ -107,7 +113,7 @@ export class Pesquisa implements ComponentInterface {
       this.pesquisaService = new PesquisaService(this.authorization, this.getPesquisaApi(), this.getLicencasApi());
       this.pesquisaService.carregarIdPesquisa()
         .then(idPesquisa => this.idPesquisa = idPesquisa.id)
-        .then(() => this.pesquisaService.idPesquisaEmAberto(this.idPesquisa))
+        .then(() => this.pesquisaService.idPesquisaEmAberto(this.idPesquisa, this.theme))
         .then(pesquisaDisponivel => this.pesquisaDisponivel = pesquisaDisponivel)
         .then(() => {
           if (this.pesquisaDisponivel) {
@@ -120,14 +126,14 @@ export class Pesquisa implements ComponentInterface {
   }
 
   private getUrlPesquisa() {
-    return `${ this.getPesquisaApi() }/index.jsp?id=${ this.idPesquisa }`;
+    return `${ this.getPesquisaApi() }/index.jsp?id=${ this.idPesquisa }&theme=${ this.theme }}`;
   }
 
   private onIframeMessage(event) {
     if (event.data.id !== 'pesquisa') {
       return;
     }
-    if (event.data.action === 'survey.submitted.done') {
+    if (event.data.action === 'survey.submitted.done' || event.data.action === 'survey.skip') {
       document.querySelector('bth-pesquisa').remove();
     }
   }

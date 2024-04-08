@@ -3,6 +3,13 @@ export interface Banner {
   tipo: 'info' | 'warning' | 'danger';
   link?: string;
   target?: '_blank' | '_parent' | '_self' | '_top';
+  labelLink?: string;
+  icone?: string;
+  button?: ButtonBanner;
+}
+
+export interface ButtonBanner {
+  textButton: string;
 }
 
 export interface MenuBannerAlteradoEvent {

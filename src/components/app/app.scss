@@ -29,6 +29,7 @@ slot[name="container_contexto"] {
   flex-direction: row;
   grid-area: banner;
   justify-content: center;
+  align-items: center;
   overflow: hidden;
   padding: 0 16px;
   position: relative;
@@ -47,30 +48,44 @@ slot[name="container_contexto"] {
 
   &__content {
     line-height: 1.5;
-    margin: 9px 10px;
+    margin: 0 4px;
     max-width: 95%;
     > a {
       color: var(--bth-app-gray-dark-40);
       text-decoration: underline;
-      vertical-align: top;
-      margin-left: 5px;
+      margin-left: 24px;
     }
     > span {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      display: inline-block;
       max-width: 100%;
     }
 
     > span ~ a {
       max-width: 85%;
     }
+
+    > button {
+      background-color: transparent;
+      border: 1px solid var(--bth-app-gray-dark-40);
+      color: #222;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0 12px;
+      height: 28px;
+      margin-left: 12px;
+      cursor: pointer;
+    }
+
+    > button:hover {
+      background-color: #00000013;
+    }
   }
   &__icon {
     font-size: 18px;
     line-height: 1.5;
-    margin: 7px 0px;
+    margin: 0 4px;
   }
   &--warning {
     background-color: var(--bth-app-yellow-light-10);

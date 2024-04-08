@@ -70,6 +70,11 @@ export class App implements ComponentInterface {
    */
   @Event() opcaoMenuSelecionada: EventEmitter<OpcaoMenuSelecionadaEvent>;
 
+  /**
+   * É emitido quando o botão do banner é clicado
+   */
+  @Event() botaoBannerAcionado: EventEmitter<void>;
+
   connectedCallback() {
     this.setCorBackgroundCustomizado();
     this.setEstadoInicialMenu();
@@ -494,6 +499,12 @@ export class App implements ComponentInterface {
     this.salvarEstadoLocalStorage();
   };
 
+  private onClickBotaoBanner = (event: CustomEvent | UIEvent) => {
+    event.preventDefault();
+
+    this.botaoBannerAcionado.emit();
+  }
+
   private renderBannerSection() {
     return (
       <header
@@ -504,12 +515,17 @@ export class App implements ComponentInterface {
 
         {this.possuiBanner() && ([
           <div class="banner__icon">
-            <bth-icone icone={this.banner.tipo === 'info' ? 'information' : 'alert'}></bth-icone>
+            <bth-icone icone={this.banner.icone ? this.banner.icone : this.banner.tipo === 'info' ? 'information' : 'alert'}></bth-icone>
           </div>,
           <div class="banner__content">
             <span>{this.banner.texto}</span>
             {!isNill(this.banner.link) && this.banner.link.trim() !== '' && (
-              <a href={this.banner.link} target={this.banner.target} title="Mais informações" rel="noreferrer">Mais informações</a>
+              <a href={this.banner.link} target={this.banner.target} title="Mais informações" rel="noreferrer">
+                {this.banner.labelLink ? this.banner.labelLink : 'Mais informações'}
+              </a>
+            )}
+            {!isNill(this.banner.button) && (
+              <button onClick={this.onClickBotaoBanner}>{this.banner.button.textButton}</button>
             )}
           </div>
         ])}

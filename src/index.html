@@ -253,12 +253,25 @@
             link: 'https://www.betha.com.br'
           }
 
+          const bannerComBotao = {
+            texto: 'Há novos recursos no Conecta! Explore a versão que irá otimizar a gestão e o acompanhamento das tarefas.',
+            tipo: 'info',
+            link: 'https://www.betha.com.br',
+            icone: 'party-popper',
+            labelLink: 'Ajuda',
+            button: {
+              textButton: 'Texto botão'
+            }
+          }
+
           if (activeBannerRef === 0) {
             app.banner = bannerInformacao;
           } else if (activeBannerRef === 1) {
             app.banner = bannerAlerta;
           } else if (activeBannerRef === 2) {
             app.banner = bannerPerigo;
+          } else if (activeBannerRef === 3) {
+            app.banner = bannerComBotao;
           } else {
             app.banner = undefined;
             activeBannerRef = -1;

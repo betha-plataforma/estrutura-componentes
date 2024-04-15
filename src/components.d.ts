@@ -741,6 +741,10 @@ declare namespace LocalJSX {
          */
         "onBannerAlterado"?: (event: CustomEvent<MenuBannerAlteradoEvent>) => void;
         /**
+          * É emitido quando o botão do banner é clicado
+         */
+        "onBotaoBannerAcionado"?: (event: CustomEvent<void>) => void;
+        /**
           * É emitido quando alguma opção do menu for selecionada
          */
         "onOpcaoMenuSelecionada"?: (event: CustomEvent<OpcaoMenuSelecionadaEvent>) => void;

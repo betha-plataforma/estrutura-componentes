@@ -53,7 +53,7 @@ export class App implements ComponentInterface {
   /**
    * Permite customizar a cor de fundo da barra do menu. Por padrão segue a cor da linha dos produtos.
    */
-  @Prop() readonly menuBgColor: string = '#142c48';
+  @Prop() readonly menuBgColor: string;
 
   /**
    * Permite definir um banner que é exibido acima do menu

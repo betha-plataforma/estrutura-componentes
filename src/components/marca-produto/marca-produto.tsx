@@ -30,11 +30,17 @@ export class MarcaProduto implements ComponentInterface {
   @State() isApiIndisponivel: boolean = false;
   @State() isDropdownProdutosAberto: boolean = false;
   @State() isDispositivoMovel: boolean = false;
+  @State() abbreviation: string = 'GEN';
 
   /**
    * Nome do produto
    */
   @Prop() readonly produto!: string;
+
+  /**
+   * Define a área de produtos.
+   */
+  @Prop() readonly area?: string;
 
   /**
    * Configuração de autorização. É necessária para o componente poder se autentizar com os serviços.
@@ -63,6 +69,10 @@ export class MarcaProduto implements ComponentInterface {
 
   connectedCallback() {
     this.configurarPropriedadesResponsivas();
+
+    if (!isNill(this.area)) {
+      this.abbreviation = this.area;
+    }
 
     if (this.exibirProdutos) {
       this.buscarProdutos();
@@ -97,6 +107,7 @@ export class MarcaProduto implements ComponentInterface {
       .then(res => res.json())
       .then(produtos => {
         this.produtos = produtos.filter((produto: Produto) => produto.id !== authorization.systemId);
+        this.abbreviation = this.area || produtos.find((produto: Produto) => produto.id === authorization.systemId)?.serviceLine?.abbreviation;
       })
       .catch(() => this.isApiIndisponivel = true);
 
@@ -230,7 +241,7 @@ export class MarcaProduto implements ComponentInterface {
 
     return (
       <section
-        class={`marca-produto ${this.isDropdownProdutosAberto ? 'marca-produto--active' : ''}`}
+        class={`marca-produto ${this.abbreviation} ${this.isDropdownProdutosAberto ? 'marca-produto--active' : ''}`}
         onClick={this.onToggleAberto}
         onMouseLeave={this.onMouseLeaveMenuProduto}
         onMouseOver={this.onMouseOverToggleProduto}

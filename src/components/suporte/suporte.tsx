@@ -113,7 +113,7 @@ export class Suporte implements ComponentInterface {
         <div slot="conteudo_painel_lateral" class="suporte">
           <ul>
             { this.blipChat && (<li>
-              <a onClick={this.onSuporteViaChatClick}
+              <a class="bth__card bth__card--clickable" onClick={this.onSuporteViaChatClick}
                 title="Suporte via chat"
                 aria-label="Acessar o chat do suporte"
                 aria-disabled="false">
@@ -124,24 +124,24 @@ export class Suporte implements ComponentInterface {
                   { this.blipChatCounter > 0
                   && (<span class="badge status status--danger">Novas mensagens</span>) }
                 </div>
-                <span>Suporte via chat</span>
+                <span class="descricao twoline-ellipsis">Suporte via chat</span>
               </a>
             </li>)}
             <li>
-              <a href={this.getCentralAjudaHome()} target="_blank" rel="noreferrer" title="Central de ajuda"
+              <a class="bth__card bth__card--clickable" href={this.getCentralAjudaHome()} target="_blank" rel="noreferrer" title="Central de ajuda"
                 aria-label="Acessar a Central de ajuda"
                 aria-disabled="false">
                 <bth-icone icone="help-circle-outline" title="Chat"></bth-icone>
-                <span>Central de ajuda</span>
+                <span class="descricao twoline-ellipsis">Central de ajuda</span>
               </a>
             </li>
             { this.atendimento && (<li>
-              <a onClick={this.onAtendimentoClick}
+              <a class="bth__card bth__card--clickable" onClick={this.onAtendimentoClick}
                 title="Abrir um chamado"
                 aria-label="Abrir um chamado"
                 aria-disabled="false">
                 <bth-icone icone="plus-thick" title="Plus"></bth-icone>
-                <span>Abrir um chamado</span>
+                <span class="descricao twoline-ellipsis">Abrir um chamado</span>
               </a>
             </li>)}
           </ul>

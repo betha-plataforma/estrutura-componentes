@@ -1,4 +1,5 @@
 @import '../../styles/normalize.scss';
+@import "../../styles/base";
 
 .suporte {
 
@@ -8,88 +9,37 @@
     grid-gap: 0.6em;
     padding: 0;
     list-style: none;
+  }
+}
 
-    li {
+.chat-status {
+  display: flex;
+  align-items: center;
 
-      a {
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        text-align: left;
-        height: 100px;
-        padding: 24px 12px 0 12px;
-        cursor: pointer;
-        border-radius: 2px;
-        width: 100%;
-        background-color: var(--bth-app-gray-light-40);
-        border: 1px solid var(--bth-app-gray-light-10);
-        display: -webkit-box;
-        line-height: 1.2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+  span {
+    margin: 0 0 0.22rem 0.5rem;
+  }
 
-        bth-icone {
-          font-size: 20px;
-          color: var(--bth-app-blue);
-        }
+  .badge {
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 12px;
+    padding: 3px 6px;
+    background-color: var(--bth-app-red);
+    color: var(--bth-app-gray-light-40);
+  }
 
-        span:not(.status) {
-          display: -webkit-box;
-          height: 34px;
-          line-height: 1.2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 14px;
-          color: var(--bth-app-gray-dark-30);
-          font-weight: var(--bth-app-font-weight-regular);
-          margin: 6px 0 0 0;
-        }
+  .status {
 
-        &:hover {
-          border: 1px solid var(--bth-app-blue);
-          cursor: pointer;
-        }
-
-        &:focus {
-          outline: 1px dotted var(--bth-app-gray-dark-30);
-        }
-
-        .chat-status {
-          display: flex;
-          align-items: center;
-
-          span {
-            margin: 0 0 0.22rem 0.5rem;
-          }
-
-          .badge {
-            line-height: 1;
-            vertical-align: middle;
-            white-space: nowrap;
-            display: inline-block;
-            text-align: center;
-            border-radius: 50px;
-            font-size: 12px;
-            padding: 3px 6px;
-            background-color: var(--bth-app-red);
-            color: var(--bth-app-gray-light-40);
-          }
-
-          .status {
-
-            &--success {
-              background-color: var(--bth-app-green-dark-10);
-            }
-            &--danger {
-              background-color: var(--bth-app-red);
-            }
-          }
-        }
-      }
+    &--success {
+      background-color: var(--bth-app-green-dark-10);
+    }
+    &--danger {
+      background-color: var(--bth-app-red);
     }
   }
 }

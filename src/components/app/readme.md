@@ -98,7 +98,7 @@ As opções do menu podem ser configuradas através de algumas propriedades
 | Property       | Attribute       | Description                                                                                                             | Type          | Default     |
 | -------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
 | `banner`       | --              | Permite definir um banner que é exibido acima do menu                                                                   | `Banner`      | `undefined` |
-| `menuBgColor`  | `menu-bg-color` | Permite customizar a cor de fundo da barra do menu. Por padrão segue a cor da linha dos produtos.                       | `string`      | `'#142c48'` |
+| `menuBgColor`  | `menu-bg-color` | Permite customizar a cor de fundo da barra do menu. Por padrão segue a cor da linha dos produtos.                       | `string`      | `undefined` |
 | `menuVertical` | `menu-vertical` | Define se as opções do menu serão exibidas no formato "vertical", caso contrário serão exibidas no formato "horizontal" | `boolean`     | `false`     |
 | `opcoes`       | --              | Opções de navegação do menu                                                                                             | `OpcaoMenu[]` | `[]`        |
 
@@ -108,6 +108,7 @@ As opções do menu podem ser configuradas através de algumas propriedades
 | Event                  | Description                                                                       | Type                                     |
 | ---------------------- | --------------------------------------------------------------------------------- | ---------------------------------------- |
 | `bannerAlterado`       | É emitido quando o componente de menu possuir alterações na propriedade de banner | `CustomEvent<MenuBannerAlteradoEvent>`   |
+| `botaoBannerAcionado`  | É emitido quando o botão do banner é clicado                                      | `CustomEvent<void>`                      |
 | `opcaoMenuSelecionada` | É emitido quando alguma opção do menu for selecionada                             | `CustomEvent<OpcaoMenuSelecionadaEvent>` |
 
 

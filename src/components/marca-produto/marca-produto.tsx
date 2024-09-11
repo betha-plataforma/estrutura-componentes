@@ -30,11 +30,17 @@ export class MarcaProduto implements ComponentInterface {
   @State() isApiIndisponivel: boolean = false;
   @State() isDropdownProdutosAberto: boolean = false;
   @State() isDispositivoMovel: boolean = false;
+  @State() abbreviation: string = 'GEN';
 
   /**
    * Nome do produto
    */
   @Prop() readonly produto!: string;
+
+  /**
+   * Define a área de produtos.
+   */
+  @Prop() readonly area?: string;
 
   /**
    * Configuração de autorização. É necessária para o componente poder se autentizar com os serviços.
@@ -63,6 +69,10 @@ export class MarcaProduto implements ComponentInterface {
 
   connectedCallback() {
     this.configurarPropriedadesResponsivas();
+
+    if (!isNill(this.area)) {
+      this.abbreviation = this.area;
+    }
 
     if (this.exibirProdutos) {
       this.buscarProdutos();
@@ -97,6 +107,7 @@ export class MarcaProduto implements ComponentInterface {
       .then(res => res.json())
       .then(produtos => {
         this.produtos = produtos.filter((produto: Produto) => produto.id !== authorization.systemId);
+        this.abbreviation = this.area || produtos.find((produto: Produto) => produto.id === authorization.systemId)?.serviceLine?.abbreviation;
       })
       .catch(() => this.isApiIndisponivel = true);
 
@@ -230,7 +241,7 @@ export class MarcaProduto implements ComponentInterface {
 
     return (
       <section
-        class={`marca-produto ${this.isDropdownProdutosAberto ? 'marca-produto--active' : ''}`}
+        class={`marca-produto ${this.abbreviation} ${this.isDropdownProdutosAberto ? 'marca-produto--active' : ''}`}
         onClick={this.onToggleAberto}
         onMouseLeave={this.onMouseLeaveMenuProduto}
         onMouseOver={this.onMouseOverToggleProduto}
@@ -273,24 +284,10 @@ export class MarcaProduto implements ComponentInterface {
                       return (
                         <li key={index} id={`marca_produto_item_${produto.id}`}>
                           <button
-                            class="marca-produto__detalhes-card marca-produto__detalhes-card--bordered marca-produto__detalhes-card--clickable"
+                            class="bth__card bth__card--clickable"
                             onClick={event => this.openLink(event, produto.url)}>
-
-                            <div class="marca-produto__detalhes-card__body" >
-                              <div class={`marca-produto__detalhes__brand ${this.getClassPorLinhaProduto(produto)}`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231.73 251.78">
-                                  <defs></defs>
-                                  <title>{produto.name}</title>
-                                  <g data-name="Camada 2">
-                                    <g data-name="Camada 1">
-                                      <path class="cls-1" d="M182.83,119.72c3.06,1.55,4.76,2.35,6.4,3.25,4.64,2.57,9.47,4.88,13.85,7.84,16.93,11.42,23.41,27.41,20.69,47.56-4,29.37-21.21,48.42-46.92,60.86-17.92,8.66-37.1,12.31-56.87,12.43-37.93.22-75.86.07-113.8.05-1.88,0-3.77-.27-6.18-.46,2.13-12.49,4.15-24.59,6.26-36.67Q18.32,145.39,30.42,76.2c3.29-18.77,6.72-37.53,9.82-56.33.6-3.67,2-5.29,5.63-6.24a388,388,0,0,1,60.5-11C121,1.23,135.74.29,150.44,0a106,106,0,0,1,39.06,6.7c9.61,3.57,18.4,8.49,25.75,15.74,20.84,20.56,22.11,55.65,2.68,76.07-7.27,7.64-16.21,12.89-25.83,17C189.47,116.71,186.93,117.9,182.83,119.72ZM62.14,210.82c2.25.24,3.66.52,5.07.52,19.32,0,38.65.23,58-.12a57.2,57.2,0,0,0,16.3-2.92c18.25-5.94,28.91-23.37,26.44-42.41-1.45-11.13-7.89-18.63-18.88-21.18A67,67,0,0,0,134.69,143c-17.87-.2-35.75-.1-53.62-.06-2.1,0-4.19.3-6.76.5ZM92.14,43C88.81,54.18,82,97.74,82.75,103.3a16.68,16.68,0,0,0,2.71.46c17.16,0,34.33.38,51.48-.08,11.23-.3,21-4.77,29.08-12.91,9-9.13,11.51-19.84,8-32-3.34-11.61-12.07-17-23.25-19.13-19.91-3.74-39.34.53-58.66,3.32Z" />
-                                    </g>
-                                  </g>
-                                </svg>
-                              </div>
-
-                              <div class="marca-produto__detalhes__name block-text--hidden" title={produto.name}>{produto.name}</div>
-                            </div>
+                            <div class={`bth__brand ${this.getClassPorLinhaProduto(produto)}`}></div>
+                            <span class="descricao descricao--produto twoline-ellipsis" title={produto.name}>{produto.name}</span>
                           </button>
                         </li>
                       );

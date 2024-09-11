@@ -24,7 +24,7 @@ describe('app', () => {
     await page.setContent('<bth-app></bth-app>');
 
     // Assert
-    expect(page.root).toEqualLightHtml('<bth-app style="--bth-app-menu-bg-color: #142c48;"></bth-app>');
+    expect(page.root).toEqualLightHtml('<bth-app></bth-app>');
   });
 
   it('renderiza conteudo slot "menu_marca_produto"', async () => {
@@ -250,20 +250,6 @@ describe('app', () => {
 
     // Assert
     expect(app.style.getPropertyValue('--bth-app-menu-bg-color')).toBe(app.menuBgColor);
-  });
-
-  it('define cor da barra padrão caso "menuBgColor" não seja definido', async () => {
-    // Arrange
-    await page.setContent('<bth-app></bth-app>');
-
-    // Act
-    const app: HTMLBthAppElement = page.doc.querySelector('bth-app');
-    app.menuBgColor = undefined;
-    await page.waitForChanges();
-
-    // Assert
-    const corPadraoBetha = '#142c48';
-    expect(app.style.getPropertyValue('--bth-app-menu-bg-color')).toBe(corPadraoBetha);
   });
 
   it('recebe eventos de conteudo sinalizado no desktop', async () => {

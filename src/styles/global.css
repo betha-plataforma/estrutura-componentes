@@ -11,6 +11,7 @@ body {
   --bth-app-font-family-icons: 'Material Design Icons';
 
   --bth-app-transition-delay: 300ms;
+  --bth-app-radius: 8px;
 
   --bth-app-font-weight-light: 300;
   --bth-app-font-weight-regular: 400;
@@ -18,57 +19,63 @@ body {
   --bth-app-font-weight-bold: 700;
   --bth-app-font-weight-extra-bold: 800;
 
-  --bth-app-brand-color-default: #001489;
+  --bth-app-brand-color-default: #0761FF;
   --bth-app-brand-brown: #9a8b7d;
-  --bth-app-brand-lilac: #8986ca;
-  --bth-app-brand-lime: #26d07c;
-  --bth-app-brand-gray: #afb2b2;
-  --bth-app-brand-red: #df4661;
-  --bth-app-brand-blue: #009cde;
-  --bth-app-brand-green: #a2c084;
-  --bth-app-brand-yellow: #f7b51c;
-  --bth-app-brand-orange: #f7932f;
+  --bth-app-brand-lilac: #A6B8FF;
+  --bth-app-brand-lime: #00BB77;
+  --bth-app-brand-gray: #959798;
+  --bth-app-brand-red: #FF7A75;
+  --bth-app-brand-blue: #009ADC;
+  --bth-app-brand-navy: #263E81;
+  --bth-app-brand-green: #A7C27E;
+  --bth-app-brand-yellow: #F3B02E;
+  --bth-app-brand-orange: #F4812E;
 
-  --bth-app-blue: #3475c1;
-  --bth-app-blue-dark-10: #295d99;
-  --bth-app-blue-dark-30: #142c48;
-  --bth-app-blue-light-20: #7faadc;
+  --bth-app-menu-bg-color: #1C1A23;
 
-  --bth-app-gray: #c0c0c0;
-  --bth-app-gray-light-10: #e1e3e6;
-  --bth-app-gray-light-20: #EBEDF0;
-  --bth-app-gray-light-30: #f5f7fa;
+  --bth-app-blue: #3374db;
+  --bth-app-blue-dark-10: hsl(from var(--bth-app-blue) h s calc(l - 10));
+  --bth-app-blue-dark-30: hsl(from var(--bth-app-blue) h s calc(l - 28));
+  --bth-app-blue-light-20: hsl(from var(--bth-app-blue) h s calc(l + 20));
+
+  --bth-app-gray: #bfbfc0;
+  --bth-app-gray-light-10: hsl(from var(--bth-app-gray) h s calc(l + 14));
+  --bth-app-gray-light-20: hsl(from var(--bth-app-gray) h s calc(l + 18));
+  --bth-app-gray-light-30: hsl(from var(--bth-app-gray) h s calc(l + 21));
   --bth-app-gray-light-40: #ffffff;
-  --bth-app-gray-dark-10: #767676;
-  --bth-app-gray-dark-20: #595959;
-  --bth-app-gray-dark-30: #222222;
+  --bth-app-gray-dark-10: hsl(from var(--bth-app-gray) h s calc(l - 29));
+  --bth-app-gray-dark-20: hsl(from var(--bth-app-gray) h s calc(l - 40));
+  --bth-app-gray-dark-30: hsl(from var(--bth-app-gray) h s calc(l - 61));
   --bth-app-gray-dark-40: #000000;
 
-  --bth-app-pink-light-20: #e3a0c1;
-  --bth-app-pink-dark-30: #651f42;
+  --bth-app-pink: #cb528f;
+  --bth-app-pink-light-20: hsl(from var(--bth-app-pink) h s calc(l + 20));
+  --bth-app-pink-dark-30: hsl(from var(--bth-app-pink) h s calc(l - 28));
 
-  --bth-app-purple: #A46AB5;
-  --bth-app-purple-light-20: #ceaed7;
-  --bth-app-purple-dark-30: #4f2c5a;
+  --bth-app-purple: #9f62b2;
+  --bth-app-purple-light-20: hsl(from var(--bth-app-purple) h s calc(l + 20));
+  --bth-app-purple-dark-30: hsl(from var(--bth-app-purple) h s calc(l - 28));
 
-  --bth-app-green: #54a668;
-  --bth-app-green-light-20: #96caa3;
-  --bth-app-green-dark-10: #438453;
-  --bth-app-green-dark-30: #214028;
+  --bth-app-green: #3ec18f;
+  --bth-app-green-light-20: hsl(from var(--bth-app-green) h s calc(l + 20));
+  --bth-app-green-dark-10: hsl(from var(--bth-app-green) h s calc(l - 10));
+  --bth-app-green-dark-30: hsl(from var(--bth-app-green) h s calc(l - 28));
 
-  --bth-app-red: #d64038;
-  --bth-app-red-light-20: #e7918d;
+  --bth-app-red: #dd413c;
+  --bth-app-red-light-20: hsl(from var(--bth-app-red) h s calc(l + 20));
 
-  --bth-app-aqua-light-20: #9ad4e7;
-  --bth-app-aqua-dark-30: #195569;
+  --bth-app-aqua: #46afd2;
+  --bth-app-aqua-light-20: hsl(from var(--bth-app-aqua) h s calc(l + 20));
+  --bth-app-aqua-dark-30: hsl(from var(--bth-app-aqua) h s calc(l - 28));
 
-  --bth-app-orange-light-20: #f4c09a;
-  --bth-app-orange-dark-30: #813e0e;
+  --bth-app-orange: #e87d30;
+  --bth-app-orange-light-20: hsl(from var(--bth-app-orange) h s calc(l + 20));
+  --bth-app-orange-dark-30: hsl(from var(--bth-app-orange) h s calc(l - 28));
 
-  --bth-app-yellow: #efbc3c;
-  --bth-app-yellow-light-10: #F3CC6B;
-  --bth-app-yellow-light-20: #f7dc9a;
-  --bth-app-yellow-light-40: #FEFDF9;
-  --bth-app-yellow-dark-30: #87640b;
+  --bth-app-yellow: #e8b730;
+  --bth-app-yellow-light-10: hsl(from var(--bth-app-yellow) h s calc(l + 10));
+  --bth-app-yellow-light-20: hsl(from var(--bth-app-yellow) h s calc(l + 20));
+  --bth-app-yellow-light-40: hsl(from var(--bth-app-yellow) h s calc(l + 30));
+  --bth-app-yellow-dark-30: hsl(from var(--bth-app-yellow) h s calc(l - 28));
 
 }

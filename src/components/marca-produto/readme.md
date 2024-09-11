@@ -67,6 +67,7 @@ marcaProduto.authorization = authorization;
 
 | Property               | Attribute           | Description                                                                                                            | Type                  | Default     |
 | ---------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- |
+| `area`                 | `area`              | Define a área de produtos.                                                                                             | `string`              | `undefined` |
 | `authorization`        | --                  | Configuração de autorização. É necessária para o componente poder se autentizar com os serviços.                       | `AuthorizationConfig` | `undefined` |
 | `exibirProdutos`       | `exibir-produtos`   | Define se o componente exibirá os produtos, condicionando a busca. Caso informado `false` não irá buscar por produtos. | `boolean`             | `false`     |
 | `produto` _(required)_ | `produto`           | Nome do produto                                                                                                        | `string`              | `undefined` |

@@ -256,7 +256,7 @@ describe('marca-produto', () => {
 
     // Act
     const spy = jest.spyOn(window, 'open').mockImplementation();
-    const produto: HTMLButtonElement = marcaProduto.shadowRoot.querySelector('.marca-produto__detalhes-card');
+    const produto: HTMLButtonElement = marcaProduto.shadowRoot.querySelector('.bth__card');
     produto.click();
 
     // Assert

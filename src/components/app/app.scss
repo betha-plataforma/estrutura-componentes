@@ -134,7 +134,7 @@ slot[name="container_contexto"] {
   /**
    * @prop --bth-app-menu-bg-color: Cor de fundo do menu horizontal
    */
-  background-color: var(--bth-app-menu-bg-color, #142c48);
+  background-color: var(--bth-app-menu-bg-color);
   color: var(--bth-app-gray-light-40);
   height: 40px;
   grid-area: menu-horizontal;

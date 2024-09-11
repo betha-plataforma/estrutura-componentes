@@ -183,6 +183,10 @@ export namespace Components {
     }
     interface BthMarcaProduto {
         /**
+          * Define a área de produtos.
+         */
+        "area"?: string;
+        /**
           * Configuração de autorização. É necessária para o componente poder se autentizar com os serviços.
          */
         "authorization": AuthorizationConfig;
@@ -884,6 +888,10 @@ declare namespace LocalJSX {
         "inline"?: boolean;
     }
     interface BthMarcaProduto {
+        /**
+          * Define a área de produtos.
+         */
+        "area"?: string;
         /**
           * Configuração de autorização. É necessária para o componente poder se autentizar com os serviços.
          */

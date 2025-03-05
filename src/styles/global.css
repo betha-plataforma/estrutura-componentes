@@ -1,14 +1,14 @@
 /*
  * As variáveis aqui dispostas serão injetadas no documento principal, logo podem ser usadas na aplicação como um todo
  */
-body {
+ body {
   padding: 0;
   margin: 0;
 }
 
 :root {
-  --bth-app-font-family-primary: 'Open Sans', sans-serif;
-  --bth-app-font-family-icons: 'Material Design Icons';
+  --bth-app-font-family-primary: "Open Sans", sans-serif;
+  --bth-app-font-family-icons: "Material Design Icons";
 
   --bth-app-transition-delay: 300ms;
   --bth-app-radius: 8px;
@@ -19,19 +19,20 @@ body {
   --bth-app-font-weight-bold: 700;
   --bth-app-font-weight-extra-bold: 800;
 
-  --bth-app-brand-color-default: #0761FF;
+  --bth-app-brand-color-default: #0761ff;
   --bth-app-brand-brown: #9a8b7d;
-  --bth-app-brand-lilac: #A6B8FF;
-  --bth-app-brand-lime: #00BB77;
-  --bth-app-brand-gray: #959798;
-  --bth-app-brand-red: #FF7A75;
-  --bth-app-brand-blue: #009ADC;
-  --bth-app-brand-navy: #263E81;
-  --bth-app-brand-green: #A7C27E;
-  --bth-app-brand-yellow: #F3B02E;
-  --bth-app-brand-orange: #F4812E;
+  --bth-app-brand-lilac: #a6b8ff;
+  --bth-app-brand-lime: #00bd7e;
+  --bth-app-brand-gray: #a5a6a7;
+  --bth-app-brand-red: #ff7f7a;
+  --bth-app-brand-blue: #00b0ff;
+  --bth-app-brand-navy: #263e81;
+  --bth-app-brand-green: #a7c27e;
+  --bth-app-brand-yellow: #f9b02e;
+  --bth-app-brand-orange: #f4812e;
 
-  --bth-app-menu-bg-color: #1C1A23;
+  --bth-app-menu-bg-color: #1c1a23;
+  --bth-app-carbono: #1c1a23;
 
   --bth-app-blue: #3374db;
   --bth-app-blue-dark-10: hsl(from var(--bth-app-blue) h s calc(l - 10));
@@ -77,5 +78,4 @@ body {
   --bth-app-yellow-light-20: hsl(from var(--bth-app-yellow) h s calc(l + 20));
   --bth-app-yellow-light-40: hsl(from var(--bth-app-yellow) h s calc(l + 30));
   --bth-app-yellow-dark-30: hsl(from var(--bth-app-yellow) h s calc(l - 28));
-
 }

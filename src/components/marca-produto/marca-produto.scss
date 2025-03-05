@@ -16,7 +16,7 @@ a:hover {
 .marca-produto {
   align-items: center;
   border: 0;
-  color: var(--bth-app-gray-light-40);
+  color: var(--bth-app-carbono);
   display: flex;
   height: 100%;
   justify-content: start;
@@ -32,25 +32,24 @@ a:hover {
 
   &:before {
     content: "";
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     margin-right: -1px;
-    border-radius: var(--bth-app-radius);
+    border-radius: 6px;
     background-color: var(--bth-app-brand-navy);
-    background-image: url('data:image/svg+xml,<svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.2244 8.09737L11.6253 8.23742C11.8925 8.37746 12.2934 8.5175 12.5607 8.79759C13.496 9.35777 14.0305 10.6182 13.7633 11.7385C13.6297 13.1389 12.9615 14.3993 11.7589 15.0996C10.8235 15.7998 9.75456 16.2199 8.55194 16.36C8.01744 16.5 7.34932 16.5 6.81482 16.5H0C0.133622 15.7998 0.133622 15.2396 0.26725 14.6794L1.87074 5.2965C2.13798 4.17614 2.40523 2.91575 2.53886 1.7954C2.53886 1.51532 2.67248 1.37527 2.93972 1.37527C4.14234 1.09519 5.34496 0.815098 6.54757 0.675055C7.2157 0.53501 7.88381 0.53501 8.55194 0.53501C9.88818 0.394968 11.2244 0.675055 12.427 1.37527C13.7633 2.21553 14.4314 3.89606 14.1642 5.43654C14.0305 6.2768 13.496 6.97702 12.8279 7.39715C12.427 7.67724 12.0262 7.81729 11.6253 8.09737L11.2244 8.09737ZM3.8751 13.8392H4.14234C5.34497 13.8392 6.54757 13.8392 7.7502 13.8392C8.15106 13.8392 8.41831 13.6991 8.68556 13.6991C9.75456 13.279 10.4227 12.1586 10.2891 11.0383C10.2891 10.3381 9.75456 9.7779 9.08644 9.63786C8.81918 9.63786 8.55194 9.49781 8.15106 9.49781H4.81047H4.40959L3.8751 13.8392ZM5.61221 3.19584C5.47859 4.45623 5.21133 5.71663 5.07771 6.97702L5.21133 7.11707C6.28032 7.11707 7.34932 7.11707 8.28469 7.11707C8.95282 7.11707 9.62093 6.83698 10.0218 6.2768C10.6899 5.71663 10.8235 5.01641 10.5563 4.31619C10.4227 3.61597 9.88818 3.0558 9.22006 3.0558C8.01744 2.77571 6.81482 2.91575 5.61221 3.19584Z" fill="white"/></svg>');
+    background-image: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.0615 12.1583C13.0615 10.8729 12.2145 10.2299 10.5416 10.2299H5.7927L4.83646 15.0996H9.36361C10.3647 15.1662 11.3551 14.8742 12.1277 14.2847C12.4388 14.0116 12.6831 13.6807 12.8444 13.3139C13.0056 12.9472 13.0801 12.553 13.0628 12.1577L13.0615 12.1583ZM13.6315 4.94967C13.6315 1.83092 9.1563 2.85416 7.11616 3.06788L6.32642 7.41511H10.3745C11.218 7.43719 12.0407 7.17175 12.6844 6.66978C12.9748 6.46849 13.2113 6.20871 13.3757 5.91034C13.5401 5.61196 13.628 5.28294 13.6328 4.94846L13.6315 4.94967ZM8.8233 17.9907H0L3.20896 1.06743C5.94574 0.385172 8.76585 0.0264733 11.6012 0C14.6568 0 18 1.23999 18 4.57004C18 6.63709 16.3363 7.82864 14.2679 8.49949L14.2343 8.59819C16.3617 9.37439 17.4263 10.5117 17.4281 12.01C17.4496 12.866 17.2408 13.7136 16.8202 14.4775C16.3997 15.2413 15.7804 15.8977 15.0174 16.3881C13.1924 17.5185 11.0213 18.0803 8.8233 17.9907Z" fill="%231C1A23"/></svg>');
     background-size: auto 14px;
     background-position: center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
 
-
-  #produto_description{
+  #produto_description {
     padding: 0 16px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 28px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 26px;
     vertical-align: middle;
-    border-radius: var(--bth-app-radius);
+    border-radius: 6px;
     background-color: var(--bth-app-brand-navy);
   }
 
@@ -173,7 +172,7 @@ a:hover {
   fill: var(--bth-app-brand-brown);
   border-color: var(--bth-app-brand-brown);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-brown);
   }
   &.bth__brand {
@@ -187,7 +186,7 @@ a:hover {
   fill: var(--bth-app-brand-lilac);
   border-color: var(--bth-app-brand-lilac);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-lilac);
   }
   &.bth__brand {
@@ -201,7 +200,7 @@ a:hover {
   fill: var(--bth-app-brand-lime);
   border-color: var(--bth-app-brand-lime);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-lime);
   }
   &.bth__brand {
@@ -215,7 +214,7 @@ a:hover {
   fill: var(--bth-app-brand-gray);
   border-color: var(--bth-app-brand-gray);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-gray);
   }
   &.bth__brand {
@@ -229,7 +228,7 @@ a:hover {
   fill: var(--bth-app-brand-red);
   border-color: var(--bth-app-brand-red);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-red);
   }
   &.bth__brand {
@@ -243,7 +242,7 @@ a:hover {
   fill: var(--bth-app-brand-blue);
   border-color: var(--bth-app-brand-blue);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-blue);
   }
   &.bth__brand {
@@ -257,7 +256,7 @@ a:hover {
   fill: var(--bth-app-brand-green);
   border-color: var(--bth-app-brand-green);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-green);
   }
   &.bth__brand {
@@ -271,7 +270,7 @@ a:hover {
   fill: var(--bth-app-brand-yellow);
   border-color: var(--bth-app-brand-yellow);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-yellow);
   }
   &.bth__brand {
@@ -285,7 +284,7 @@ a:hover {
   fill: var(--bth-app-brand-orange);
   border-color: var(--bth-app-brand-orange);
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
     background-color: var(--bth-app-brand-orange);
   }
   &.bth__brand {
@@ -302,8 +301,13 @@ a:hover {
 .sup {
   fill: var(--bth-app-brand-navy);
   border-color: var(--bth-app-brand-navy);
+  color: var(--bth-app-gray-light-40);
+  &.marca-produto:before {
+    background-image: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.0615 12.1583C13.0615 10.8729 12.2145 10.2299 10.5416 10.2299H5.7927L4.83646 15.0996H9.36361C10.3647 15.1662 11.3551 14.8742 12.1277 14.2847C12.4388 14.0116 12.6831 13.6807 12.8444 13.3139C13.0056 12.9472 13.0801 12.553 13.0628 12.1577L13.0615 12.1583ZM13.6315 4.94967C13.6315 1.83092 9.1563 2.85416 7.11616 3.06788L6.32642 7.41511H10.3745C11.218 7.43719 12.0407 7.17175 12.6844 6.66978C12.9748 6.46849 13.2113 6.20871 13.3757 5.91034C13.5401 5.61196 13.628 5.28294 13.6328 4.94846L13.6315 4.94967ZM8.8233 17.9907H0L3.20896 1.06743C5.94574 0.385172 8.76585 0.0264733 11.6012 0C14.6568 0 18 1.23999 18 4.57004C18 6.63709 16.3363 7.82864 14.2679 8.49949L14.2343 8.59819C16.3617 9.37439 17.4263 10.5117 17.4281 12.01C17.4496 12.866 17.2408 13.7136 16.8202 14.4775C16.3997 15.2413 15.7804 15.8977 15.0174 16.3881C13.1924 17.5185 11.0213 18.0803 8.8233 17.9907Z" fill="white"/></svg>');
+  }
   &.marca-produto:before,
-  #produto_description{
+  #produto_description {
+    font-weight: 600;
     background-color: var(--bth-app-brand-navy);
   }
   &.bth__brand {

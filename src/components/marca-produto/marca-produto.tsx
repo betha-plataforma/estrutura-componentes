@@ -30,7 +30,7 @@ export class MarcaProduto implements ComponentInterface {
   @State() isApiIndisponivel: boolean = false;
   @State() isDropdownProdutosAberto: boolean = false;
   @State() isDispositivoMovel: boolean = false;
-  @State() abbreviation: string = 'GEN';
+  @State() abbreviation: string;
 
   /**
    * Nome do produto
@@ -70,9 +70,7 @@ export class MarcaProduto implements ComponentInterface {
   connectedCallback() {
     this.configurarPropriedadesResponsivas();
 
-    if (!isNill(this.area)) {
-      this.abbreviation = this.area;
-    }
+    this.abbreviation = this.area || 'GEN';
 
     if (this.exibirProdutos) {
       this.buscarProdutos();

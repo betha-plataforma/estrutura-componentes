@@ -1,0 +1,11 @@
+
+/**
+ * Carta de Serviços Cidadão Digital
+ * Controla visibilidade do menu-horizontal e menu-vertical através das variáveis
+ * "--bth-app-carta-servicos-display" e "--bth-app-carta-servicos-visibility"
+ */
+
+@mixin visibilidadeEstrutura() {
+  display: var(--bth-app-carta-servicos-display, inherit);
+  visibility: var(--bth-app-carta-servicos-visibility, inherit);
+}

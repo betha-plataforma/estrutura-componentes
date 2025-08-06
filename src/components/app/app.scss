@@ -24,7 +24,7 @@ slot[name="container_contexto"] {
   border-bottom: 1px solid var(--bth-app-gray-light-10);
   margin: 0 16px;
 
-  @include visibilidadeEstrutura();
+  @include visibilidadeEstrutura($display: flex);
 }
 
 .banner {
@@ -277,7 +277,7 @@ slot[name="container_contexto"] {
   height: calc(100vh - 40px);
   top: 40px;
 
-  @include visibilidadeEstrutura();
+  @include visibilidadeEstrutura($display: flex);
 
   &__body {
     flex: 1;

@@ -5,7 +5,7 @@
  * "--bth-app-carta-servicos-display" e "--bth-app-carta-servicos-visibility"
  */
 
-@mixin visibilidadeEstrutura() {
-  display: var(--bth-app-carta-servicos-display, inherit);
-  visibility: var(--bth-app-carta-servicos-visibility, inherit);
+@mixin visibilidadeEstrutura($display: unset, $visibility: unset) {
+  display: var(--bth-app-carta-servicos-display, $display);
+  visibility: var(--bth-app-carta-servicos-visibility, $visibility);
 }

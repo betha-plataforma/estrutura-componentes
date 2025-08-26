@@ -304,8 +304,9 @@ export class App implements ComponentInterface {
   }
 
   private setEstadoInicialMenu(): void {
-    this.opcoesMenu = [...this.opcoes];
-    this.opcoesHeaderInternas = [...this.opcoesHeader];
+    // this.opcoesMenu = [...this.opcoes];
+    this.opcoesMenu = this.validarOpcoes([...this.opcoes]);
+    this.opcoesHeaderInternas = this.validarOpcoes([...this.opcoesHeader]);
 
     this.isDispositivoMovel = isDispositivoMovel();
 
@@ -446,6 +447,26 @@ export class App implements ComponentInterface {
       this.isMenuVerticalRecolhido = isMenuVerticalRecolhido;
       this.timeoutAtivoHandler = undefined;
     }, TIMEOUT_INTERACOES);
+  }
+
+  /**
+   * Valida se no máximo um item está ativo e processa o array para o estado interno.
+   * Se múltiplos itens forem passados como 'ativo', TODOS serão desativados como medida de segurança,
+   * e um alerta será exibido no console.
+   * @param opcoes O array de opções de menu a ser processado.
+   * @returns Um novo array de opções com no máximo um item ativo.
+   */
+  private validarOpcoes(opcoes: OpcaoMenu[]): OpcaoMenuInterna[] {
+    if (!opcoes || opcoes.length === 0) {
+      return [];
+    }
+
+    if (opcoes.filter(opt => opt.isAtivo === true).length > 1) {
+      console.warn('[bth-app] Múltiplos itens de menu recebidos como \'ativo\'. Nenhum item foi selecionado.');
+      return opcoes.map(opt => ({ ...opt, isAtivo: false }));
+
+    }
+    return opcoes;
   }
 
   private onMouseOverMenuVertical = (): void => {

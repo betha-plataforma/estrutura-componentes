@@ -32,10 +32,10 @@ export interface OpcaoMenu {
   submenus?: Array<OpcaoMenu>;
   possuiPermissao?: boolean;
   possuiBadgeIcone?: boolean;
+  isAtivo?: boolean;
 }
 
 export interface OpcaoMenuInterna extends OpcaoMenu {
-  isAtivo?: boolean;
   isRecolhido?: boolean;
   submenus?: Array<OpcaoMenuInterna>
 }

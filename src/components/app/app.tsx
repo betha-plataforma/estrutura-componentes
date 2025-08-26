@@ -37,6 +37,7 @@ export class App implements ComponentInterface {
 
   @State() isPainelFerramentasDispositivoMovelAberto: boolean = false;
   @State() opcoesMenu?: Array<OpcaoMenuInterna>;
+  @State() opcoesHeaderInternas?: Array<OpcaoMenuInterna> = [];
 
   @State() possuiSinalizacaoPendente: boolean = false;
 
@@ -44,6 +45,12 @@ export class App implements ComponentInterface {
    * Opções de navegação do menu
    */
   @Prop() readonly opcoes?: Array<OpcaoMenu> = [];
+
+  /**
+   * Opções de navegação a serem exibidas no header, ao lado da marca.
+   * Funciona de forma independente da navegação principal, e somente se o menu for vertical.
+   */
+  @Prop() readonly opcoesHeader?: Array<OpcaoMenu> = [];
 
   /**
    * Define se as opções do menu serão exibidas no formato "vertical", caso contrário serão exibidas no formato "horizontal"
@@ -114,7 +121,14 @@ export class App implements ComponentInterface {
 
   @Listen('menuHorizontalSelecionado')
   onMenuHorizontalSelecionado(event: CustomEvent<MenuHorizontalSelecionadoEvent>) {
-    const opcao = this.findOpcaoMenuById(event.detail.identificador);
+    const identificador = event.detail.identificador;
+    let opcao: OpcaoMenuInterna;
+
+    if (this.menuVertical) {
+      opcao = this.opcoesHeaderInternas.find(opt => opt.id === identificador);
+    } else {
+      opcao = this.findOpcaoMenuById(identificador);
+    }
 
     this.dispararEventoOpcaoSelecionada(opcao);
   }
@@ -172,12 +186,17 @@ export class App implements ComponentInterface {
    */
   @Method()
   async setMenuAtivo(identificador: IdentificadorOpcaoMenu) {
-    if (this.possuiNavegacaoHorizontal()) {
-      this.marcarAtivoMenuHorizontal(identificador);
-    }
+    const isHeader = this.opcoesHeader.some(opt => opt.id === identificador);
 
-    if (this.possuiNavegacaoVertical()) {
-      this.marcarAtivoMenuVertical(identificador);
+    if (isHeader) {
+      this.marcarAtivoMenuHeader(identificador);
+    } else {
+      if (this.possuiNavegacaoVertical()) {
+        this.marcarAtivoMenuVertical(identificador);
+      }
+      if (this.possuiNavegacaoHorizontal()) {
+        this.marcarAtivoMenuHorizontal(identificador);
+      }
     }
   }
 
@@ -263,6 +282,10 @@ export class App implements ComponentInterface {
     return !isNill(this.opcoesMenu) && this.opcoesMenu.length > 0;
   }
 
+  private possuiOpcoesHeader(): boolean {
+    return !isNill(this.opcoesHeaderInternas) && this.opcoesHeaderInternas.length > 0;
+  }
+
   private possuiBanner(): boolean {
     return !isNill(this.banner);
   }
@@ -281,6 +304,7 @@ export class App implements ComponentInterface {
 
   private setEstadoInicialMenu(): void {
     this.opcoesMenu = [...this.opcoes];
+    this.opcoesHeaderInternas = [...this.opcoesHeader];
 
     this.isDispositivoMovel = isDispositivoMovel();
 
@@ -365,6 +389,18 @@ export class App implements ComponentInterface {
 
   private marcarAtivoMenuHorizontal(id: IdentificadorOpcaoMenu): void {
     this.opcoesMenu = this.opcoesMenu.map(opcao => {
+      opcao.isAtivo = opcao.id === id;
+
+      if (opcao.isAtivo) {
+        this.validarPermissaoAcessarOpcaoMenu(opcao);
+      }
+
+      return opcao;
+    });
+  }
+
+  private marcarAtivoMenuHeader(id: IdentificadorOpcaoMenu): void {
+    this.opcoesHeaderInternas = this.opcoesHeaderInternas.map(opcao => {
       opcao.isAtivo = opcao.id === id;
 
       if (opcao.isAtivo) {
@@ -561,6 +597,32 @@ export class App implements ComponentInterface {
                 <slot name={SLOT.MARCA_PRODUTO} />
               </section>
             )}
+
+            {/* Navegação Adicional do Header */}
+            <nav
+              id="menu_header"
+              class="menu-horizontal__item menu-horizontal__item--has-list"
+              aria-label="Navegação do header"
+              aria-hidden={`${!this.possuiOpcoesHeader() || !this.menuVertical}`}>
+
+              {this.possuiOpcoesHeader() && this.menuVertical && (
+                <ul role="menubar" class="menu-horizontal__list" aria-label="Navegação do header">
+                  {this.opcoesHeaderInternas.map((opcao, index) => (
+                    <li role="none" key={`header_${index}`}>
+                      <bth-menu-horizontal-item
+                        role="menuitem"
+                        id={`menu_header_item_${index}`}
+                        identificador={opcao.id}
+                        descricao={opcao.descricao}
+                        contador={opcao.contador}
+                        possuiPermissao={opcao.possuiPermissao}
+                        ativo={opcao.isAtivo}>
+                      </bth-menu-horizontal-item>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </nav>
 
             {/* Navegação Menu Horizontal */}
             <nav

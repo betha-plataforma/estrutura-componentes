@@ -88,6 +88,7 @@ export class App implements ComponentInterface {
   }
 
   @Watch('opcoes')
+  @Watch('opcoesHeader')
   watchOpcoesChanged() {
     // Reseta estado inicial do menu toda vez que opções for alterado, evita reabertura de maneira inconsistente
     this.setEstadoInicialMenu();

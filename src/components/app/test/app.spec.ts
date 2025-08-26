@@ -180,6 +180,46 @@ describe('app', () => {
     expect(menuVerticalItem.getAttribute('descricao')).toBe(app.opcoes[0].descricao);
   });
 
+  it('renderiza opções de navegação no header quando menu for vertical', async () => {
+    // Arrange
+    await page.setContent('<bth-app menu-vertical></bth-app>');
+
+    // Act
+    const app: HTMLBthAppElement = page.doc.querySelector('bth-app');
+    app.opcoes = [{ id: 1, descricao: 'Opção 1' }];
+    app.opcoesHeader = [{ id: 'relatorios', descricao: 'Relatórios', isAtivo: true }];
+    await page.waitForChanges();
+
+    // Assert
+    const navHeader: HTMLElement = app.shadowRoot.querySelector('#menu_header');
+    expect(navHeader).not.toBeNull();
+    expect(navHeader.getAttribute('aria-hidden')).toBe('false');
+
+    const menuHeaderItem = navHeader.querySelector('bth-menu-horizontal-item');
+    expect(menuHeaderItem).not.toBeNull();
+    expect(menuHeaderItem.getAttribute('identificador')).toBe(app.opcoesHeader[0].id.toString());
+    expect(menuHeaderItem.getAttribute('descricao')).toBe(app.opcoesHeader[0].descricao);
+    expect(menuHeaderItem.getAttribute('ativo')).not.toBeNull();
+  });
+
+  it('não renderiza opções de navegação no header quando menu for horizontal', async () => {
+    // Arrange
+    await page.setContent('<bth-app></bth-app>'); // Sem 'menu-vertical'
+
+    // Act
+    const app: HTMLBthAppElement = page.doc.querySelector('bth-app');
+    app.opcoesHeader = [{ id: 'relatorios', descricao: 'Relatórios' }];
+    await page.waitForChanges();
+
+    // Assert
+    const navHeader: HTMLElement = app.shadowRoot.querySelector('#menu_header');
+    expect(navHeader).not.toBeNull();
+    expect(navHeader.getAttribute('aria-hidden')).toBe('true');
+
+    const menuHeaderItem = navHeader.querySelector('bth-menu-horizontal-item');
+    expect(menuHeaderItem).toBeNull();
+  });
+
   it('renderiza banner', async () => {
     // Arrange
     await page.setContent('<bth-app menu-vertical></bth-app>');

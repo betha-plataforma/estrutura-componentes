@@ -304,7 +304,6 @@ export class App implements ComponentInterface {
   }
 
   private setEstadoInicialMenu(): void {
-    // this.opcoesMenu = [...this.opcoes];
     this.opcoesMenu = this.validarOpcoes([...this.opcoes]);
     this.opcoesHeaderInternas = this.validarOpcoes([...this.opcoesHeader]);
 

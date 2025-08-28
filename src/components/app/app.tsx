@@ -620,13 +620,12 @@ export class App implements ComponentInterface {
             )}
 
             {/* Navegação Adicional do Header */}
-            <nav
-              id="menu_header"
-              class="menu-horizontal__item menu-horizontal__item--has-list"
-              aria-label="Navegação do header"
-              aria-hidden={`${!this.possuiOpcoesHeader() || !this.menuVertical}`}>
+            {this.possuiOpcoesHeader() && this.menuVertical && (
+              <nav
+                id="menu_header"
+                class="menu-horizontal__item menu-horizontal__item--has-list"
+                aria-label="Navegação do header">
 
-              {this.possuiOpcoesHeader() && this.menuVertical && (
                 <ul role="menubar" class="menu-horizontal__list" aria-label="Navegação do header">
                   {this.opcoesHeaderInternas.map((opcao, index) => (
                     <li role="none" key={`header_${index}`}>
@@ -642,9 +641,8 @@ export class App implements ComponentInterface {
                     </li>
                   ))}
                 </ul>
-              )}
-            </nav>
-
+              </nav>
+            )}
             {/* Navegação Menu Horizontal */}
             <nav
               id="menu_horizontal_list"

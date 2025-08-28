@@ -193,7 +193,6 @@ describe('app', () => {
     // Assert
     const navHeader: HTMLElement = app.shadowRoot.querySelector('#menu_header');
     expect(navHeader).not.toBeNull();
-    expect(navHeader.getAttribute('aria-hidden')).toBe('false');
 
     const menuHeaderItem = navHeader.querySelector('bth-menu-horizontal-item');
     expect(menuHeaderItem).not.toBeNull();
@@ -213,11 +212,7 @@ describe('app', () => {
 
     // Assert
     const navHeader: HTMLElement = app.shadowRoot.querySelector('#menu_header');
-    expect(navHeader).not.toBeNull();
-    expect(navHeader.getAttribute('aria-hidden')).toBe('true');
-
-    const menuHeaderItem = navHeader.querySelector('bth-menu-horizontal-item');
-    expect(menuHeaderItem).toBeNull();
+    expect(navHeader).toBeNull();
   });
 
   it('renderiza banner', async () => {

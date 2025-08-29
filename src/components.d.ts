@@ -42,6 +42,10 @@ export namespace Components {
          */
         "opcoes"?: Array<OpcaoMenu>;
         /**
+          * Opções de navegação a serem exibidas no header, ao lado da marca. Funciona de forma independente da navegação principal, e somente se o menu for vertical.
+         */
+        "opcoesHeader"?: Array<OpcaoMenu>;
+        /**
           * Define o estado de ativo para o badge no icone do item do menu
           * @param identificador Identificador do menu
           * @param ativo boolean que indica se deve ou não mostrar
@@ -756,6 +760,10 @@ declare namespace LocalJSX {
           * Opções de navegação do menu
          */
         "opcoes"?: Array<OpcaoMenu>;
+        /**
+          * Opções de navegação a serem exibidas no header, ao lado da marca. Funciona de forma independente da navegação principal, e somente se o menu for vertical.
+         */
+        "opcoesHeader"?: Array<OpcaoMenu>;
     }
     interface BthAvatar {
         /**

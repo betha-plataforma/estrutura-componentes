@@ -95,12 +95,13 @@ As opções do menu podem ser configuradas através de algumas propriedades
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                             | Type          | Default     |
-| -------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
-| `banner`       | --              | Permite definir um banner que é exibido acima do menu                                                                   | `Banner`      | `undefined` |
-| `menuBgColor`  | `menu-bg-color` | Permite customizar a cor de fundo da barra do menu. Por padrão segue a cor da linha dos produtos.                       | `string`      | `undefined` |
-| `menuVertical` | `menu-vertical` | Define se as opções do menu serão exibidas no formato "vertical", caso contrário serão exibidas no formato "horizontal" | `boolean`     | `false`     |
-| `opcoes`       | --              | Opções de navegação do menu                                                                                             | `OpcaoMenu[]` | `[]`        |
+| Property       | Attribute       | Description                                                                                                                                                | Type          | Default     |
+| -------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
+| `banner`       | --              | Permite definir um banner que é exibido acima do menu                                                                                                      | `Banner`      | `undefined` |
+| `menuBgColor`  | `menu-bg-color` | Permite customizar a cor de fundo da barra do menu. Por padrão segue a cor da linha dos produtos.                                                          | `string`      | `undefined` |
+| `menuVertical` | `menu-vertical` | Define se as opções do menu serão exibidas no formato "vertical", caso contrário serão exibidas no formato "horizontal"                                    | `boolean`     | `false`     |
+| `opcoes`       | --              | Opções de navegação do menu                                                                                                                                | `OpcaoMenu[]` | `[]`        |
+| `opcoesHeader` | --              | Opções de navegação a serem exibidas no header, ao lado da marca. Funciona de forma independente da navegação principal, e somente se o menu for vertical. | `OpcaoMenu[]` | `[]`        |
 
 
 ## Events

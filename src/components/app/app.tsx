@@ -37,6 +37,7 @@ export class App implements ComponentInterface {
 
   @State() isPainelFerramentasDispositivoMovelAberto: boolean = false;
   @State() opcoesMenu?: Array<OpcaoMenuInterna>;
+  @State() opcoesHeaderInternas?: Array<OpcaoMenuInterna> = [];
 
   @State() possuiSinalizacaoPendente: boolean = false;
 
@@ -44,6 +45,12 @@ export class App implements ComponentInterface {
    * Opções de navegação do menu
    */
   @Prop() readonly opcoes?: Array<OpcaoMenu> = [];
+
+  /**
+   * Opções de navegação a serem exibidas no header, ao lado da marca.
+   * Funciona de forma independente da navegação principal, e somente se o menu for vertical.
+   */
+  @Prop() readonly opcoesHeader?: Array<OpcaoMenu> = [];
 
   /**
    * Define se as opções do menu serão exibidas no formato "vertical", caso contrário serão exibidas no formato "horizontal"
@@ -81,6 +88,7 @@ export class App implements ComponentInterface {
   }
 
   @Watch('opcoes')
+  @Watch('opcoesHeader')
   watchOpcoesChanged() {
     // Reseta estado inicial do menu toda vez que opções for alterado, evita reabertura de maneira inconsistente
     this.setEstadoInicialMenu();
@@ -114,7 +122,14 @@ export class App implements ComponentInterface {
 
   @Listen('menuHorizontalSelecionado')
   onMenuHorizontalSelecionado(event: CustomEvent<MenuHorizontalSelecionadoEvent>) {
-    const opcao = this.findOpcaoMenuById(event.detail.identificador);
+    const identificador = event.detail.identificador;
+    let opcao: OpcaoMenuInterna;
+
+    if (this.menuVertical) {
+      opcao = this.opcoesHeaderInternas.find(opt => opt.id === identificador);
+    } else {
+      opcao = this.findOpcaoMenuById(identificador);
+    }
 
     this.dispararEventoOpcaoSelecionada(opcao);
   }
@@ -172,12 +187,17 @@ export class App implements ComponentInterface {
    */
   @Method()
   async setMenuAtivo(identificador: IdentificadorOpcaoMenu) {
-    if (this.possuiNavegacaoHorizontal()) {
-      this.marcarAtivoMenuHorizontal(identificador);
-    }
+    const isHeader = this.opcoesHeader.some(opt => opt.id === identificador);
 
-    if (this.possuiNavegacaoVertical()) {
-      this.marcarAtivoMenuVertical(identificador);
+    if (isHeader) {
+      this.marcarAtivoMenuHeader(identificador);
+    } else {
+      if (this.possuiNavegacaoVertical()) {
+        this.marcarAtivoMenuVertical(identificador);
+      }
+      if (this.possuiNavegacaoHorizontal()) {
+        this.marcarAtivoMenuHorizontal(identificador);
+      }
     }
   }
 
@@ -263,6 +283,10 @@ export class App implements ComponentInterface {
     return !isNill(this.opcoesMenu) && this.opcoesMenu.length > 0;
   }
 
+  private possuiOpcoesHeader(): boolean {
+    return !isNill(this.opcoesHeaderInternas) && this.opcoesHeaderInternas.length > 0;
+  }
+
   private possuiBanner(): boolean {
     return !isNill(this.banner);
   }
@@ -280,7 +304,8 @@ export class App implements ComponentInterface {
   }
 
   private setEstadoInicialMenu(): void {
-    this.opcoesMenu = [...this.opcoes];
+    this.opcoesMenu = this.validarOpcoes([...this.opcoes]);
+    this.opcoesHeaderInternas = this.validarOpcoes([...this.opcoesHeader]);
 
     this.isDispositivoMovel = isDispositivoMovel();
 
@@ -375,6 +400,18 @@ export class App implements ComponentInterface {
     });
   }
 
+  private marcarAtivoMenuHeader(id: IdentificadorOpcaoMenu): void {
+    this.opcoesHeaderInternas = this.opcoesHeaderInternas.map(opcao => {
+      opcao.isAtivo = opcao.id === id;
+
+      if (opcao.isAtivo) {
+        this.validarPermissaoAcessarOpcaoMenu(opcao);
+      }
+
+      return opcao;
+    });
+  }
+
   private findOpcaoMenuById(identificador: IdentificadorOpcaoMenu, identificadorPai: IdentificadorOpcaoMenu = null) {
     if (!isNill(identificadorPai)) {
       const menuPai = this.opcoesMenu.find(opcaoMenu => opcaoMenu.id === identificadorPai);
@@ -409,6 +446,26 @@ export class App implements ComponentInterface {
       this.isMenuVerticalRecolhido = isMenuVerticalRecolhido;
       this.timeoutAtivoHandler = undefined;
     }, TIMEOUT_INTERACOES);
+  }
+
+  /**
+   * Valida se no máximo um item está ativo e processa o array para o estado interno.
+   * Se múltiplos itens forem passados como 'ativo', TODOS serão desativados como medida de segurança,
+   * e um alerta será exibido no console.
+   * @param opcoes O array de opções de menu a ser processado.
+   * @returns Um novo array de opções com no máximo um item ativo.
+   */
+  private validarOpcoes(opcoes: OpcaoMenu[]): OpcaoMenuInterna[] {
+    if (!opcoes || opcoes.length === 0) {
+      return [];
+    }
+
+    if (opcoes.filter(opt => opt.isAtivo === true).length > 1) {
+      console.warn('[bth-app] Múltiplos itens de menu recebidos como \'ativo\'. Nenhum item foi selecionado.');
+      return opcoes.map(opt => ({ ...opt, isAtivo: false }));
+
+    }
+    return opcoes;
   }
 
   private onMouseOverMenuVertical = (): void => {
@@ -562,6 +619,30 @@ export class App implements ComponentInterface {
               </section>
             )}
 
+            {/* Navegação Adicional do Header */}
+            {this.possuiOpcoesHeader() && this.menuVertical && (
+              <nav
+                id="menu_header"
+                class="menu-horizontal__item menu-horizontal__item--has-list"
+                aria-label="Navegação do header">
+
+                <ul role="menubar" class="menu-horizontal__list" aria-label="Navegação do header">
+                  {this.opcoesHeaderInternas.map((opcao, index) => (
+                    <li role="none" key={`header_${index}`}>
+                      <bth-menu-horizontal-item
+                        role="menuitem"
+                        id={`menu_header_item_${index}`}
+                        identificador={opcao.id}
+                        descricao={opcao.descricao}
+                        contador={opcao.contador}
+                        possuiPermissao={opcao.possuiPermissao}
+                        ativo={opcao.isAtivo}>
+                      </bth-menu-horizontal-item>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
             {/* Navegação Menu Horizontal */}
             <nav
               id="menu_horizontal_list"

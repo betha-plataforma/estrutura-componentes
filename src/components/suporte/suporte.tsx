@@ -1,9 +1,17 @@
-import { Component, h, Prop, ComponentInterface, State, Watch, Method } from '@stencil/core';
+import {
+  Component,
+  h,
+  Prop,
+  ComponentInterface,
+  State,
+  Watch,
+  Method,
+} from '@stencil/core';
 
 import { AuthorizationConfig } from '../../global/interfaces';
 import { isNill } from '../../utils/functions';
 import { LicencasService } from './licencas.service';
-import { BlipChatUserInfo } from './suporte.interfaces';
+import { BlipChatUserInfo, WebChatConfig } from './suporte.interfaces';
 
 /**
  * Componente do menu Suporte com Blip Chat
@@ -17,12 +25,6 @@ import { BlipChatUserInfo } from './suporte.interfaces';
   shadow: true,
 })
 export class Suporte implements ComponentInterface {
-
-  /**
-   * Habilita ou desabilita o Blip Chat
-   */
-  @Prop() readonly blipChat: boolean = false;
-
   /**
    * Usuário de sessão do Blip Chat
    */
@@ -59,16 +61,44 @@ export class Suporte implements ComponentInterface {
   @Prop() readonly authorization: AuthorizationConfig;
 
   /**
+   * Configuração de suporte via webchat.
+   */
+  @Prop() readonly webChatConfig: WebChatConfig;
+
+  /**
    * URL para a api de licenças. Por padrão irá obter do env.js.
    */
   @Prop() readonly licencasApi?: string;
 
+  /**
+   * Habilita ou desabilita o Blip Chat
+   */
+  @State() blipChat: boolean = false;
   @State() blipChatCounter: number = 0;
   @State() blipChatStatus: 'online' | 'offline' | undefined;
+
+  private _checkInterval: number = null;
 
   @Watch('blipChatUserInfo')
   async watchBlipChatUserInfo() {
     await this.loadBlipChat();
+  }
+
+  @Watch('webChatConfig')
+  async watchWebChatConfig() {
+    this.blipChat = this.webChatConfig.habilitado;
+    this.loadBlipChat();
+  }
+
+  @Watch('blipChatStatus')
+  async watchWebChatStatus() {
+    window.postMessage(
+      JSON.stringify({
+        event: 'BLIP_WEBCHAT_STATUS',
+        status: this.blipChatStatus,
+      }),
+      '*'
+    );
   }
 
   /**
@@ -76,9 +106,21 @@ export class Suporte implements ComponentInterface {
    */
   @Method()
   async loadBlipChat(): Promise<void> {
-    if (this.blipChat && !isNill(this.blipChatUserInfo)) {
+    if (
+      this.blipChat &&
+      !isNill(this.blipChatUserInfo) &&
+      !isNill(this.webChatConfig)
+    ) {
       this.initBlipChat();
-      this.checkBlipChat();
+
+      if (!isNill(this._checkInterval)) {
+        return;
+      }
+
+      this._checkInterval = window.setInterval(
+        () => this.checkBlipChat(),
+        30 * 1000
+      );
     }
   }
 
@@ -95,55 +137,91 @@ export class Suporte implements ComponentInterface {
   }
 
   componentWillLoad(): Promise<void> | void {
-    if (this.blipChat) {
-      this.loadBlipChat();
-      window.setInterval(() => this.checkBlipChat(), 2 * 60 * 1000);
-    }
+    this.loadBlipChat();
   }
 
   render() {
     return (
       <bth-menu-ferramenta descricao="Suporte" tituloPainelLateral="Suporte">
-        <bth-menu-ferramenta-icone slot="menu_item_desktop" icone="headset" contador={this.blipChatCounter} status={this.blipChatStatus}></bth-menu-ferramenta-icone>
-        <span slot="menu_descricao_desktop" class="descricao-desktop">Suporte</span>
+        <bth-menu-ferramenta-icone
+          slot="menu_item_desktop"
+          icone="headset"
+          contador={this.blipChatCounter}
+          status={this.blipChatStatus}
+        ></bth-menu-ferramenta-icone>
+        <span slot="menu_descricao_desktop" class="descricao-desktop">
+          Suporte
+        </span>
 
-        <bth-menu-ferramenta-icone slot="menu_item_mobile" icone="headset" mobile contador={this.blipChatCounter}></bth-menu-ferramenta-icone>
-        <span slot="menu_descricao_mobile" class="descricao-mobile">Suporte</span>
+        <bth-menu-ferramenta-icone
+          slot="menu_item_mobile"
+          icone="headset"
+          mobile
+          contador={this.blipChatCounter}
+        ></bth-menu-ferramenta-icone>
+        <span slot="menu_descricao_mobile" class="descricao-mobile">
+          Suporte
+        </span>
 
         <div slot="conteudo_painel_lateral" class="suporte">
           <ul>
-            { this.blipChat && (<li>
-              <a class="bth__card bth__card--clickable" onClick={this.onSuporteViaChatClick}
-                title="Suporte via chat"
-                aria-label="Acessar o chat do suporte"
-                aria-disabled="false">
-                <div class="chat-status">
-                  <bth-icone icone="message-outline" title="Chat"></bth-icone>
-                  { this.blipChatStatus == 'online' && this.blipChatCounter == 0
-                  && (<span class="badge status status--success">Online</span>)}
-                  { this.blipChatCounter > 0
-                  && (<span class="badge status status--danger">Novas mensagens</span>) }
-                </div>
-                <span class="descricao twoline-ellipsis">Suporte via chat</span>
-              </a>
-            </li>)}
+            {this.blipChat && (
+              <li>
+                <a
+                  class="bth__card bth__card--clickable"
+                  onClick={this.onSuporteViaChatClick}
+                  title="Suporte via chat"
+                  aria-label="Acessar o chat do suporte"
+                  aria-disabled="false"
+                >
+                  <div class="chat-status">
+                    <bth-icone icone="message-outline" title="Chat"></bth-icone>
+                    {this.blipChatStatus == 'online' &&
+                      this.blipChatCounter == 0 && (
+                        <span class="badge status status--success">Online</span>
+                      )}
+                    {this.blipChatCounter > 0 && (
+                      <span class="badge status status--danger">
+                        Novas mensagens
+                      </span>
+                    )}
+                  </div>
+                  <span class="descricao twoline-ellipsis">
+                    Suporte via chat
+                  </span>
+                </a>
+              </li>
+            )}
             <li>
-              <a class="bth__card bth__card--clickable" href={this.getCentralAjudaHome()} target="_blank" rel="noreferrer" title="Central de ajuda"
+              <a
+                class="bth__card bth__card--clickable"
+                href={this.getCentralAjudaHome()}
+                target="_blank"
+                rel="noreferrer"
+                title="Central de ajuda"
                 aria-label="Acessar a Central de ajuda"
-                aria-disabled="false">
+                aria-disabled="false"
+              >
                 <bth-icone icone="help-circle-outline" title="Chat"></bth-icone>
                 <span class="descricao twoline-ellipsis">Central de ajuda</span>
               </a>
             </li>
-            { this.atendimento && (<li>
-              <a class="bth__card bth__card--clickable" onClick={this.onAtendimentoClick}
-                title="Abrir um chamado"
-                aria-label="Abrir um chamado"
-                aria-disabled="false">
-                <bth-icone icone="plus-thick" title="Plus"></bth-icone>
-                <span class="descricao twoline-ellipsis">Abrir um chamado</span>
-              </a>
-            </li>)}
+            {this.atendimento && (
+              <li>
+                <a
+                  class="bth__card bth__card--clickable"
+                  onClick={this.onAtendimentoClick}
+                  title="Abrir um chamado"
+                  aria-label="Abrir um chamado"
+                  aria-disabled="false"
+                >
+                  <bth-icone icone="plus-thick" title="Plus"></bth-icone>
+                  <span class="descricao twoline-ellipsis">
+                    Abrir um chamado
+                  </span>
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </bth-menu-ferramenta>
@@ -156,7 +234,9 @@ export class Suporte implements ComponentInterface {
     }
 
     if ('___bth' in window) {
-      return window['___bth'].envs.suite['central-de-ajuda'].v1['host-redirecionamento'];
+      return window['___bth'].envs.suite['central-de-ajuda'].v1[
+        'host-redirecionamento'
+      ];
     }
 
     return null;
@@ -167,16 +247,18 @@ export class Suporte implements ComponentInterface {
     if (!this.blipChat) {
       return;
     }
-    const blipChatElement = document.querySelector('#blip-chat-open-iframe') as HTMLIFrameElement;
+    const blipChatElement = document.querySelector(
+      '#blip-chat-open-iframe'
+    ) as HTMLIFrameElement;
     if (!isNill(blipChatElement)) {
       blipChatElement.click();
     }
-  }
+  };
 
   private initBlipChat = () => {
     this.setupBlipChat(this.blipChatUserInfo);
     window.addEventListener('message', this.handleBlipChatEvents);
-  }
+  };
 
   private checkBlipChat() {
     this.blipChatStatus = this.isBlipChatOnline() ? 'online' : 'offline';
@@ -187,11 +269,12 @@ export class Suporte implements ComponentInterface {
     if (this.blipChatCustomStyle) {
       this.setupBlipChatStyles();
     }
-  }
+  };
 
   private setupBlipChatScript = (blipChatUserInfo: BlipChatUserInfo) => {
     const script = document.createElement('script');
-    script.src = 'https://resources.tecnologia.betha.cloud/blip-webchat/1.1/loader.js';
+    script.src =
+      'https://resources.tecnologia.betha.cloud/blip-webchat/latest/loader.js';
     if (!isNill(this.blipChatFabButtonColor)) {
       script.setAttribute('custom-color', this.blipChatFabButtonColor);
     }
@@ -200,11 +283,25 @@ export class Suporte implements ComponentInterface {
       id: blipChatUserInfo.id,
       nome: blipChatUserInfo.nome,
       emails: {
-        primario: blipChatUserInfo.email
-      }
+        primario: blipChatUserInfo.email,
+      },
     };
-    script.onload = () => window.postMessage(JSON.stringify({ event: 'BLIP_WEBCHAT', userInfo }), '*');
-  }
+    script.onload = () => {
+      window.postMessage(
+        JSON.stringify({ event: 'BLIP_WEBCHAT', userInfo }),
+        '*'
+      );
+      window.postMessage(
+        JSON.stringify({
+          event: 'BLIP_WEBCHAT_EXTRAS',
+          extras: this.webChatConfig,
+        }),
+        '*'
+      );
+
+      this.checkBlipChat();
+    };
+  };
 
   private setupBlipChatStyles = () => {
     const style = document.createElement('style');
@@ -216,10 +313,14 @@ export class Suporte implements ComponentInterface {
         min-height: 50px !important;
         right: 14px !important;
         box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-        ${ this.fabButton ? 'bottom: 75px !important;' : '' }
+        ${this.fabButton ? 'bottom: 75px !important;' : ''}
       }
       #blip-chat-container #blip-chat-iframe {
-        ${ this.fabButton ? 'bottom: 135px !important;' : 'bottom: 99px !important;' }
+        ${
+          this.fabButton
+            ? 'bottom: 135px !important;'
+            : 'bottom: 99px !important;'
+        }
       }
       @media screen and (min-width: 1024px) {
         #blip-chat-container #blip-chat-iframe.blip-chat-iframe-opened {
@@ -236,10 +337,14 @@ export class Suporte implements ComponentInterface {
     style.setAttribute('type', 'text/css');
     style.appendChild(textCss);
     document.head.appendChild(style);
-  }
+  };
 
   private handleBlipChatEvents = (event) => {
-    if (!event.data || typeof event.data !== 'string' || !event.data.startsWith('{')) {
+    if (
+      !event.data ||
+      typeof event.data !== 'string' ||
+      !event.data.startsWith('{')
+    ) {
       return;
     }
     try {
@@ -253,22 +358,55 @@ export class Suporte implements ComponentInterface {
     } catch (err) {
       console.error(err);
     }
-  }
+  };
+
+  private isBetween = (start: number, end: number, now: number) =>
+    start <= end ? now >= start && now < end : now >= start || now < end;
 
   private isBlipChatOnline = () => {
-    if (this.blipChat) {
-      const now = Date.now() - (3 * 60 * 60 * 1000);
-      const hours = Math.floor((now / (60 * 60 * 1000)) % 24);
-      const minutes = Math.floor((now / (60 * 1000)) % 60);
-      if (this.isBetween8h30mAnd12h(hours, minutes) || this.isBetween13h30mAnd18h(hours, minutes)) {
-        return true;
-      }
+    if (this.blipChat && !isNill(this.webChatConfig)) {
+      const nowInterval = this.nowIntervalInMinutes();
+      const attendanceIntervals = this.attendanceIntervalsInMinutes();
+      return attendanceIntervals.some(({ start, end }) =>
+        this.isBetween(start, end, nowInterval)
+      );
     }
-    return false;
-  }
 
-  private isBetween8h30mAnd12h = (hours, minutes) => (((hours == 8 && minutes >= 30) || (hours >= 9)) && hours <= 11);
-  private isBetween13h30mAnd18h = (hours, minutes) => (((hours == 13 && minutes >= 30) || (hours >= 14)) && hours <= 17);
+    return false;
+  };
+
+  private toMinutes = (hms: string) => {
+    const [h, m] = hms.split(':').map(Number);
+    return h * 60 + (m || 0);
+  };
+
+  private nowIntervalInMinutes = () => {
+    const p = new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).formatToParts(new Date());
+
+    const h = Number(p.find((x) => x.type === 'hour')?.value ?? 0);
+    const m = Number(p.find((x) => x.type === 'minute')?.value ?? 0);
+    return h * 60 + m;
+  };
+
+  private attendanceIntervalsInMinutes = () => {
+    return Object.values(this.webChatConfig)
+      .filter(
+        (valueObject) =>
+          !!valueObject &&
+          typeof valueObject === 'object' &&
+          typeof (valueObject as any).start === 'string' &&
+          typeof (valueObject as any).end === 'string'
+      )
+      .map((value) => ({
+        start: this.toMinutes(value.start),
+        end: this.toMinutes(value.end),
+      }));
+  };
 
   private onAtendimentoClick = async (event: UIEvent) => {
     event.preventDefault();
@@ -276,17 +414,21 @@ export class Suporte implements ComponentInterface {
       return;
     }
     if (isNill(this.getLicencasApi()) || this.authorization === undefined) {
-      console.warn('[bth-suporte] O endereço do serviço de licenças e as credenciais de autenticação devem ser informados. Consulte a documentação do componente.');
+      console.warn(
+        '[bth-suporte] O endereço do serviço de licenças e as credenciais de autenticação devem ser informados. Consulte a documentação do componente.'
+      );
       return;
     }
-    const licencasService = new LicencasService(this.authorization, this.getLicencasApi());
-    licencasService.carregarAtendimento().then(atendimento => {
+    const licencasService = new LicencasService(
+      this.authorization,
+      this.getLicencasApi()
+    );
+    licencasService.carregarAtendimento().then((atendimento) => {
       if (atendimento) {
         window.open(atendimento.novo, '_blank');
       }
     });
-
-  }
+  };
 
   private getLicencasApi(): string {
     if (!isNill(this.licencasApi)) {
@@ -299,5 +441,4 @@ export class Suporte implements ComponentInterface {
 
     return null;
   }
-
 }

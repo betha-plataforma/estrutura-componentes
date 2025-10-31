@@ -32,3 +32,11 @@ export {
 export {
   NotificacaoComLinkEvent
 } from './components/notificacoes/notificacoes.interfaces';
+
+export {
+  WebChatConfig
+} from './components/suporte/suporte.interfaces';
+
+export {
+  ChatExcecaoEnum
+} from './components/suporte/suporte.constants';

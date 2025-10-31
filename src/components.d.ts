@@ -15,7 +15,7 @@ import { MenuVerticalSelecionadoEvent } from "./components/app/menu-vertical-ite
 import { NotificacaoComLinkEvent, NotificacaoEvent, NotificacaoLink, TipoNotificacao } from "./components/notificacoes/notificacoes.interfaces";
 import { NovidadeLeituraEvent } from "./components/novidades/novidades.interfaces";
 import { ItemSelecaoContexto } from "./components/comuns/selecao-contexto/selecao-contexto.interfaces";
-import { BlipChatUserInfo } from "./components/suporte/suporte.interfaces";
+import { BlipChatUserInfo, WebChatConfig } from "./components/suporte/suporte.interfaces";
 import { OpcaoUtilitarioSelecionadaEvent, Utilitario } from "./components/utilitarios/utilitarios.interfaces";
 export namespace Components {
     interface BthAjuda {
@@ -515,10 +515,6 @@ export namespace Components {
          */
         "authorization": AuthorizationConfig;
         /**
-          * Habilita ou desabilita o Blip Chat
-         */
-        "blipChat": boolean;
-        /**
           * Usar estilos que este componente fornece
          */
         "blipChatCustomStyle": boolean;
@@ -551,6 +547,10 @@ export namespace Components {
           * Carrega o Blip Chat
          */
         "loadBlipChat": () => Promise<void>;
+        /**
+          * Configuração de suporte via webchat.
+         */
+        "webChatConfig": WebChatConfig;
     }
     interface BthUtilitarios {
         /**
@@ -1257,10 +1257,6 @@ declare namespace LocalJSX {
          */
         "authorization"?: AuthorizationConfig;
         /**
-          * Habilita ou desabilita o Blip Chat
-         */
-        "blipChat"?: boolean;
-        /**
           * Usar estilos que este componente fornece
          */
         "blipChatCustomStyle"?: boolean;
@@ -1284,6 +1280,10 @@ declare namespace LocalJSX {
           * URL para a api de licenças. Por padrão irá obter do env.js.
          */
         "licencasApi"?: string;
+        /**
+          * Configuração de suporte via webchat.
+         */
+        "webChatConfig"?: WebChatConfig;
     }
     interface BthUtilitarios {
         /**

@@ -39,14 +39,42 @@ utilitarios.addEventListener('opcaoUtilitarioSelecionada', function navegar(even
 });
 ```
 
+## Buscando utilitários centrais (api-utilitarios)
+
+Além dos utilitários definidos pelo próprio sistema (prop `utilitarios`), o componente pode
+buscar os **utilitários centrais** cadastrados na `api-utilitarios`
+visíveis para a identidade do usuário e **concatená-los** à lista do sistema (dedup por `rota`,
+os do sistema têm precedência).
+
+A busca é **opt-in** pela flag `buscar-utilitarios` (desligada por padrão — sem ela o
+comportamento é idêntico ao legado). Quando ligada, exige `authorization`. O host é resolvido por
+ambiente (test/prod) a partir do `variaveis.js` da aplicação
+(`___bth.envs.suite.utilitarios.v1.host`); pode ser sobrescrito pelo prop `utilitarios-host`.
+
+Se a chamada falhar, o componente faz **fail-open**: renderiza apenas os utilitários do sistema.
+
+```js
+var utilitarios = document.querySelector('bth-utilitarios');
+
+utilitarios.utilitarios = [ /* utilitários hardcoded do sistema */ ];
+
+// habilita a busca central; host vem do variaveis.js, salvo override
+utilitarios.buscarUtilitarios = true;
+utilitarios.authorization = authorizationConfig; // { getAuthorization(), handleUnauthorizedAccess() }
+// utilitarios.utilitariosHost = 'https://utilitarios.test.betha.cloud'; // opcional (override)
+```
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute | Description | Type           | Default     |
-| ------------- | --------- | ----------- | -------------- | ----------- |
-| `utilitarios` | --        | Utilitarios | `Utilitario[]` | `undefined` |
+| Property            | Attribute            | Description                                                                                                                                                                                                                    | Type                  | Default     |
+| ------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- | ----------- |
+| `authorization`     | --                   | Configuração de autorização. Obrigatória quando `buscarUtilitarios` está habilitada (a api-utilitarios filtra a visibilidade pela identidade do token + User-Access).                                                          | `AuthorizationConfig` | `undefined` |
+| `buscarUtilitarios` | `buscar-utilitarios` | Habilita a busca dos utilitários centrais (api-utilitarios) visíveis ao usuário, concatenando-os aos definidos pelo sistema. Desligada por padrão: sem ela o componente apenas renderiza `utilitarios` (comportamento legado). | `boolean`             | `false`     |
+| `utilitarios`       | --                   | Utilitários definidos pelo próprio sistema. São sempre exibidos, independente da busca central.                                                                                                                                | `Utilitario[]`        | `undefined` |
+| `utilitariosHost`   | `utilitarios-host`   | Override do host da api-utilitarios. Por padrão é resolvido por ambiente (test, prod) a partir do `variaveis.js` da aplicação (`___bth.envs.suite.utilitarios.v1.host`).                                                       | `string`              | `undefined` |
 
 
 ## Events

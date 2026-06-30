@@ -554,9 +554,21 @@ export namespace Components {
     }
     interface BthUtilitarios {
         /**
-          * Utilitarios
+          * Configuração de autorização. Obrigatória quando `buscarUtilitarios` está habilitada (a api-utilitarios filtra a visibilidade pela identidade do token + User-Access).
+         */
+        "authorization"?: AuthorizationConfig;
+        /**
+          * Habilita a busca dos utilitários centrais (api-utilitarios) visíveis ao usuário, concatenando-os aos definidos pelo sistema. Desligada por padrão: sem ela o componente apenas renderiza `utilitarios` (comportamento legado).
+         */
+        "buscarUtilitarios": boolean;
+        /**
+          * Utilitários definidos pelo próprio sistema. São sempre exibidos, independente da busca central.
          */
         "utilitarios": Array<Utilitario>;
+        /**
+          * Override do host da api-utilitarios. Por padrão é resolvido por ambiente (test, prod) a partir do `variaveis.js` da aplicação (`___bth.envs.suite.utilitarios.v1.host`).
+         */
+        "utilitariosHost"?: string;
     }
 }
 declare global {
@@ -1287,13 +1299,25 @@ declare namespace LocalJSX {
     }
     interface BthUtilitarios {
         /**
+          * Configuração de autorização. Obrigatória quando `buscarUtilitarios` está habilitada (a api-utilitarios filtra a visibilidade pela identidade do token + User-Access).
+         */
+        "authorization"?: AuthorizationConfig;
+        /**
+          * Habilita a busca dos utilitários centrais (api-utilitarios) visíveis ao usuário, concatenando-os aos definidos pelo sistema. Desligada por padrão: sem ela o componente apenas renderiza `utilitarios` (comportamento legado).
+         */
+        "buscarUtilitarios"?: boolean;
+        /**
           * É emitido quando algum utilitário for selecionado
          */
         "onOpcaoUtilitarioSelecionada"?: (event: CustomEvent<OpcaoUtilitarioSelecionadaEvent>) => void;
         /**
-          * Utilitarios
+          * Utilitários definidos pelo próprio sistema. São sempre exibidos, independente da busca central.
          */
         "utilitarios"?: Array<Utilitario>;
+        /**
+          * Override do host da api-utilitarios. Por padrão é resolvido por ambiente (test, prod) a partir do `variaveis.js` da aplicação (`___bth.envs.suite.utilitarios.v1.host`).
+         */
+        "utilitariosHost"?: string;
     }
     interface IntrinsicElements {
         "bth-ajuda": BthAjuda;

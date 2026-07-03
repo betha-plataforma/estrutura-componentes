@@ -11,6 +11,11 @@ const PAYLOAD = {
   url: 'https://dev.betha.com.br/orquestrador',
 };
 
+const PAYLOAD_COM_SUBCONTEXTO = {
+  ...PAYLOAD,
+  urlSubcontext: 'https://dev.betha.com.br/orquestrador/subcontexto',
+};
+
 describe('marca-produto', () => {
   let page: SpecPage;
 
@@ -262,6 +267,28 @@ describe('marca-produto', () => {
     // Assert
     expect(window.open).toHaveBeenCalledTimes(1);
     expect(window.open).toHaveBeenCalledWith(PAYLOAD.url, '_blank');
+
+    spy.mockRestore();
+  });
+
+  it('prioriza url de subcontexto ao clicar sobre botao do produto', async () => {
+    // Arrange
+    await page.setContent('<bth-marca-produto></bth-marca-produto>');
+    setBethaEnvs({ suite: { 'user-accounts': { v1: { host: 'https://api.user-accounts.betha.cloud/v1' } } } });
+    setFetchMockData([PAYLOAD_COM_SUBCONTEXTO]);
+    const marcaProduto: HTMLBthMarcaProdutoElement = page.doc.querySelector('bth-marca-produto');
+    marcaProduto.authorization = getMockAuthorization();
+    marcaProduto.setAttribute('exibir-produtos', 'true');
+    await page.waitForChanges();
+
+    // Act
+    const spy = jest.spyOn(window, 'open').mockImplementation();
+    const produto: HTMLButtonElement = marcaProduto.shadowRoot.querySelector('.bth__card');
+    produto.click();
+
+    // Assert
+    expect(window.open).toHaveBeenCalledTimes(1);
+    expect(window.open).toHaveBeenCalledWith(PAYLOAD_COM_SUBCONTEXTO.urlSubcontext, '_blank');
 
     spy.mockRestore();
   });

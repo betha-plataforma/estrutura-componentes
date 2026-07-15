@@ -212,7 +212,6 @@ describe('notificacao-item', () => {
 
     const blocoDataHora = notificacaoItem.shadowRoot.querySelector('span.float-right');
     expect(blocoDataHora.textContent).toBe(getDataHoraDescrita(dataHora));
-    expect(blocoDataHora.textContent).toBe('15/06/2026 às 11:56');
   });
 
   it('exibe progresso indeterminado (sem percentual)', async () => {

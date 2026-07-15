@@ -197,7 +197,7 @@ describe('notificacao-item', () => {
     expect(blocoDataHora.textContent).toBe(getDataHoraDescrita(dataHora));
   });
 
-  it('exibe data e hora através de datano formato ISO', async () => {
+  it('exibe data e hora através de data no formato ISO', async () => {
     // Arrange
     await page.setContent('<bth-notificacao-item></bth-notificacao-item>');
 

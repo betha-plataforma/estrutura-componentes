@@ -385,7 +385,7 @@ export namespace Components {
         /**
           * Data e hora
          */
-        "dataHora": number;
+        "dataHora": number | string;
         /**
           * Ícone
          */
@@ -1095,7 +1095,7 @@ declare namespace LocalJSX {
         /**
           * Data e hora
          */
-        "dataHora"?: number;
+        "dataHora"?: number | string;
         /**
           * Ícone
          */

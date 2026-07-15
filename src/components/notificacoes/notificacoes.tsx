@@ -267,6 +267,9 @@ export class Notificacoes implements ComponentInterface {
   }
 
   private onWebsocketNewNotifications(message: NotificacaoWebsocketMessage): void {
+    if (isNill(message.notifications)) {
+      return;
+    }
     message.notifications.forEach(notification => {
       this.addNovaMensagem(notification);
     });
@@ -283,7 +286,7 @@ export class Notificacoes implements ComponentInterface {
 
       if (message.link.autoOpen) {
         var auth = this.authorization.getAuthorization();
-        
+
         var timeout = message.systemId == null || (auth && message.systemId === auth.systemId)
           ? 0
           : 3000;

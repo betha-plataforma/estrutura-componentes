@@ -30,7 +30,7 @@ export class NotificacaoItem implements ComponentInterface {
   /**
    * Data e hora
    */
-  @Prop() readonly dataHora: number;
+  @Prop() readonly dataHora: number | string;
 
   /**
    * Origem

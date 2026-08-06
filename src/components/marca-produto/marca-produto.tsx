@@ -230,6 +230,10 @@ export class MarcaProduto implements ComponentInterface {
     window.open(url, '_blank');
   }
 
+  private getProductUrl = (product: Produto): string => {
+    return product?.urlSubcontext || product?.url;
+  }
+
   private getClassPorLinhaProduto = (product: Produto): string => {
     return product?.serviceLine?.abbreviation ?? '';
   }
@@ -283,7 +287,7 @@ export class MarcaProduto implements ComponentInterface {
                         <li key={index} id={`marca_produto_item_${produto.id}`}>
                           <button
                             class="bth__card bth__card--clickable"
-                            onClick={event => this.openLink(event, produto.url)}>
+                            onClick={event => this.openLink(event, this.getProductUrl(produto))}>
                             <div class={`bth__brand ${this.getClassPorLinhaProduto(produto)}`}></div>
                             <span class="descricao descricao--produto twoline-ellipsis" title={produto.name}>{produto.name}</span>
                           </button>
@@ -325,4 +329,3 @@ export class MarcaProduto implements ComponentInterface {
     );
   }
 }
-

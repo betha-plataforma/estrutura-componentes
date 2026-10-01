@@ -14,4 +14,20 @@ describe('notificacoes utils', () => {
     expect(notificacoesOrdenadas[1].dateTime).toEqual(831719166000);
     expect(notificacoesOrdenadas[2].dateTime).toEqual(831719165000);
   });
+
+  it('deve ordenar por dateTime misturando epoch e data no formato ISO', async () => {
+    const notificacoesForaDeOrdem = [
+      { dateTime: 831719165000 },
+      { dateTime: '1996-05-10T09:06:07.000+00:00' },
+      { dateTime: 831719166000 },
+    ];
+
+    const notificacoesOrdenadas = notificacoesForaDeOrdem.sort(sortByDateTime);
+
+    expect(notificacoesOrdenadas.map(notificacao => notificacao.dateTime)).toEqual([
+      '1996-05-10T09:06:07.000+00:00',
+      831719166000,
+      831719165000,
+    ]);
+  });
 });

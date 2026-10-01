@@ -5,6 +5,13 @@ export const sortByDateTime = (a, b) => {
 };
 
 export const concatSemDuplicar = <T extends { id: string }>(atuais: T[], novas: T[]): T[] => {
-  const idsAtuais = new Set(atuais.map(atual => atual.id));
-  return atuais.concat(novas.filter(nova => !idsAtuais.has(nova.id)));
+  const idsListados = new Set(atuais.map(atual => atual.id));
+  const novasSemDuplicar = novas.filter(nova => {
+    if (idsListados.has(nova.id)) {
+      return false;
+    }
+    idsListados.add(nova.id);
+    return true;
+  });
+  return atuais.concat(novasSemDuplicar);
 };

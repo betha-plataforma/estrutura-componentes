@@ -7,4 +7,5 @@ export interface Produto {
   serviceLine: LinhaServico,
   name: string,
   url: string,
+  urlSubcontext?: string,
 }

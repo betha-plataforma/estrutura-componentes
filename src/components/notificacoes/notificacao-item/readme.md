@@ -11,7 +11,7 @@
 | --------------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------ | ----------- |
 | `acompanharLink`      | --                     | Link acompanhar         | `NotificacaoLink`                                                              | `undefined` |
 | `cancelamentoLink`    | --                     | Link cancelamento       | `NotificacaoLink`                                                              | `undefined` |
-| `dataHora`            | `data-hora`            | Data e hora             | `number`                                                                       | `undefined` |
+| `dataHora`            | `data-hora`            | Data e hora             | `number \| string`                                                             | `undefined` |
 | `icone`               | `icone`                | Ícone                   | `string`                                                                       | `undefined` |
 | `identificador`       | `identificador`        | Identificador           | `string`                                                                       | `undefined` |
 | `origem`              | `origem`               | Origem                  | `string`                                                                       | `undefined` |

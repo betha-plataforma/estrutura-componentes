@@ -8,7 +8,7 @@ import { ConteudoSinalizadoEvent } from '../app/app.interfaces';
 import { LIMITE_PAGINACAO, MessageType, ReadAction } from './notificacoes.constants';
 import { TipoNotificacao, OpcaoFiltro, Notificacao, NotificacaoLeituraEvent, NotificacaoComLinkEvent, NotificacaoEvent, NotificacaoWebsocketMessage } from './notificacoes.interfaces';
 import { NotificacoesService } from './notificacoes.service';
-import { sortByDateTime } from './notificacoes.utils';
+import { concatSemDuplicar, sortByDateTime } from './notificacoes.utils';
 import { NotificationWebSocket } from './notificacoes.websocket';
 
 @Component({
@@ -267,6 +267,9 @@ export class Notificacoes implements ComponentInterface {
   }
 
   private onWebsocketNewNotifications(message: NotificacaoWebsocketMessage): void {
+    if (isNill(message.notifications)) {
+      return;
+    }
     message.notifications.forEach(notification => {
       this.addNovaMensagem(notification);
     });
@@ -283,7 +286,7 @@ export class Notificacoes implements ComponentInterface {
 
       if (message.link.autoOpen) {
         var auth = this.authorization.getAuthorization();
-        
+
         var timeout = message.systemId == null || (auth && message.systemId === auth.systemId)
           ? 0
           : 3000;
@@ -311,6 +314,13 @@ export class Notificacoes implements ComponentInterface {
   }
 
   private addMensagemNaoLida(message: Notificacao): void {
+    if (this.notificacoesNaoLidas.some(naoLida => naoLida.id === message.id)) {
+      this.notificacoesNaoLidas = this.notificacoesNaoLidas
+        .map(naoLida => naoLida.id === message.id ? message : naoLida)
+        .sort(sortByDateTime);
+      return;
+    }
+
     this.quantidadeTotalNaoLidas++;
     this.quantidadeEmNaoLidas++;
 
@@ -449,7 +459,7 @@ export class Notificacoes implements ComponentInterface {
       .buscarNaoLidas(this.getPaginationQueryParams(this.notificacoesNaoLidas.length))
       .then(notificacoesNaoLidas => {
         this.carregouNaoLidas = true;
-        this.notificacoesNaoLidas = this.notificacoesNaoLidas.concat(notificacoesNaoLidas.content).sort(sortByDateTime);
+        this.notificacoesNaoLidas = concatSemDuplicar(this.notificacoesNaoLidas, notificacoesNaoLidas.content).sort(sortByDateTime);
         this.carregouTodasNaoLidas = !notificacoesNaoLidas.hasNext;
 
         this.quantidadeEmNaoLidas = this.notificacoesNaoLidas.length + this.quantidadeEmProgressoNaoLidas;
@@ -471,7 +481,7 @@ export class Notificacoes implements ComponentInterface {
       .buscarLidas(this.getPaginationQueryParams(this.notificacoesLidas.length))
       .then(notificacoesLidas => {
         this.carregouLidas = true;
-        this.notificacoesLidas = this.notificacoesLidas.concat(notificacoesLidas.content).sort(sortByDateTime);
+        this.notificacoesLidas = concatSemDuplicar(this.notificacoesLidas, notificacoesLidas.content).sort(sortByDateTime);
         this.carregouTodasLidas = !notificacoesLidas.hasNext;
       })
       .catch(() => {
@@ -490,7 +500,7 @@ export class Notificacoes implements ComponentInterface {
       .buscarEmProgresso(this.getPaginationQueryParams(this.notificacoesEmProgresso.length))
       .then(notificacoesEmProgresso => {
         this.carregouEmProgresso = true;
-        this.notificacoesEmProgresso = this.notificacoesEmProgresso.concat(notificacoesEmProgresso.content).sort(sortByDateTime);
+        this.notificacoesEmProgresso = concatSemDuplicar(this.notificacoesEmProgresso, notificacoesEmProgresso.content).sort(sortByDateTime);
         this.carregouTodasEmProgresso = !notificacoesEmProgresso.hasNext;
       })
       .catch(() => {

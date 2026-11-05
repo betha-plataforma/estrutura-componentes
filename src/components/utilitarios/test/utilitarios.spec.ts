@@ -1,12 +1,29 @@
 import { newSpecPage, SpecPage } from '@stencil/core/testing';
 
+import { setBethaEnvs, setGlobalOrWindowProperty } from '../../../../test/utils/spec.helper';
+import { AuthorizationConfig } from '../../../global/interfaces';
 import { Utilitarios } from '../utilitarios';
+
+const flushPromises = () => new Promise<void>(resolve => setTimeout(resolve, 0));
+
+const autorizacaoValida = (): AuthorizationConfig => ({
+  getAuthorization: () => ({ accessToken: 'ACCESS_TOKEN' }),
+  handleUnauthorizedAccess: () => Promise.resolve()
+});
+
+const nomesDoPainel = (utilitarios: HTMLBthUtilitariosElement): Array<string> =>
+  Array.from(utilitarios.shadowRoot.querySelectorAll('[slot=conteudo_painel_lateral] .descricao'))
+    .map(elemento => elemento.textContent);
 
 describe('utilitarios', () => {
   let page: SpecPage;
 
   beforeEach(async () => {
     page = await newSpecPage({ components: [Utilitarios] });
+  });
+
+  afterEach(() => {
+    delete (window as any)['___bth'];
   });
 
   it('renderiza icone desktop', async () => {
@@ -140,6 +157,135 @@ describe('utilitarios', () => {
 
     // Assert
     expect(onOpcaoUtilitarioSelecionada).not.toHaveBeenCalled();
+  });
+
+  it('não busca utilitários centrais com a flag desligada (comportamento legado)', async () => {
+    // Arrange
+    const fetchMock = jest.fn();
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+
+    // Act — mesmo com authorization e host, sem a flag não há chamada
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+  });
+
+  it('concatena os utilitários centrais aos do sistema, deduplicando por rota', async () => {
+    // Arrange
+    const fetchMock = jest.fn().mockImplementation(() => Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve([
+        { id: '1', nome: 'Auditoria', rota: '/auditoria', icone: 'shield', possuiPermissao: true },
+        { id: '2', nome: 'Global Central', rota: '/global', icone: 'earth', possuiPermissao: true }
+      ])
+    }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+
+    // Act
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/global', icone: 'key', possuiPermissao: true }];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert — sistema primeiro, central não-duplicado depois; '/global' duplicado é descartado
+    expect(fetchMock.mock.calls[0][0]).toBe('https://utilitarios.test/api/utilitarios');
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema', 'Auditoria']);
+  });
+
+  it('resolve o host por ambiente a partir do variaveis.js (___bth) quando o prop não é informado', async () => {
+    // Arrange
+    setBethaEnvs({ suite: { utilitarios: { v1: { host: 'https://utilitarios.env' } } } });
+    const fetchMock = jest.fn().mockImplementation(() => Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve([{ nome: 'Central', rota: '/central', icone: 'star', possuiPermissao: true }])
+    }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+
+    // Act
+    utilitarios.utilitarios = [];
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(fetchMock.mock.calls[0][0]).toBe('https://utilitarios.env/api/utilitarios');
+    expect(nomesDoPainel(utilitarios)).toEqual(['Central']);
+  });
+
+  it('renderiza os do sistema sem esperar a busca central configurada na montagem', async () => {
+    // Arrange — resposta da api-utilitarios fica pendente até o teste liberar
+    let responder: (resposta: any) => void;
+    const fetchMock = jest.fn().mockImplementation(() => new Promise(resolve => { responder = resolve; }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+    setBethaEnvs({ suite: { utilitarios: { v1: { host: 'https://utilitarios.env' } } } });
+    await page.setContent('');
+
+    const utilitarios = page.doc.createElement('bth-utilitarios') as HTMLBthUtilitariosElement;
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+
+    // Act — monta já com a busca configurada
+    page.body.appendChild(utilitarios);
+    // Limita a espera: se o primeiro render aguardar a API, o waitForChanges não volta.
+    await Promise.race([page.waitForChanges(), new Promise<void>(resolve => setTimeout(resolve, 100))]);
+
+    // Assert — menu do sistema renderizado com a busca ainda pendente
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(utilitarios.shadowRoot).not.toBeNull();
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+
+    // Act — a api-utilitarios responde
+    responder({
+      status: 200,
+      json: () => Promise.resolve([{ nome: 'Unificação cadastral', rota: '/unificacao', icone: 'merge', possuiPermissao: true }])
+    });
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert — o item central entra depois, sem repetir os do sistema
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema', 'Unificação cadastral']);
+  });
+
+  it('faz fail-open exibindo apenas os do sistema quando a busca central falha', async () => {
+    // Arrange
+    const fetchMock = jest.fn().mockImplementation(() => Promise.resolve({ status: 500, statusText: 'erro' }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+
+    // Act
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+    expect(warnSpy).toHaveBeenCalled();
+    warnSpy.mockRestore();
   });
 
 });

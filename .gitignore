@@ -17,6 +17,7 @@ coverage/
 .sass-cache/
 .versions/
 node_modules/
+.worktrees/
 $RECYCLE.BIN/
 
 .DS_Store

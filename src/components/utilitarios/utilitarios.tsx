@@ -50,6 +50,12 @@ export class Utilitarios implements ComponentInterface {
 
   @State() private utilitariosCentrais: Array<Utilitario> = [];
 
+  /**
+   * Identifica a busca mais recente. Só ela aplica resultado ou erro: respostas de buscas
+   * anteriores (troca de entidade, host ou flag) chegam fora de ordem e são descartadas.
+   */
+  private buscaAtual = 0;
+
   @Watch('authorization')
   @Watch('buscarUtilitarios')
   @Watch('utilitariosHost')
@@ -64,6 +70,8 @@ export class Utilitarios implements ComponentInterface {
   }
 
   private async carregarUtilitariosCentrais(): Promise<void> {
+    const busca = ++this.buscaAtual;
+
     if (!this.buscarUtilitarios || this.isConfiguracaoApiInconsistente()) {
       this.utilitariosCentrais = [];
       return;
@@ -71,10 +79,15 @@ export class Utilitarios implements ComponentInterface {
 
     try {
       const service = new UtilitariosService(this.authorization, this.getUtilitariosHost());
-      this.utilitariosCentrais = await service.listar();
+      const centrais = await service.listar();
+      if (busca === this.buscaAtual) {
+        this.utilitariosCentrais = centrais;
+      }
     } catch {
-      this.utilitariosCentrais = [];
-      console.warn('[bth-utilitarios] Não foi possível carregar os utilitários centrais; exibindo apenas os do sistema.');
+      if (busca === this.buscaAtual) {
+        this.utilitariosCentrais = [];
+        console.warn('[bth-utilitarios] Não foi possível carregar os utilitários centrais; exibindo apenas os do sistema.');
+      }
     }
   }
 

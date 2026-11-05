@@ -265,6 +265,89 @@ describe('utilitarios', () => {
     expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema', 'Unificação cadastral']);
   });
 
+  it('aplica só a busca mais recente quando as respostas chegam fora de ordem', async () => {
+    // Arrange — cada chamada fica pendente até o teste responder
+    const respostas: Array<(resposta: any) => void> = [];
+    const fetchMock = jest.fn().mockImplementation(() => new Promise(resolve => respostas.push(resolve)));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+    const ok = (nome: string) => ({ status: 200, json: () => Promise.resolve([{ nome, rota: `/${nome}`, icone: 'star', possuiPermissao: true }]) });
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+    utilitarios.utilitarios = [];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+
+    // Act — troca de entidade: nova busca; a nova responde antes da antiga
+    utilitarios.authorization = autorizacaoValida();
+    await flushPromises();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    respostas[1](ok('Nova'));
+    await flushPromises();
+    respostas[0](ok('Antiga'));
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(nomesDoPainel(utilitarios)).toEqual(['Nova']);
+  });
+
+  it('ignora a busca pendente quando buscarUtilitarios é desligado', async () => {
+    // Arrange
+    let responder: (resposta: any) => void;
+    const fetchMock = jest.fn().mockImplementation(() => new Promise(resolve => { responder = resolve; }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+
+    // Act — desliga com a busca pendente; depois a resposta chega
+    utilitarios.buscarUtilitarios = false;
+    await flushPromises();
+    responder({ status: 200, json: () => Promise.resolve([{ nome: 'Central', rota: '/central', icone: 'star', possuiPermissao: true }]) });
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+  });
+
+  it('não apaga o resultado atual quando uma busca antiga falha depois', async () => {
+    // Arrange
+    const respostas: Array<(resposta: any) => void> = [];
+    const fetchMock = jest.fn().mockImplementation(() => new Promise(resolve => respostas.push(resolve)));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    await page.setContent('<bth-utilitarios></bth-utilitarios>');
+    const utilitarios: HTMLBthUtilitariosElement = page.doc.querySelector('bth-utilitarios');
+    utilitarios.utilitarios = [];
+    utilitarios.utilitariosHost = 'https://utilitarios.test';
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+    await flushPromises();
+    utilitarios.utilitariosHost = 'https://utilitarios.outro';
+    await flushPromises();
+
+    // Act — a busca nova responde; a antiga falha depois
+    respostas[1]({ status: 200, json: () => Promise.resolve([{ nome: 'Atual', rota: '/atual', icone: 'star', possuiPermissao: true }]) });
+    await flushPromises();
+    respostas[0]({ status: 500, statusText: 'erro' });
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert
+    expect(nomesDoPainel(utilitarios)).toEqual(['Atual']);
+    warnSpy.mockRestore();
+  });
+
   it('faz fail-open exibindo apenas os do sistema quando a busca central falha', async () => {
     // Arrange
     const fetchMock = jest.fn().mockImplementation(() => Promise.resolve({ status: 500, statusText: 'erro' }));

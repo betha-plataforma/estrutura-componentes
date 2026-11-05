@@ -230,6 +230,41 @@ describe('utilitarios', () => {
     expect(nomesDoPainel(utilitarios)).toEqual(['Central']);
   });
 
+  it('renderiza os do sistema sem esperar a busca central configurada na montagem', async () => {
+    // Arrange — resposta da api-utilitarios fica pendente até o teste liberar
+    let responder: (resposta: any) => void;
+    const fetchMock = jest.fn().mockImplementation(() => new Promise(resolve => { responder = resolve; }));
+    setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+    setBethaEnvs({ suite: { utilitarios: { v1: { host: 'https://utilitarios.env' } } } });
+    await page.setContent('');
+
+    const utilitarios = page.doc.createElement('bth-utilitarios') as HTMLBthUtilitariosElement;
+    utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+    utilitarios.authorization = autorizacaoValida();
+    utilitarios.buscarUtilitarios = true;
+
+    // Act — monta já com a busca configurada
+    page.body.appendChild(utilitarios);
+    // Limita a espera: se o primeiro render aguardar a API, o waitForChanges não volta.
+    await Promise.race([page.waitForChanges(), new Promise<void>(resolve => setTimeout(resolve, 100))]);
+
+    // Assert — menu do sistema renderizado com a busca ainda pendente
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(utilitarios.shadowRoot).not.toBeNull();
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+
+    // Act — a api-utilitarios responde
+    responder({
+      status: 200,
+      json: () => Promise.resolve([{ nome: 'Unificação cadastral', rota: '/unificacao', icone: 'merge', possuiPermissao: true }])
+    });
+    await flushPromises();
+    await page.waitForChanges();
+
+    // Assert — o item central entra depois, sem repetir os do sistema
+    expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema', 'Unificação cadastral']);
+  });
+
   it('faz fail-open exibindo apenas os do sistema quando a busca central falha', async () => {
     // Arrange
     const fetchMock = jest.fn().mockImplementation(() => Promise.resolve({ status: 500, statusText: 'erro' }));

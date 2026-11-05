@@ -58,7 +58,9 @@ export class Utilitarios implements ComponentInterface {
   }
 
   componentWillLoad() {
-    return this.carregarUtilitariosCentrais();
+    // Sem devolver a promise: o Stencil esperaria a api-utilitarios antes do primeiro render,
+    // e o menu (inclusive os utilitários do sistema) só apareceria quando ela respondesse.
+    this.carregarUtilitariosCentrais();
   }
 
   private async carregarUtilitariosCentrais(): Promise<void> {

@@ -29,7 +29,7 @@ describe('UtilitariosService', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock.mock.calls[0][0]).toBe('https://utilitarios.test/api/utilitarios');
     expect(utilitarios).toEqual([
-      { nome: 'Auditoria', rota: '/auditoria', icone: 'shield', possuiPermissao: true }
+      { id: '1', nome: 'Auditoria', rota: '/auditoria', icone: 'shield', possuiPermissao: true }
     ]);
   });
 

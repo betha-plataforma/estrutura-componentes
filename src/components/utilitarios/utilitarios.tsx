@@ -4,7 +4,7 @@ import { isValidAuthorizationConfig } from '../../global/api';
 import { MSG_SEM_PERMISSAO_RECURSO } from '../../global/constants';
 import { AuthorizationConfig } from '../../global/interfaces';
 import { isNill } from '../../utils/functions';
-import { Utilitario, OpcaoUtilitarioSelecionadaEvent } from './utilitarios.interfaces';
+import { Utilitario, UtilitarioCentral, OpcaoUtilitarioSelecionadaEvent } from './utilitarios.interfaces';
 import { UtilitariosService } from './utilitarios.service';
 
 @Component({
@@ -48,7 +48,9 @@ export class Utilitarios implements ComponentInterface {
    */
   @Event() opcaoUtilitarioSelecionada: EventEmitter<OpcaoUtilitarioSelecionadaEvent>;
 
-  @State() private utilitariosCentrais: Array<Utilitario> = [];
+  @State() private utilitariosCentrais: Array<UtilitarioCentral> = [];
+
+  private userAccessDosCentrais?: string;
 
   /**
    * Identifica a busca mais recente. Só ela aplica resultado ou erro: respostas de buscas
@@ -78,10 +80,12 @@ export class Utilitarios implements ComponentInterface {
     }
 
     try {
+      const userAccess = this.authorization.getAuthorization().userAccess;
       const service = new UtilitariosService(this.authorization, this.getUtilitariosHost());
       const centrais = await service.listar();
       if (busca === this.buscaAtual) {
         this.utilitariosCentrais = centrais;
+        this.userAccessDosCentrais = userAccess;
       }
     } catch {
       if (busca === this.buscaAtual) {
@@ -116,17 +120,38 @@ export class Utilitarios implements ComponentInterface {
     return [...doSistema, ...centraisNaoDuplicados];
   }
 
-  private onClick = (event: UIEvent, utilitario: Utilitario) => {
+  /**
+   * A rota de um utilitário central leva o contexto (entidade e base) da busca que o
+   * trouxe. Se o sistema trocou de contexto sem repassar `authorization`, busca de novo
+   * e devolve o mesmo utilitário no contexto atual, ou nada se ele não estiver mais
+   * disponível ou a busca falhar.
+   */
+  private async noContextoAtual(utilitario: Utilitario): Promise<Utilitario | undefined> {
+    const central = this.utilitariosCentrais.find(item => item === utilitario);
+    if (isNill(central) || this.authorization.getAuthorization().userAccess === this.userAccessDosCentrais) {
+      return utilitario;
+    }
+
+    await this.carregarUtilitariosCentrais();
+    return this.utilitariosCentrais.find(item => item.id === central.id);
+  }
+
+  private onClick = async (event: UIEvent, utilitario: Utilitario) => {
     event.preventDefault();
 
     if (!utilitario.possuiPermissao) {
       return;
     }
 
+    const selecionado = await this.noContextoAtual(utilitario);
+    if (isNill(selecionado)) {
+      return;
+    }
+
     const eventPayload: OpcaoUtilitarioSelecionadaEvent = {
-      nome: utilitario.nome,
-      icone: utilitario.icone,
-      rota: utilitario.rota
+      nome: selecionado.nome,
+      icone: selecionado.icone,
+      rota: selecionado.rota
     };
 
     this.opcaoUtilitarioSelecionada.emit(eventPayload);

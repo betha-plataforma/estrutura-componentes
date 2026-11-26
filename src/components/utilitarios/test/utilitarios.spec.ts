@@ -371,4 +371,91 @@ describe('utilitarios', () => {
     warnSpy.mockRestore();
   });
 
+  describe('clique num utilitário central após troca de contexto sem novo authorization', () => {
+    let userAccess: string;
+    let fetchMock: jest.Mock;
+    let utilitarios: HTMLBthUtilitariosElement;
+    let selecionado: jest.Mock;
+
+    const unificacao = (contexto: string) => ({ id: 'u1', nome: 'Unificação', rota: `/entidades/${contexto}`, icone: 'merge', possuiPermissao: true });
+    const responde = (itens: Array<any>) => Promise.resolve({ status: 200, json: () => Promise.resolve(itens) });
+
+    const clicar = async (nome: string) => {
+      const botao = Array.from(utilitarios.shadowRoot.querySelectorAll<HTMLButtonElement>('[slot=conteudo_painel_lateral] button.bth__card'))
+        .find(elemento => elemento.textContent === nome);
+      botao.click();
+      await flushPromises();
+      await page.waitForChanges();
+    };
+
+    beforeEach(async () => {
+      userAccess = 'UA-ENTIDADE-A';
+      fetchMock = jest.fn().mockImplementationOnce(() => responde([unificacao('A')]));
+      setGlobalOrWindowProperty(global, 'fetch', fetchMock);
+
+      await page.setContent('<bth-utilitarios></bth-utilitarios>');
+      utilitarios = page.doc.querySelector('bth-utilitarios');
+      utilitarios.utilitarios = [{ nome: 'Do Sistema', rota: '/sistema', icone: 'key', possuiPermissao: true }];
+      utilitarios.utilitariosHost = 'https://utilitarios.test';
+      utilitarios.authorization = {
+        getAuthorization: () => ({ accessToken: 'ACCESS_TOKEN', userAccess }),
+        handleUnauthorizedAccess: () => Promise.resolve()
+      };
+      utilitarios.buscarUtilitarios = true;
+      await flushPromises();
+      await page.waitForChanges();
+
+      selecionado = jest.fn();
+      utilitarios.addEventListener('opcaoUtilitarioSelecionada', selecionado);
+    });
+
+    it('sem troca de contexto, emite a rota já carregada sem buscar de novo', async () => {
+      await clicar('Unificação');
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(selecionado.mock.calls[0][0].detail.rota).toBe('/entidades/A');
+    });
+
+    it('busca de novo e emite a rota do contexto atual', async () => {
+      fetchMock.mockImplementationOnce(() => responde([unificacao('B')]));
+      userAccess = 'UA-ENTIDADE-B';
+
+      await clicar('Unificação');
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(selecionado).toHaveBeenCalledTimes(1);
+      expect(selecionado.mock.calls[0][0].detail).toStrictEqual({ nome: 'Unificação', icone: 'merge', rota: '/entidades/B' });
+    });
+
+    it('não emite quando o utilitário não está disponível no contexto atual', async () => {
+      fetchMock.mockImplementationOnce(() => responde([]));
+      userAccess = 'UA-ENTIDADE-B';
+
+      await clicar('Unificação');
+
+      expect(selecionado).not.toHaveBeenCalled();
+      expect(nomesDoPainel(utilitarios)).toEqual(['Do Sistema']);
+    });
+
+    it('não emite a rota antiga quando a nova busca falha', async () => {
+      fetchMock.mockImplementationOnce(() => Promise.resolve({ status: 500, statusText: 'erro' }));
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      userAccess = 'UA-ENTIDADE-B';
+
+      await clicar('Unificação');
+
+      expect(selecionado).not.toHaveBeenCalled();
+      warnSpy.mockRestore();
+    });
+
+    it('emite os utilitários do sistema sem buscar de novo', async () => {
+      userAccess = 'UA-ENTIDADE-B';
+
+      await clicar('Do Sistema');
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(selecionado.mock.calls[0][0].detail.rota).toBe('/sistema');
+    });
+  });
+
 });

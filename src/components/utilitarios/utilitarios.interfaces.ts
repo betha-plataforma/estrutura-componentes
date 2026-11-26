@@ -5,6 +5,10 @@ export interface Utilitario {
   possuiPermissao?: boolean,
 }
 
+export interface UtilitarioCentral extends Utilitario {
+  id: string,
+}
+
 export interface OpcaoUtilitarioSelecionadaEvent {
   nome: string,
   icone: string,

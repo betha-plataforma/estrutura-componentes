@@ -1,6 +1,6 @@
 import { Api } from '../../global/api';
 import { AuthorizationConfig } from '../../global/interfaces';
-import { Utilitario } from './utilitarios.interfaces';
+import { UtilitarioCentral } from './utilitarios.interfaces';
 
 export class UtilitariosService {
 
@@ -15,10 +15,11 @@ export class UtilitariosService {
    * identidade do token + User-Access no servidor). A api-utilitarios devolve
    * um array cru já ordenado por nome.
    */
-  async listar(): Promise<Array<Utilitario>> {
+  async listar(): Promise<Array<UtilitarioCentral>> {
     return this.api.request('GET', 'api/utilitarios')
       .then(response => response.json())
-      .then((itens: Array<Utilitario>) => itens.map(item => ({
+      .then((itens: Array<UtilitarioCentral>) => itens.map(item => ({
+        id: item.id,
         nome: item.nome,
         icone: item.icone,
         rota: item.rota,

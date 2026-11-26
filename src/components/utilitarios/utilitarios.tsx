@@ -71,12 +71,13 @@ export class Utilitarios implements ComponentInterface {
     this.carregarUtilitariosCentrais();
   }
 
-  private async carregarUtilitariosCentrais(): Promise<void> {
+  /** Devolve a lista aplicada por esta busca, ou vazia se ela foi superada por outra ou falhou. */
+  private async carregarUtilitariosCentrais(): Promise<Array<UtilitarioCentral>> {
     const busca = ++this.buscaAtual;
 
     if (!this.buscarUtilitarios || this.isConfiguracaoApiInconsistente()) {
       this.utilitariosCentrais = [];
-      return;
+      return [];
     }
 
     try {
@@ -86,6 +87,7 @@ export class Utilitarios implements ComponentInterface {
       if (busca === this.buscaAtual) {
         this.utilitariosCentrais = centrais;
         this.userAccessDosCentrais = userAccess;
+        return centrais;
       }
     } catch {
       if (busca === this.buscaAtual) {
@@ -93,6 +95,7 @@ export class Utilitarios implements ComponentInterface {
         console.warn('[bth-utilitarios] Não foi possível carregar os utilitários centrais; exibindo apenas os do sistema.');
       }
     }
+    return [];
   }
 
   private getUtilitariosHost(): string {
@@ -124,7 +127,7 @@ export class Utilitarios implements ComponentInterface {
    * A rota de um utilitário central leva o contexto (entidade e base) da busca que o
    * trouxe. Se o sistema trocou de contexto sem repassar `authorization`, busca de novo
    * e devolve o mesmo utilitário no contexto atual, ou nada se ele não estiver mais
-   * disponível ou a busca falhar.
+   * disponível, a busca falhar ou for superada por outra.
    */
   private async noContextoAtual(utilitario: Utilitario): Promise<Utilitario | undefined> {
     const central = this.utilitariosCentrais.find(item => item === utilitario);
@@ -132,8 +135,8 @@ export class Utilitarios implements ComponentInterface {
       return utilitario;
     }
 
-    await this.carregarUtilitariosCentrais();
-    return this.utilitariosCentrais.find(item => item.id === central.id);
+    const atuais = await this.carregarUtilitariosCentrais();
+    return atuais.find(item => item.id === central.id);
   }
 
   private onClick = async (event: UIEvent, utilitario: Utilitario) => {
@@ -144,7 +147,7 @@ export class Utilitarios implements ComponentInterface {
     }
 
     const selecionado = await this.noContextoAtual(utilitario);
-    if (isNill(selecionado)) {
+    if (isNill(selecionado) || !selecionado.possuiPermissao) {
       return;
     }
 

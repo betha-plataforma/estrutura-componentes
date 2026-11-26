@@ -456,6 +456,34 @@ describe('utilitarios', () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
       expect(selecionado.mock.calls[0][0].detail.rota).toBe('/sistema');
     });
+
+    it('não emite quando o utilitário está sem permissão no contexto atual', async () => {
+      fetchMock.mockImplementationOnce(() => responde([{ ...unificacao('B'), possuiPermissao: false }]));
+      userAccess = 'UA-ENTIDADE-B';
+
+      await clicar('Unificação');
+
+      expect(selecionado).not.toHaveBeenCalled();
+    });
+
+    it('com dois cliques seguidos, nenhum emite a rota do contexto anterior', async () => {
+      const respostas: Array<() => void> = [];
+      fetchMock.mockImplementation(() => new Promise(resolve => respostas.push(() => resolve(responde([unificacao('B')])))));
+      userAccess = 'UA-ENTIDADE-B';
+      const botao = Array.from(utilitarios.shadowRoot.querySelectorAll<HTMLButtonElement>('[slot=conteudo_painel_lateral] button.bth__card'))
+        .find(elemento => elemento.textContent === 'Unificação');
+
+      botao.click();
+      botao.click();
+      await flushPromises();
+      respostas[0]();
+      await flushPromises();
+      respostas[1]();
+      await flushPromises();
+      await page.waitForChanges();
+
+      expect(selecionado.mock.calls.map(chamada => chamada[0].detail.rota)).toEqual(['/entidades/B']);
+    });
   });
 
 });
